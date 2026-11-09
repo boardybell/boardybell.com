@@ -772,5 +772,30 @@
    "width": 1024,
    "height": 1365
   }
+ },
+ "c-terminal": {
+  "src": "visuals/inbox/E0-c-terminal/raw-1.png",
+  "grade": "none",
+  "q": 62
+ },
+ "c-joystick": {
+  "src": "visuals/inbox/E1-c-joystick/raw-1.png",
+  "grade": "none",
+  "q": 62
+ },
+ "c-key": {
+  "src": "visuals/inbox/E2-c-key/raw-1.png",
+  "grade": "none",
+  "q": 62
+ },
+ "c-mug": {
+  "src": "visuals/inbox/E3-c-mug/raw-1.png",
+  "grade": "none",
+  "q": 62
+ },
+ "c-umbrella": {
+  "src": "visuals/inbox/E4-c-umbrella/raw-1.png",
+  "grade": "none",
+  "q": 62
  }
 }

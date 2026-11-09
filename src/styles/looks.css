@@ -78,3 +78,13 @@
 .c-cover-i.is-print{background:#F6F0E4;padding:clamp(.6rem,1.6vw,1rem);box-shadow:0 0 0 1px #B98B3E,0 0 0 6px #0D1626,0 0 0 7px rgba(217,179,108,.45),0 30px 60px -30px rgba(0,0,0,.8)}
 .c-cover-i.is-print::after{display:none}
 .c-cover-i.is-print img{aspect-ratio:3/4;object-fit:cover}
+
+/* Launch look: every engraving hangs as a cream print in a thin gold frame, like the cover portrait */
+.c-plates.is-cream figure>.egg-wrap,.c-plates.is-cream figure>picture,.c-coll.is-cream .c-coll-i,.d-wall.is-cream .d-work>picture{
+  background:#F6F0E4;padding:clamp(.5rem,1.4vw,.9rem);box-shadow:0 0 0 1px #B98B3E,0 0 0 5px #0D1626,0 0 0 6px rgba(217,179,108,.4),0 24px 50px -30px rgba(0,0,0,.8)}
+.c-plates.is-cream img{object-fit:contain;background:#F6F0E4}
+.c-plates.is-cream figure>.egg-wrap picture{background:#F6F0E4}
+.c-plates.is-cream figure>.egg-wrap{padding:0}  /* egg hit areas are % of this box, so it must equal the image */
+.c-coll.is-cream .c-coll-i img{object-fit:contain}
+.d-wall.is-cream .d-work img{box-shadow:none}
+.c-plates.is-cream .term-egg::after{left:33%;top:22.5%;width:37%;height:27.5%;background:radial-gradient(ellipse at center,rgba(255,214,120,.5),rgba(255,214,120,0) 72%)}

@@ -13,6 +13,8 @@ const IDS = ['a1', 'a2', 'a3', 'b1', 'b2', 'b3', 'c1', 'c2', 'c3', 'd1'].filter(
 const ARC = readFileSync('src/content/arcade.ts', 'utf8');
 const GAMES = [...ARC.matchAll(/slug: '([^']+)'/g)].map((m) => m[1]);
 const PAGES = [...IDS.map((i) => `i/${i}/`), ...(ONLY ? [] : ['', 'collection/', 'gallery/', 'gallery/plates/', ...['n1', 'n2', 'n3', 'n4', 'n5', 'n6', 'n7', 'n8', 'n9', 'n10', 'n11', 'n12', 'pa', 'pb', 'pc', 'pd', 'pe', 'pf', 'pg', 'ph', 'pi', 'pj', 'pk', 'pl', 'pm', 'pn', 'po', 'pp', 'pq'].flatMap((n) => [`n/${n}/`, `n/${n}/collection/`]), 'arcade/', ...GAMES.map((g) => `arcade/${g}/`), 'certificate/', 'nope/'])];
+const EXISTS = (p) => p === 'nope/' || existsSync(join('dist', p, 'index.html'));
+const PAGES_OK = PAGES.filter(EXISTS);
 const WIDTHS = [360, 768, 1280, 1920];
 // Blocklist is base64 so the names themselves never appear in this public repo.
 const FIRMS = new RegExp(Buffer.from('Ym9uZGJlbGx8YmVsbGFzc2V0fGJlbGxmYW1pbHl8YmVsbCBhc3NldHxiZWxsIGZhbWlseXxib25kIGJlbGwgJiBjb3xib25kIGJlbGwgYW5kIGNvfFxiQ1JEXGJ8ZmlucmF8c2VjXC5nb3Y=', 'base64').toString(), 'i');
@@ -89,7 +91,7 @@ for (const w of WIDTHS) {
   const page = await ctx.newPage();
   page.on('request', (r) => { if (!r.url().startsWith(ORIGIN) && !r.url().startsWith('data:')) external.push(r.url()); });
   page.on('pageerror', (e) => fail(`${page.url()} @${w}`, `JS error ${e.message}`));
-  for (const p of PAGES) {
+  for (const p of PAGES_OK) {
     const resp = await page.goto(url(p), { waitUntil: 'networkidle' });
     if (p === 'nope/' && resp.status() !== 404) fail(p, `404 page status ${resp.status()}`);
     // scroll through so lazy images load, then back to top
@@ -108,8 +110,10 @@ for (const mode of ['desktop', 'touch']) {
   const ctx = await browser.newContext(mode === 'touch' ? { ...devices['iPhone 13'], reducedMotion: 'reduce' } : { viewport: { width: 1280, height: 900 } });
   const page = await ctx.newPage(); const W = `eggs/${mode}`;
   page.on('pageerror', (e) => fail(W, `JS error ${e.message}`));
-  for (const id of [...IDS, ...(ONLY ? [] : ['n/n6', 'n/n7', 'n/n8', 'n/n6/collection'])]) {
-    await page.goto(url(id.startsWith('n/') ? `${id}/` : `i/${id}/`), { waitUntil: 'networkidle' });
+  const EGG = [...IDS.map((i) => `i/${i}/`), ...(ONLY ? [] : ['n/n6/', 'n/n7/', 'n/n8/', 'n/n6/collection/', '', 'collection/'])].filter(EXISTS);
+  for (const eg of EGG) {
+    const id = eg || 'home';
+    await page.goto(url(eg), { waitUntil: 'networkidle' });
     await page.evaluate(() => localStorage.clear());
     const tap = (sel) => (mode === 'touch' ? page.tap(sel) : page.click(sel));
     // redaction (D and all A/C variants have them; B has none by design)
@@ -164,15 +168,15 @@ for (const mode of ['desktop', 'touch']) {
     await page.waitForTimeout(300);
     if (!(await page.evaluate(() => document.documentElement.classList.contains('y1994')))) fail(`${W} ${id}`, 'Konami did not fire');
     else {
-      if (id === IDS[0]) await page.screenshot({ path: `qa/shots/1994-${mode}.png` });
+      if (id === 'home') await page.screenshot({ path: `qa/shots/1994-${mode}.png` });
       for (const m of await page.evaluate(LAYOUT)) if (/overflow/.test(m)) fail(`${W} ${id} 1994`, m);
       await tap('.y94-x');
       if (await page.evaluate(() => document.documentElement.classList.contains('y1994'))) fail(`${W} ${id}`, 'restore dignity failed');
     }
   }
   // lying loader, forced on
-  await page.goto(url('i/a1/', 'loader'), { waitUntil: 'domcontentloaded' });
-  await page.evaluate(() => sessionStorage.clear()); await page.goto(url('i/a1/', 'loader'), { waitUntil: 'domcontentloaded' });
+  await page.goto(url('', 'loader'), { waitUntil: 'domcontentloaded' });
+  await page.evaluate(() => sessionStorage.clear()); await page.goto(url('', 'loader'), { waitUntil: 'domcontentloaded' });
   if (!(await page.$('.loader'))) fail(W, 'loader did not appear'); else { await page.waitForTimeout(1300); if (mode === 'desktop') await page.screenshot({ path: 'qa/shots/loader.png' }); }
   // certificate shows the finds
   await page.goto(url('certificate/'), { waitUntil: 'networkidle' });
@@ -281,7 +285,7 @@ if (ARGS.includes('--thumbs')) {
   mkdirSync('public/gallery', { recursive: true });
   const ctx = await browser.newContext({ viewport: { width: 1280, height: 1600 }, reducedMotion: 'reduce' }); const page = await ctx.newPage();
   const THUMBS = [...IDS.map((id) => [id, `i/${id}/`]), ...(ONLY ? [] : [['n1', 'n/n1/'], ['n2', 'n/n2/'], ['n3', 'n/n3/'], ['n4', 'n/n4/'], ['n5', 'n/n5/'], ['n6', 'n/n6/'], ['n7', 'n/n7/'], ['n8', 'n/n8/'], ['n9', 'n/n9/'], ['n10', 'n/n10/'], ['n11', 'n/n11/'], ['n12', 'n/n12/'], ['pa', 'n/pa/'], ['pb', 'n/pb/'], ['pc', 'n/pc/'], ['pd', 'n/pd/'], ['pe', 'n/pe/'], ['pf', 'n/pf/'], ['pg', 'n/pg/'], ['ph', 'n/ph/'], ['pi', 'n/pi/'], ['pj', 'n/pj/'], ['pk', 'n/pk/'], ['pl', 'n/pl/'], ['pm', 'n/pm/'], ['pn', 'n/pn/'], ['po', 'n/po/'], ['pp', 'n/pp/'], ['pq', 'n/pq/'], ['c1', '']])];
-  for (const [id, path] of THUMBS) {
+  for (const [id, path] of THUMBS.filter(([, p]) => EXISTS(p))) {
     await page.goto(url(path), { waitUntil: 'networkidle' });
     await page.addStyleTag({ content: '.gal-back{display:none!important}' });
     await sharp(await page.screenshot()).resize(800, 1000, { fit: 'cover', position: 'top' }).webp({ quality: 72 }).toFile(`public/gallery/${id}.webp`);

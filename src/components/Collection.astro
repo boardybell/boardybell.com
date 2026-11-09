@@ -10,7 +10,7 @@ import { rich, base } from '../lib/rich';
 import { LOOKS } from '../content/looks';
 interface Props { back?: boolean; look?: string; home?: string }
 const { back = false, look = 'c', home = base } = Astro.props;
-const OBJ = (LOOKS[look] ?? LOOKS.c).objects;
+const L0 = LOOKS[look] ?? LOOKS.c; const OBJ = L0.objects;
 ---
 <header class="d-mast wrap">
   <span class="d-mark">Boardy</span>
@@ -24,7 +24,7 @@ const OBJ = (LOOKS[look] ?? LOOKS.c).objects;
     <p class="d-intro">{C.intro}</p>
   </section>
 
-  <section class="d-wall wrap" aria-label="Works on view">
+  <section class:list={["d-wall wrap", { "is-cream": L0.cream }]} aria-label="Works on view">
     {C.works.map((w, i) => (
       <article class="d-work rv">
         <Pic name={OBJ[i]} alt={ALT[OBJ[i]]} sizes="(min-width: 1000px) 30vw, (min-width: 640px) 45vw, 100vw" eager={i === 0} />

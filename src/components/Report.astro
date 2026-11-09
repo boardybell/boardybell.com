@@ -91,7 +91,7 @@ const item = (n: string, t: string) => (v === 3 ? `Item ${n}. ${t}` : t);
     <TechCharts n={v === 3 ? 'Item 3A. ' : ''} />
 
     {v !== 2 && (
-      <div class:list={["c-plates rv", { "c-plates-sq": IMG.a.startsWith("p-") }]} id="plates">
+      <div class:list={["c-plates rv", { "c-plates-sq": IMG.a.startsWith("p-") || IMG.cream, "is-cream": IMG.cream }]} id="plates">
         <figure>{IMG.eggA ? (
           <div class="egg-wrap"><Pic name={IMG.a} alt={ALT[IMG.a]} sizes="(min-width: 760px) 45vw, 100vw" /><button type="button" class="term-egg" aria-label="Use the terminal" onclick="window.bbOpenTerm && window.bbOpenTerm()"></button></div>
         ) : <Pic name={IMG.a} alt={ALT[IMG.a]} sizes="(min-width: 760px) 45vw, 100vw" />}<figcaption>{IMG.capA}</figcaption></figure>
@@ -101,7 +101,7 @@ const item = (n: string, t: string) => (v === 3 ? `Item ${n}. ${t}` : t);
       </div>
     )}
     {v === 1 && (
-      <section class="c-coll rv">
+      <section class:list={["c-coll rv", { "is-cream": IMG.cream }]}>
         <a class="c-coll-i" href={`${home}collection/`} tabindex="-1" aria-hidden="true"><Pic name={IMG.key} alt="" sizes="(min-width: 760px) 14rem, 40vw" /></a>
         <div>
           <h2 class="label">{R.collection.title}</h2>
