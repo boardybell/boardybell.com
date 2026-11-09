@@ -12,7 +12,7 @@ const ONLY = ARGS.includes('--only') ? ARGS[ARGS.indexOf('--only') + 1].split(',
 const IDS = ['a1', 'a2', 'a3', 'b1', 'b2', 'b3', 'c1', 'c2', 'c3', 'd1'].filter((i) => !ONLY || ONLY.includes(i));
 const ARC = readFileSync('src/content/arcade.ts', 'utf8');
 const GAMES = [...ARC.matchAll(/slug: '([^']+)'/g)].map((m) => m[1]);
-const PAGES = [...IDS.map((i) => `i/${i}/`), ...(ONLY ? [] : ['', 'collection/', 'gallery/', ...['n1', 'n2', 'n3', 'n4', 'n5', 'n6', 'n7', 'n8'].flatMap((n) => [`n/${n}/`, `n/${n}/collection/`]), 'arcade/', ...GAMES.map((g) => `arcade/${g}/`), 'certificate/', 'nope/'])];
+const PAGES = [...IDS.map((i) => `i/${i}/`), ...(ONLY ? [] : ['', 'collection/', 'gallery/', 'gallery/plates/', ...['n1', 'n2', 'n3', 'n4', 'n5', 'n6', 'n7', 'n8'].flatMap((n) => [`n/${n}/`, `n/${n}/collection/`]), 'arcade/', ...GAMES.map((g) => `arcade/${g}/`), 'certificate/', 'nope/'])];
 const WIDTHS = [360, 768, 1280, 1920];
 // Blocklist is base64 so the names themselves never appear in this public repo.
 const FIRMS = new RegExp(Buffer.from('Ym9uZGJlbGx8YmVsbGFzc2V0fGJlbGxmYW1pbHl8YmVsbCBhc3NldHxiZWxsIGZhbWlseXxib25kIGJlbGwgJiBjb3xib25kIGJlbGwgYW5kIGNvfFxiQ1JEXGJ8ZmlucmF8c2VjXC5nb3Y=', 'base64').toString(), 'i');
