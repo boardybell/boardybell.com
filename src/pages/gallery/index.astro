@@ -25,7 +25,23 @@ const ROUND2 = [
 <main id="main" class="g wrap">
   <header class="g-h">
     <p class="label">boardybell.com · front room · design gallery</p>
-    <h1>Round 7: facing the sea. Pick one.</h1>
+    <h1>Round 8: F’s setting, your build fixed. Pick one.</h1>
+    <p>F’s background kept; the figure redrawn with natural adult proportions from an eye-level camera. P1 and P2 place J’s figure into F’s setting.</p>
+  </header>
+  <section class="g-fam">
+    <h2><span>R8</span> Proportions fixed</h2>
+    <div class="g-grid">
+      {[['pk', 'K · Seated, eye level, legs to the side'], ['pl', 'L · Standing by the umbrella'], ['pm', 'M · Taller Adirondack chair'], ['pn', 'N · Profile seat in F’s setting'], ['po', 'O · Walking up from the water'], ['pp', 'P1 · J’s figure in F’s setting'], ['pq', 'P2 · J’s figure, taller and leaner']].map(([id, name]) => (
+        <div class="g-card">
+          <a href={`${base}n/${id}/`} class="g-thumb">{thumb(id) ? <img src={`${base}gallery/${id}.webp`} width="800" height="1000" alt="" loading="lazy" /> : <span>{id}</span>}</a>
+          <h3>{name}</h3>
+          <p class="g-links"><a href={`${base}n/${id}/`}>Open the report</a></p>
+        </div>
+      ))}
+    </div>
+  </section>
+  <header class="g-h">
+    <h2 class="g-old">Round 7: facing the sea (earlier)</h2>
     <p>Five new versions with you facing the water and the cottages (modelled on your photo) on the dune behind you.</p>
   </header>
   <section class="g-fam">

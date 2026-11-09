@@ -695,5 +695,82 @@
    "width": 1024,
    "height": 1365
   }
+ },
+ "portrait-k": {
+  "src": "visuals/inbox/portrait-k/raw-1.png",
+  "grade": "none",
+  "q": 62,
+  "crop": {
+   "left": 0,
+   "top": 90,
+   "width": 1024,
+   "height": 1365
+  }
+ },
+ "portrait-l": {
+  "src": "visuals/inbox/portrait-l/raw-1.png",
+  "grade": "none",
+  "q": 62,
+  "crop": {
+   "left": 0,
+   "top": 90,
+   "width": 1024,
+   "height": 1365
+  }
+ },
+ "portrait-m": {
+  "src": "visuals/inbox/portrait-m/raw-1.png",
+  "grade": "none",
+  "q": 62,
+  "crop": {
+   "left": 0,
+   "top": 90,
+   "width": 1024,
+   "height": 1365
+  }
+ },
+ "portrait-n": {
+  "src": "visuals/inbox/portrait-n/raw-1.png",
+  "grade": "none",
+  "q": 62,
+  "crop": {
+   "left": 0,
+   "top": 90,
+   "width": 1024,
+   "height": 1365
+  }
+ },
+ "portrait-o": {
+  "src": "visuals/inbox/portrait-o/raw-1.png",
+  "grade": "none",
+  "q": 62,
+  "crop": {
+   "left": 0,
+   "top": 90,
+   "width": 1024,
+   "height": 1365
+  }
+ },
+ "portrait-p": {
+  "src": "visuals/inbox/portrait-p/raw-1.png",
+  "grade": "none",
+  "q": 62,
+  "crop": {
+   "left": 0,
+   "top": 90,
+   "width": 1024,
+   "height": 1365
+  }
+ },
+ "portrait-q": {
+  "src": "visuals/inbox/portrait-q/raw-1.png",
+  "grade": "none",
+  "q": 62,
+  "crop": {
+   "left": 0,
+   "top": 90,
+   "width": 1024,
+   "height": 1365
+  }
  }
 }

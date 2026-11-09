@@ -30,5 +30,13 @@ export const LOOKS: Record<string, Look> = {
   ph: { cover: 'portrait-h', a: 'p-terminal-stamp-1', b: 'p-joystick-stipple-2', capA: 'The terminal, ready.', capB: 'The controls.', key: 'g-key', objects: ['g-key', 'g-mug', 'g-umbrella'], eggA: true, eggB: { x: 67.5, y: 61.3, r: 7.2 } },
   pi: { cover: 'portrait-i', a: 'p-terminal-stamp-1', b: 'p-joystick-stipple-2', capA: 'The terminal, ready.', capB: 'The controls.', key: 'g-key', objects: ['g-key', 'g-mug', 'g-umbrella'], eggA: true, eggB: { x: 67.5, y: 61.3, r: 7.2 } },
   pj: { cover: 'portrait-j', a: 'p-terminal-stamp-1', b: 'p-joystick-stipple-2', capA: 'The terminal, ready.', capB: 'The controls.', key: 'g-key', objects: ['g-key', 'g-mug', 'g-umbrella'], eggA: true, eggB: { x: 67.5, y: 61.3, r: 7.2 } },
+  // Round 8: F's background with natural proportions; P1/P2 = J's figure in F's background
+  pk: { cover: 'portrait-k', a: 'p-terminal-stamp-1', b: 'p-joystick-stipple-2', capA: 'The terminal, ready.', capB: 'The controls.', key: 'g-key', objects: ['g-key', 'g-mug', 'g-umbrella'], eggA: true, eggB: { x: 67.5, y: 61.3, r: 7.2 } },
+  pl: { cover: 'portrait-l', a: 'p-terminal-stamp-1', b: 'p-joystick-stipple-2', capA: 'The terminal, ready.', capB: 'The controls.', key: 'g-key', objects: ['g-key', 'g-mug', 'g-umbrella'], eggA: true, eggB: { x: 67.5, y: 61.3, r: 7.2 } },
+  pm: { cover: 'portrait-m', a: 'p-terminal-stamp-1', b: 'p-joystick-stipple-2', capA: 'The terminal, ready.', capB: 'The controls.', key: 'g-key', objects: ['g-key', 'g-mug', 'g-umbrella'], eggA: true, eggB: { x: 67.5, y: 61.3, r: 7.2 } },
+  pn: { cover: 'portrait-n', a: 'p-terminal-stamp-1', b: 'p-joystick-stipple-2', capA: 'The terminal, ready.', capB: 'The controls.', key: 'g-key', objects: ['g-key', 'g-mug', 'g-umbrella'], eggA: true, eggB: { x: 67.5, y: 61.3, r: 7.2 } },
+  po: { cover: 'portrait-o', a: 'p-terminal-stamp-1', b: 'p-joystick-stipple-2', capA: 'The terminal, ready.', capB: 'The controls.', key: 'g-key', objects: ['g-key', 'g-mug', 'g-umbrella'], eggA: true, eggB: { x: 67.5, y: 61.3, r: 7.2 } },
+  pp: { cover: 'portrait-p', a: 'p-terminal-stamp-1', b: 'p-joystick-stipple-2', capA: 'The terminal, ready.', capB: 'The controls.', key: 'g-key', objects: ['g-key', 'g-mug', 'g-umbrella'], eggA: true, eggB: { x: 67.5, y: 61.3, r: 7.2 } },
+  pq: { cover: 'portrait-q', a: 'p-terminal-stamp-1', b: 'p-joystick-stipple-2', capA: 'The terminal, ready.', capB: 'The controls.', key: 'g-key', objects: ['g-key', 'g-mug', 'g-umbrella'], eggA: true, eggB: { x: 67.5, y: 61.3, r: 7.2 } },
   n8: { cover: 'l-facade', a: 'e-lamp', b: 'e-chair', capA: 'The lamp, left on.', capB: 'The board, in session.', key: 'g-key', objects: ['g-key', 'g-mug', 'g-umbrella'] },
 };

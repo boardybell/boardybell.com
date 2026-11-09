@@ -1240,5 +1240,68 @@
    1024
   ],
   "key": "{\"src\":\"visuals/inbox/portrait-j/raw-1.png\",\"grade\":\"none\",\"q\":62,\"crop\":{\"left\":0,\"top\":90,\"width\":1024,\"height\":1365}}1794266170888.3562"
+ },
+ "portrait-k": {
+  "w": 1024,
+  "h": 1365,
+  "widths": [
+   640,
+   1024
+  ],
+  "key": "{\"src\":\"visuals/inbox/portrait-k/raw-1.png\",\"grade\":\"none\",\"q\":62,\"crop\":{\"left\":0,\"top\":90,\"width\":1024,\"height\":1365}}1794268169484.3052"
+ },
+ "portrait-l": {
+  "w": 1024,
+  "h": 1365,
+  "widths": [
+   640,
+   1024
+  ],
+  "key": "{\"src\":\"visuals/inbox/portrait-l/raw-1.png\",\"grade\":\"none\",\"q\":62,\"crop\":{\"left\":0,\"top\":90,\"width\":1024,\"height\":1365}}1794268169485.0095"
+ },
+ "portrait-m": {
+  "w": 1024,
+  "h": 1365,
+  "widths": [
+   640,
+   1024
+  ],
+  "key": "{\"src\":\"visuals/inbox/portrait-m/raw-1.png\",\"grade\":\"none\",\"q\":62,\"crop\":{\"left\":0,\"top\":90,\"width\":1024,\"height\":1365}}1794268169486.4294"
+ },
+ "portrait-n": {
+  "w": 1024,
+  "h": 1365,
+  "widths": [
+   640,
+   1024
+  ],
+  "key": "{\"src\":\"visuals/inbox/portrait-n/raw-1.png\",\"grade\":\"none\",\"q\":62,\"crop\":{\"left\":0,\"top\":90,\"width\":1024,\"height\":1365}}1794268169487.5034"
+ },
+ "portrait-o": {
+  "w": 1024,
+  "h": 1365,
+  "widths": [
+   640,
+   1024
+  ],
+  "key": "{\"src\":\"visuals/inbox/portrait-o/raw-1.png\",\"grade\":\"none\",\"q\":62,\"crop\":{\"left\":0,\"top\":90,\"width\":1024,\"height\":1365}}1794268169488.4966"
+ },
+ "portrait-p": {
+  "w": 1024,
+  "h": 1365,
+  "widths": [
+   640,
+   1024
+  ],
+  "key": "{\"src\":\"visuals/inbox/portrait-p/raw-1.png\",\"grade\":\"none\",\"q\":62,\"crop\":{\"left\":0,\"top\":90,\"width\":1024,\"height\":1365}}1794268169489.4915"
+ },
+ "portrait-q": {
+  "w": 1024,
+  "h": 1365,
+  "widths": [
+   640,
+   1024
+  ],
+  "key": "{\"src\":\"visuals/inbox/portrait-q/raw-1.png\",\"grade\":\"none\",\"q\":62,\"crop\":{\"left\":0,\"top\":90,\"width\":1024,\"height\":1365}}1794268169490.5078"
  }
 }
