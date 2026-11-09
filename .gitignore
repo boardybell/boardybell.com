@@ -4,3 +4,4 @@ dist/
 visuals/inbox/
 qa/shots/
 .DS_Store
+.preview/
