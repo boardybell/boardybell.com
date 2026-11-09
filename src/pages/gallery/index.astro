@@ -5,14 +5,58 @@ import { base } from '../../lib/rich';
 import { existsSync } from 'node:fs';
 const FAM = { A: 'The Redacted File', B: 'The Overqualified Page', C: 'The Annual Report', D: 'Wildcard' } as const;
 const thumb = (id: string) => existsSync(`public/gallery/${id}.webp`);
+const ROUND2 = [
+  { id: 'n1', name: 'Midnight', page: 'Deep navy throughout, cream and gold type, Bodoni year in gold, charts printed on a cream insert.', images: 'Still lifes in a navy studio: navy velvet chair under a brass picture light, gold watch on navy leather, gilt-edged ledger. Collection: brass key, gold-rimmed mug, navy umbrella on navy plinths.' },
+  { id: 'n2', name: 'Lamplit', page: 'Cream page with full-width navy bands (masthead, cover, highlights, collection link, footer) and gold rules.', images: 'Navy architecture at night where gold appears only where a light is on: a townhouse with one lit window (the lamp left on), a tall-case clock, a brass-knockered front door. Collection as N1.' },
+  { id: 'n3', name: 'Gilt', page: 'Navy page with double gilt frames around every section, gold italic display type.', images: 'Macro gold details on navy: gilded ledger page edges, a gold nib, the back of a watch. Collection: museum macros of the key’s teeth, the mug’s chipped gold rim, the umbrella’s brass tip.' },
+];
 ---
 <Base title="Boardy: design gallery" theme="gallery" eggs={false}>
 <main id="main" class="g wrap">
   <header class="g-h">
     <p class="label">boardybell.com · front room · design gallery</p>
-    <h1>Ten front rooms. C1 was picked.</h1>
-    <p>Each one is a full working page with real imagery, real draft copy, the redactions, guestbook, visitor counter, lying loader, terminal (press ` or hold the counter), highlight swaps, the Konami code and the hidden door. The door leads to a stub for now: the arcade gets built after the pick.</p>
+    <h1>Round 2: the Annual Report in navy and gold. Pick one.</h1>
+    <p>Same page, same copy, same charts and arcade. Each look has its own new photography and its own navy and gold treatment, and its own Permanent Collection page.</p>
   </header>
+  <section class="g-fam">
+    <h2><span>R2</span> Navy and gold</h2>
+    <div class="g-grid">
+      {ROUND2.map((i) => (
+        <div class="g-card">
+          <a href={`${base}n/${i.id}/`} class="g-thumb">{thumb(i.id) ? <img src={`${base}gallery/${i.id}.webp`} width="800" height="1000" alt="" loading="lazy" /> : <span>{i.id}</span>}</a>
+          <h3>{i.id.toUpperCase()} · {i.name}</h3>
+          <dl>
+            <dt>Page</dt><dd>{i.page}</dd>
+            <dt>Images</dt><dd>{i.images}</dd>
+          </dl>
+          <p class="g-links"><a href={`${base}n/${i.id}/`}>Open the report</a> <a href={`${base}n/${i.id}/collection/`}>Open its collection</a></p>
+        </div>
+      ))}
+      <div class="g-card">
+        <a href={base} class="g-thumb">{thumb('c1') ? <img src={`${base}gallery/c1.webp`} width="800" height="1000" alt="" loading="lazy" /> : <span>c1</span>}</a>
+        <h3>For comparison · C1 as picked</h3>
+        <dl><dt>Page</dt><dd>Cream page, warm wood-toned photography (round 1).</dd></dl>
+        <p class="g-links"><a href={base}>Open the report</a> <a href={`${base}collection/`}>Open its collection</a></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="g-eggs" id="eggs">
+    <h2><span>?</span> How to find the Easter eggs</h2>
+    <ol>
+      <li><b>The hidden door.</b> A small gold keyhole at the very bottom of every page, under the copyright line. Click it to enter the arcade.</li>
+      <li><b>Konami code.</b> On a keyboard: up, up, down, down, left, right, left, right, B, A. On a phone: swipe up, up, down, down, left, right, left, right, then tap twice. The page turns into a 1994 home page; “Restore dignity” puts it back.</li>
+      <li><b>Lying loading screen.</b> Appears once per browser session on your first page view. Open the site in a new private window to see it again.</li>
+      <li><b>Visitor counter.</b> The green odometer in the footer. Click or tap it to be counted again.</li>
+      <li><b>Guestbook.</b> Near the bottom of the page. Sign it; every entry is politely declined and nothing is stored or sent.</li>
+      <li><b>Terminal.</b> Press the backtick key ( ` ) on a keyboard, double-click the © in the footer, or press and hold the visitor counter on a phone. Try help, whoami, ls, cat chair.txt, sudo, arcade.</li>
+      <li><b>Certificate.</b> Find any three eggs and a link appears offering a certificate. Or type certificate in the terminal. It prints on one page.</li>
+      <li><b>Highlighting changes the text.</b> Select the “Works in private wealth. Details withheld.” line, or the colophon line in the footer.</li>
+      <li><b>Joke 404 and favicon.</b> Visit any address that does not exist (for example /nope/). The browser tab icon is a redacted document.</li>
+      <li><b>Redaction bars.</b> On the Permanent Collection page, click the black bars on the labels.</li>
+    </ol>
+  </section>
+  <h2 class="g-old">Round 1 (C1 picked)</h2>
   {(['A', 'B', 'C', 'D'] as const).map((f) => (
     <section class="g-fam">
       <h2><span>{f}</span> {FAM[f]}</h2>
@@ -52,6 +96,15 @@ const thumb = (id: string) => existsSync(`public/gallery/${id}.webp`);
 .g-card dl{display:grid;grid-template-columns:5.2rem 1fr;gap:.3rem .7rem;font:400 .82rem/1.45 var(--label)}
 .g-card dt{color:var(--gold-ink);text-transform:uppercase;letter-spacing:.1em;font-size:.65rem;padding-top:.2rem}
 .g-card dd{color:var(--ink)}
+.g-links{display:flex;flex-wrap:wrap;gap:.4rem 1rem;font:500 .7rem/1.3 var(--label);letter-spacing:.12em;text-transform:uppercase}
+.g-links a{color:var(--gold-ink)}
+.g-card>a.g-thumb{text-decoration:none}
+.g-eggs{background:#16233B;color:#FDF6EC;padding:clamp(1.25rem,4vw,2.5rem)}
+.g-eggs h2{font:400 1.6rem/1.2 var(--display);margin-bottom:1.2rem}
+.g-eggs h2 span{font:500 .8rem/1 var(--label);color:#D9B36C;border:1px solid #D9B36C;padding:.3rem .5rem;vertical-align:.35em;margin-right:.4rem}
+.g-eggs ol{display:grid;gap:.8rem;padding-left:1.4rem;max-width:52rem}
+.g-eggs b{color:#D9B36C;font-weight:500}
+.g-old{font:400 1.2rem/1.2 var(--display);color:var(--warm);border-top:1px solid var(--rule);padding-top:2rem}
 .g-f{font:400 .8rem/1.5 var(--label);color:var(--warm)}
 @media (prefers-reduced-motion:reduce){.g-card{transition:none}.g-card:hover{transform:none}}
 </style>

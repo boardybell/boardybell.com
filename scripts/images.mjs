@@ -1,13 +1,17 @@
 // visuals/selected.json -> graded master -> public/img/<name>-<w>.{avif,webp,jpg} + public/img/manifest.json
 // Grading: scripts/grade.py (palette gradient map). sharp drops all EXIF/XMP/ICC metadata by default.
-import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
+import { readFileSync, writeFileSync, mkdirSync, existsSync, statSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
 import sharp from 'sharp';
 const PY = process.env.PY ?? `${process.env.HOME}/Developer/_refs/fontvenv/bin/python`;
 const sel = JSON.parse(readFileSync('visuals/selected.json', 'utf8'));
 mkdirSync('public/img', { recursive: true }); mkdirSync('visuals/graded', { recursive: true });
 const man = {};
+const prev = existsSync('public/img/manifest.json') ? JSON.parse(readFileSync('public/img/manifest.json', 'utf8')) : {};
 for (const [name, o] of Object.entries(sel)) {
+  if (!existsSync(o.src)) { console.log(name, 'source missing, skipped'); continue; }
+  const key = JSON.stringify(o) + statSync(o.src).mtimeMs;
+  if (prev[name]?.key === key && !process.argv.includes('--force')) { man[name] = prev[name]; continue; }
   const graded = `visuals/graded/${name}.png`;
   const args = [o.grade, o.src, graded, '--lift', String(o.lift ?? 0), '--gamma', String(o.gamma ?? 1), '--mix', String(o.mix ?? 0)];
   if (o.grade === 'none') execFileSync('cp', [o.src, graded]); else execFileSync(PY, ['scripts/grade.py', ...args]);
@@ -22,7 +26,7 @@ for (const [name, o] of Object.entries(sel)) {
     await r.clone().webp({ quality: o.grade === 'none' ? 82 : 74 }).toFile(`public/img/${name}-${w}.webp`);
     await r.clone().jpeg({ quality: 78, mozjpeg: true, progressive: true }).toFile(`public/img/${name}-${w}.jpg`);
   }
-  man[name] = { w: meta.width, h: meta.height, widths };
+  man[name] = { w: meta.width, h: meta.height, widths, key };
   console.log(name, meta.width + 'x' + meta.height, widths.join(','));
 }
 writeFileSync('public/img/manifest.json', JSON.stringify(man, null, 1));

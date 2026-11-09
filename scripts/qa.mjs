@@ -11,7 +11,7 @@ const ARGS = process.argv.slice(2);
 const ONLY = ARGS.includes('--only') ? ARGS[ARGS.indexOf('--only') + 1].split(',') : null;
 const IDS = ['a1', 'a2', 'a3', 'b1', 'b2', 'b3', 'c1', 'c2', 'c3', 'd1'].filter((i) => !ONLY || ONLY.includes(i));
 const GAMES = ['tax-man', 'margin-invaders', 'compound-interest', 'break-the-market'];
-const PAGES = [...IDS.map((i) => `i/${i}/`), ...(ONLY ? [] : ['', 'collection/', 'gallery/', 'arcade/', ...GAMES.map((g) => `arcade/${g}/`), 'certificate/', 'nope/'])];
+const PAGES = [...IDS.map((i) => `i/${i}/`), ...(ONLY ? [] : ['', 'collection/', 'gallery/', ...['n1', 'n2', 'n3'].flatMap((n) => [`n/${n}/`, `n/${n}/collection/`]), 'arcade/', ...GAMES.map((g) => `arcade/${g}/`), 'certificate/', 'nope/'])];
 const WIDTHS = [360, 768, 1280, 1920];
 // Blocklist is base64 so the names themselves never appear in this public repo.
 const FIRMS = new RegExp(Buffer.from('Ym9uZGJlbGx8YmVsbGFzc2V0fGJlbGxmYW1pbHl8YmVsbCBhc3NldHxiZWxsIGZhbWlseXxib25kIGJlbGwgJiBjb3xib25kIGJlbGwgYW5kIGNvfFxiQ1JEXGJ8ZmlucmF8c2VjXC5nb3Y=', 'base64').toString(), 'i');
@@ -107,8 +107,8 @@ for (const mode of ['desktop', 'touch']) {
   const ctx = await browser.newContext(mode === 'touch' ? { ...devices['iPhone 13'], reducedMotion: 'reduce' } : { viewport: { width: 1280, height: 900 } });
   const page = await ctx.newPage(); const W = `eggs/${mode}`;
   page.on('pageerror', (e) => fail(W, `JS error ${e.message}`));
-  for (const id of IDS) {
-    await page.goto(url(`i/${id}/`), { waitUntil: 'networkidle' });
+  for (const id of [...IDS, ...(ONLY ? [] : ['n/n1', 'n/n2', 'n/n3', 'n/n1/collection', 'n/n3/collection'])]) {
+    await page.goto(url(id.startsWith('n/') ? `${id}/` : `i/${id}/`), { waitUntil: 'networkidle' });
     await page.evaluate(() => localStorage.clear());
     const tap = (sel) => (mode === 'touch' ? page.tap(sel) : page.click(sel));
     // redaction (D and all A/C variants have them; B has none by design)
@@ -212,8 +212,9 @@ if (!ONLY) for (const mode of ['desktop', 'touch']) {
 if (ARGS.includes('--thumbs')) {
   mkdirSync('public/gallery', { recursive: true });
   const ctx = await browser.newContext({ viewport: { width: 1280, height: 1600 }, reducedMotion: 'reduce' }); const page = await ctx.newPage();
-  for (const id of IDS) {
-    await page.goto(url(`i/${id}/`), { waitUntil: 'networkidle' });
+  const THUMBS = [...IDS.map((id) => [id, `i/${id}/`]), ...(ONLY ? [] : [['n1', 'n/n1/'], ['n2', 'n/n2/'], ['n3', 'n/n3/'], ['c1', '']])];
+  for (const [id, path] of THUMBS) {
+    await page.goto(url(path), { waitUntil: 'networkidle' });
     await page.addStyleTag({ content: '.gal-back{display:none!important}' });
     await sharp(await page.screenshot()).resize(800, 1000, { fit: 'cover', position: 'top' }).webp({ quality: 72 }).toFile(`public/gallery/${id}.webp`);
   }

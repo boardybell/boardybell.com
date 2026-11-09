@@ -25,13 +25,25 @@ def grade(kind, src, dst, lift=0.0, gamma=1.0, mix=0.0):
     L = lin(im) @ np.array([0.2126, 0.7152, 0.0722])
     L = np.clip(L, 0, 1) ** (1 / 2.4)            # perceptual
     L = np.clip(lift + (1 - lift) * L, 0, 1) ** gamma
-    stops = STOPS[kind]
+    gold = kind == 'navygold'
+    stops = STOPS['navy' if gold else kind]
     out = np.zeros(L.shape + (3,))
     for (p0, c0), (p1, c1) in zip(stops, stops[1:]):
         m = (L >= p0) & (L <= p1)
         t = (L[m] - p0) / (p1 - p0); t = t * t * (3 - 2 * t)
         out[m] = srgb(lin(c0) * (1 - t[:, None]) + lin(c1) * t[:, None])
     if mix: out = srgb(lin(out) * (1 - mix) + lin(im) * mix)  # keep a little of the original colour
+    if gold:
+        # keep warm metal and lamplight: pixels whose hue is gold/amber and that carry real saturation
+        mx, mn = im.max(-1), im.min(-1); sat = np.where(mx > 0, (mx - mn) / np.maximum(mx, 1e-6), 0)
+        r, g, b = im[..., 0], im[..., 1], im[..., 2]
+        hue = (np.degrees(np.arctan2(np.sqrt(3) * (g - b), 2 * r - g - b)) + 360) % 360
+        sm = lambda x, a, b: np.clip((x - a) / (b - a), 0, 1) ** 2 * (3 - 2 * np.clip((x - a) / (b - a), 0, 1))
+        m = sm(sat, 0.18, 0.45) * sm(hue, 12, 26) * (1 - sm(hue, 58, 75)) * sm(L, 0.12, 0.3)
+        # nudge kept pixels toward the family gold so brass, wood glow and lamps agree
+        target = np.array([0.725, 0.545, 0.243])
+        warm = srgb(lin(im) * 0.7 + lin(target * (im.mean(-1, keepdims=True) / target.mean())) * 0.3)
+        out = out * (1 - m[..., None]) + np.clip(warm, 0, 1) * m[..., None]
     rng = np.random.default_rng(7)
     out = np.clip(out + rng.normal(0, 0.006, L.shape)[..., None], 0, 1)
     Image.fromarray((out * 255).round().astype(np.uint8)).save(dst, optimize=True)

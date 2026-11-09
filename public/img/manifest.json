@@ -6,7 +6,8 @@
    640,
    1024,
    1536
-  ]
+  ],
+  "key": "{\"src\":\"visuals/inbox/01-a-folio/raw-1.png\",\"grade\":\"warm\",\"mix\":0.55}1794242100648.543"
  },
  "a-lamp": {
   "w": 2400,
@@ -16,7 +17,8 @@
    1280,
    1920,
    2400
-  ]
+  ],
+  "key": "{\"src\":\"visuals/inbox/02-a-lamp/raw-1.png\",\"grade\":\"navy\",\"mix\":0.5,\"up\":2400}1794242381618.4265"
  },
  "a-drawers": {
   "w": 2400,
@@ -26,7 +28,8 @@
    1280,
    1920,
    2400
-  ]
+  ],
+  "key": "{\"src\":\"visuals/inbox/03-a-drawers/raw-1.png\",\"grade\":\"warm\",\"mix\":0.55,\"up\":2400}1794242383514.4792"
  },
  "b-atrium": {
   "w": 2400,
@@ -36,7 +39,8 @@
    1280,
    1920,
    2400
-  ]
+  ],
+  "key": "{\"src\":\"visuals/inbox/04-b-atrium/raw-1.png\",\"grade\":\"navy\",\"mix\":0.2,\"gamma\":1.55,\"up\":2400}1794242493757.9507"
  },
  "b-plinth": {
   "w": 1024,
@@ -44,7 +48,8 @@
   "widths": [
    640,
    1024
-  ]
+  ],
+  "key": "{\"src\":\"visuals/inbox/05-b-plinth/raw-1.png\",\"grade\":\"warm\",\"mix\":0.5}1794242309410.7253"
  },
  "b-boardroom": {
   "w": 2400,
@@ -54,7 +59,8 @@
    1280,
    1920,
    2400
-  ]
+  ],
+  "key": "{\"src\":\"visuals/inbox/06-b-boardroom/raw-1.png\",\"grade\":\"warm\",\"mix\":0.55,\"up\":2400}1794242690696.4175"
  },
  "c-chair": {
   "w": 1024,
@@ -62,7 +68,8 @@
   "widths": [
    640,
    1024
-  ]
+  ],
+  "key": "{\"src\":\"visuals/inbox/07-c-chair/raw-2.png\",\"grade\":\"warm\",\"mix\":0.55}1794242625051.891"
  },
  "c-watch": {
   "w": 1536,
@@ -71,7 +78,8 @@
    640,
    1024,
    1536
-  ]
+  ],
+  "key": "{\"src\":\"visuals/inbox/08-c-watch/raw-1.png\",\"grade\":\"warm\",\"mix\":0.6}1794242581377.8367"
  },
  "c-pen": {
   "w": 1536,
@@ -80,7 +88,8 @@
    640,
    1024,
    1536
-  ]
+  ],
+  "key": "{\"src\":\"visuals/inbox/09-c-pen/raw-1.png\",\"grade\":\"warm\",\"mix\":0.55}1794242621961.8198"
  },
  "d-key": {
   "w": 1024,
@@ -88,7 +97,8 @@
   "widths": [
    640,
    1024
-  ]
+  ],
+  "key": "{\"src\":\"visuals/inbox/10-d-key/raw-1.png\",\"grade\":\"warm\",\"mix\":0.7}1794242762174.0264"
  },
  "d-mug": {
   "w": 1024,
@@ -96,7 +106,8 @@
   "widths": [
    640,
    1024
-  ]
+  ],
+  "key": "{\"src\":\"visuals/inbox/11-d-mug/raw-1.png\",\"grade\":\"warm\",\"mix\":0.7}1794242797117.148"
  },
  "d-umbrella": {
   "w": 1024,
@@ -104,7 +115,8 @@
   "widths": [
    640,
    1024
-  ]
+  ],
+  "key": "{\"src\":\"visuals/inbox/12-d-umbrella/raw-1.png\",\"grade\":\"warm\",\"mix\":0.7}1794242778747.0168"
  },
  "arcade-hall": {
   "w": 1536,
@@ -113,7 +125,8 @@
    640,
    1024,
    1536
-  ]
+  ],
+  "key": "{\"src\":\"visuals/inbox/13-arcade-hall/raw-1.png\",\"grade\":\"none\",\"q\":68}1794244452453.222"
  },
  "title-taxman": {
   "w": 1536,
@@ -122,7 +135,8 @@
    640,
    1024,
    1536
-  ]
+  ],
+  "key": "{\"src\":\"visuals/inbox/14-title-taxman/raw-1.png\",\"grade\":\"none\",\"q\":68}1794244489336.9216"
  },
  "title-invaders": {
   "w": 1536,
@@ -131,7 +145,8 @@
    640,
    1024,
    1536
-  ]
+  ],
+  "key": "{\"src\":\"visuals/inbox/15-title-invaders/raw-1.png\",\"grade\":\"none\",\"q\":68}1794244497858.8882"
  },
  "title-snake": {
   "w": 1536,
@@ -140,7 +155,8 @@
    640,
    1024,
    1536
-  ]
+  ],
+  "key": "{\"src\":\"visuals/inbox/16-title-snake/raw-1.png\",\"grade\":\"none\",\"q\":68}1794244442921.783"
  },
  "title-breakout": {
   "w": 1536,
@@ -149,6 +165,148 @@
    640,
    1024,
    1536
-  ]
+  ],
+  "key": "{\"src\":\"visuals/inbox/17-title-breakout/raw-1.png\",\"grade\":\"none\",\"q\":68}1794244657485.192"
+ },
+ "n-chair": {
+  "w": 1024,
+  "h": 1536,
+  "widths": [
+   640,
+   1024
+  ],
+  "key": "{\"src\":\"visuals/inbox/20-n-chair/raw-1.png\",\"grade\":\"navygold\",\"mix\":0.45,\"gamma\":0.82}1794247528920.532"
+ },
+ "n-watch": {
+  "w": 1536,
+  "h": 1024,
+  "widths": [
+   640,
+   1024,
+   1536
+  ],
+  "key": "{\"src\":\"visuals/inbox/21-n-watch/raw-1.png\",\"grade\":\"navygold\",\"mix\":0.3}1794247530871.4116"
+ },
+ "n-pen": {
+  "w": 1536,
+  "h": 1024,
+  "widths": [
+   640,
+   1024,
+   1536
+  ],
+  "key": "{\"src\":\"visuals/inbox/22-n-pen/raw-1.png\",\"grade\":\"navygold\",\"mix\":0.3}1794247585293.7607"
+ },
+ "n-key": {
+  "w": 1024,
+  "h": 1536,
+  "widths": [
+   640,
+   1024
+  ],
+  "key": "{\"src\":\"visuals/inbox/23-n-key/raw-1.png\",\"grade\":\"navygold\",\"mix\":0.3}1794247498152.596"
+ },
+ "n-mug": {
+  "w": 1024,
+  "h": 1536,
+  "widths": [
+   640,
+   1024
+  ],
+  "key": "{\"src\":\"visuals/inbox/24-n-mug/raw-1.png\",\"grade\":\"navygold\",\"mix\":0.3}1794247505077.9565"
+ },
+ "n-umbrella": {
+  "w": 1024,
+  "h": 1536,
+  "widths": [
+   640,
+   1024
+  ],
+  "key": "{\"src\":\"visuals/inbox/25-n-umbrella/raw-1.png\",\"grade\":\"navygold\",\"mix\":0.3}1794247700076.485"
+ },
+ "l-facade": {
+  "w": 1024,
+  "h": 1536,
+  "widths": [
+   640,
+   1024
+  ],
+  "key": "{\"src\":\"visuals/inbox/30-l-facade/raw-2.png\",\"grade\":\"navygold\",\"mix\":0.45,\"gamma\":0.85}1794247796291.4417"
+ },
+ "l-clock": {
+  "w": 1536,
+  "h": 1024,
+  "widths": [
+   640,
+   1024,
+   1536
+  ],
+  "key": "{\"src\":\"visuals/inbox/31-l-clock/raw-1.png\",\"grade\":\"navygold\",\"mix\":0.3}1794247675475.0793"
+ },
+ "l-door": {
+  "w": 1536,
+  "h": 1024,
+  "widths": [
+   640,
+   1024,
+   1536
+  ],
+  "key": "{\"src\":\"visuals/inbox/32-l-door/raw-1.png\",\"grade\":\"navygold\",\"mix\":0.3}1794247704741.3862"
+ },
+ "g-edges": {
+  "w": 1024,
+  "h": 1536,
+  "widths": [
+   640,
+   1024
+  ],
+  "key": "{\"src\":\"visuals/inbox/40-g-edges/raw-1.png\",\"grade\":\"navygold\",\"mix\":0.3}1794247679148.2803"
+ },
+ "g-nib": {
+  "w": 1536,
+  "h": 1024,
+  "widths": [
+   640,
+   1024,
+   1536
+  ],
+  "key": "{\"src\":\"visuals/inbox/41-g-nib/raw-1.png\",\"grade\":\"navygold\",\"mix\":0.3}1794247875504.1494"
+ },
+ "g-watch": {
+  "w": 1536,
+  "h": 1024,
+  "widths": [
+   640,
+   1024,
+   1536
+  ],
+  "key": "{\"src\":\"visuals/inbox/42-g-watch/raw-1.png\",\"grade\":\"navygold\",\"mix\":0.3}1794247876871.9382"
+ },
+ "g-key": {
+  "w": 1024,
+  "h": 1536,
+  "widths": [
+   640,
+   1024
+  ],
+  "key": "{\"src\":\"visuals/inbox/43-g-key/raw-2.png\",\"grade\":\"navygold\",\"mix\":0.3}1794247975082.151"
+ },
+ "g-mug": {
+  "w": 1024,
+  "h": 1536,
+  "widths": [
+   640,
+   1024
+  ],
+  "key": "{\"src\":\"visuals/inbox/44-g-mug/raw-1.png\",\"grade\":\"navygold\",\"mix\":0.7}1794247909697.7725"
+ },
+ "g-umbrella": {
+  "w": 1024,
+  "h": 1536,
+  "widths": [
+   640,
+   1024
+  ],
+  "key": "{\"src\":\"visuals/inbox/45-g-umbrella/raw-1.png\",\"grade\":\"navygold\",\"mix\":0.3}1794247874780.1265"
  }
 }

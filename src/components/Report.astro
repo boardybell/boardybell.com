@@ -8,8 +8,11 @@ import { ALT } from '../content/alts';
 import { base } from '../lib/rich';
 import { YEARS } from '../lib/series';
 import TechCharts from './TechCharts.astro';
-interface Props { v: 1 | 2 | 3 }
-const { v } = Astro.props;
+import { LOOKS } from '../content/looks';
+interface Props { v: 1 | 2 | 3; look?: string; home?: string }
+const { v, look = 'c', home = base } = Astro.props;
+// Image set per look (round 2 navy/gold iterations); 'c' is the original picked set.
+const IMG = LOOKS[look] ?? LOOKS.c;
 const thesis = THESES.C[v - 1];
 const item = (n: string, t: string) => (v === 3 ? `Item ${n}. ${t}` : t);
 ---
@@ -25,7 +28,7 @@ const item = (n: string, t: string) => (v === 3 ? `Item ${n}. ${t}` : t);
         <h1><span class="c-ttl">{R.title}</span> <span class="c-yr">{R.year}</span></h1>
         <p class="thesis c-th">{thesis}</p>
       </div>
-      <div class="c-cover-i"><Pic name="c-chair" alt={ALT['c-chair']} eager sizes="(min-width: 900px) 42vw, 100vw" /></div>
+      <div class="c-cover-i"><Pic name={IMG.cover} alt={ALT[IMG.cover]} eager sizes="(min-width: 900px) 42vw, 100vw" /></div>
     </section>
   )}
   {v === 2 && (
@@ -88,17 +91,17 @@ const item = (n: string, t: string) => (v === 3 ? `Item ${n}. ${t}` : t);
 
     {v !== 2 && (
       <div class="c-plates rv">
-        <figure><Pic name="c-watch" alt={ALT['c-watch']} sizes="(min-width: 760px) 45vw, 100vw" /><figcaption>The year, face down.</figcaption></figure>
-        <figure><Pic name="c-pen" alt={ALT['c-pen']} sizes="(min-width: 760px) 45vw, 100vw" /><figcaption>The ledger, closed.</figcaption></figure>
+        <figure><Pic name={IMG.a} alt={ALT[IMG.a]} sizes="(min-width: 760px) 45vw, 100vw" /><figcaption>{IMG.capA}</figcaption></figure>
+        <figure><Pic name={IMG.b} alt={ALT[IMG.b]} sizes="(min-width: 760px) 45vw, 100vw" /><figcaption>{IMG.capB}</figcaption></figure>
       </div>
     )}
     {v === 1 && (
       <section class="c-coll rv">
-        <a class="c-coll-i" href={`${base}collection/`} tabindex="-1" aria-hidden="true"><Pic name="d-key" alt="" sizes="(min-width: 760px) 14rem, 40vw" /></a>
+        <a class="c-coll-i" href={`${home}collection/`} tabindex="-1" aria-hidden="true"><Pic name={IMG.key} alt="" sizes="(min-width: 760px) 14rem, 40vw" /></a>
         <div>
           <h2 class="label">{R.collection.title}</h2>
           <p class="c-coll-t">{R.collection.text}</p>
-          <a class="c-coll-a" href={`${base}collection/`}>{R.collection.link}</a>
+          <a class="c-coll-a" href={`${home}collection/`}>{R.collection.link}</a>
         </div>
       </section>
     )}

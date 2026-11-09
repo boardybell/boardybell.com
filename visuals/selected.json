@@ -88,5 +88,82 @@
   "src": "visuals/inbox/17-title-breakout/raw-1.png",
   "grade": "none",
   "q": 68
+ },
+ "n-chair": {
+  "src": "visuals/inbox/20-n-chair/raw-1.png",
+  "grade": "navygold",
+  "mix": 0.45,
+  "gamma": 0.82
+ },
+ "n-watch": {
+  "src": "visuals/inbox/21-n-watch/raw-1.png",
+  "grade": "navygold",
+  "mix": 0.3
+ },
+ "n-pen": {
+  "src": "visuals/inbox/22-n-pen/raw-1.png",
+  "grade": "navygold",
+  "mix": 0.3
+ },
+ "n-key": {
+  "src": "visuals/inbox/23-n-key/raw-1.png",
+  "grade": "navygold",
+  "mix": 0.3
+ },
+ "n-mug": {
+  "src": "visuals/inbox/24-n-mug/raw-1.png",
+  "grade": "navygold",
+  "mix": 0.3
+ },
+ "n-umbrella": {
+  "src": "visuals/inbox/25-n-umbrella/raw-1.png",
+  "grade": "navygold",
+  "mix": 0.3
+ },
+ "l-facade": {
+  "src": "visuals/inbox/30-l-facade/raw-2.png",
+  "grade": "navygold",
+  "mix": 0.45,
+  "gamma": 0.85
+ },
+ "l-clock": {
+  "src": "visuals/inbox/31-l-clock/raw-1.png",
+  "grade": "navygold",
+  "mix": 0.3
+ },
+ "l-door": {
+  "src": "visuals/inbox/32-l-door/raw-1.png",
+  "grade": "navygold",
+  "mix": 0.3
+ },
+ "g-edges": {
+  "src": "visuals/inbox/40-g-edges/raw-1.png",
+  "grade": "navygold",
+  "mix": 0.3
+ },
+ "g-nib": {
+  "src": "visuals/inbox/41-g-nib/raw-1.png",
+  "grade": "navygold",
+  "mix": 0.3
+ },
+ "g-watch": {
+  "src": "visuals/inbox/42-g-watch/raw-1.png",
+  "grade": "navygold",
+  "mix": 0.3
+ },
+ "g-key": {
+  "src": "visuals/inbox/43-g-key/raw-2.png",
+  "grade": "navygold",
+  "mix": 0.3
+ },
+ "g-mug": {
+  "src": "visuals/inbox/44-g-mug/raw-1.png",
+  "grade": "navygold",
+  "mix": 0.7
+ },
+ "g-umbrella": {
+  "src": "visuals/inbox/45-g-umbrella/raw-1.png",
+  "grade": "navygold",
+  "mix": 0.3
  }
 }

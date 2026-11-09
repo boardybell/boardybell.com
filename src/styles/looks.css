@@ -1,0 +1,75 @@
+/* Round 2: navy and gold treatments of the picked Annual Report (C1) and its collection page.
+   Charts keep their validated cream-surface palette by sitting on a cream "printed insert" in dark looks. */
+
+/* full-bleed navy bands for sections that live inside .wrap (N2) */
+.t-n2 .c-mast,.t-n2 .c-cover,.t-n2 .c-hl,.t-n2 .c-coll{box-shadow:0 0 0 100vmax var(--band);clip-path:inset(0 -100vmax);background:var(--band)}
+
+/* ---------- shared dark-surface tokens (N1, N3) ---------- */
+.t-n1,.t-n3{--fg:#F3EBDD;--muted:#AEB4C2;--accent:#D9B36C;--rule:rgba(217,179,108,.28);--paper:#132036}
+.t-n1 .gb-f input,.t-n1 .gb-f textarea,.t-n3 .gb-f input,.t-n3 .gb-f textarea{color:var(--fg)}
+.t-n1 .gb-b:hover,.t-n3 .gb-b:hover{background:#D9B36C;color:#0D1626;border-color:#D9B36C}
+.t-n1 .c-tbl thead th,.t-n3 .c-tbl thead th{border-bottom-color:#D9B36C}
+.t-n1 .c-tbl th[scope=row],.t-n3 .c-tbl th[scope=row]{background:var(--bg)}
+.t-n1 .c-tech,.t-n3 .c-tech{--bg:#FDF6EC;--fg:#14120F;--muted:#6E6759;--accent:#8A6425;--rule:rgba(22,35,59,.18);
+  background:#FDF6EC;color:#14120F;padding:clamp(1.25rem,4vw,3rem);box-shadow:0 30px 60px -40px rgba(0,0,0,.7)}
+.t-n1 .c-tech .c-tbl th[scope=row],.t-n3 .c-tech .c-tbl th[scope=row],.t-n1 .c-tech .c-tbl-sm thead th,.t-n3 .c-tech .c-tbl-sm thead th{background:#FDF6EC}
+.t-n1 .redact,.t-n3 .redact{background:#000}
+.t-n1 .foot,.t-n3 .foot{background:#0A1120;border-top-color:rgba(217,179,108,.35)}
+.t-n1 .door,.t-n3 .door{color:#D9B36C}
+.t-n1 .loader,.t-n3 .loader{background:#0D1626;color:#F3EBDD}
+
+/* ---------- N1 Midnight: navy throughout, gold accents, Bodoni ---------- */
+.t-n1{--bg:#0D1626}
+.t-n1 .c-mast{border-bottom-color:rgba(217,179,108,.35)}
+.t-n1 .c-mark{color:#F3EBDD}
+.t-n1 .c-ttl{color:#F3EBDD}
+.t-n1 .c-yr{color:#D9B36C}
+.t-n1 .c-th{border-top-color:#D9B36C}
+.t-n1 .c-cover-i{position:relative}
+.t-n1 .c-cover-i::after{content:"";position:absolute;inset:10px;border:1px solid rgba(217,179,108,.55);pointer-events:none}
+.t-n1 .c-occ{color:#D9B36C}
+.t-n1 .c-hl h3{color:#F3EBDD}
+.t-n1 .c-aud{border-color:#D9B36C;background:#101C33}
+.t-n1 .c-coll{border-color:rgba(217,179,108,.35)}
+
+/* ---------- N2 Lamplit: cream page, heavy navy bands, gold rules ---------- */
+.t-n2{--rule:rgba(185,139,62,.35)}
+.t-n2 .c-mast{--band:#0D1626;color:#FDF6EC;border:0;padding-block:1.1rem}
+.t-n2 .c-mast .label{color:#D9B36C}
+.t-n2 .c-cover{--band:#16233B;color:#FDF6EC;padding-block:clamp(2.5rem,6vw,5rem);--rule:rgba(217,179,108,.4)}
+.t-n2 .c-cover .label{color:#D9B36C}
+.t-n2 .c-yr{color:#D9B36C}
+.t-n2 .c-th{border-top-color:#D9B36C;color:#E9DFCC}
+.t-n2 .c-hl{--band:#16233B;color:#FDF6EC;padding-block:clamp(2.5rem,6vw,4.5rem);--muted:#B9BFCC;--accent:#D9B36C}
+.t-n2 .c-coll{--band:#0D1626;color:#FDF6EC;border:0;padding-block:2.5rem;--accent:#D9B36C}
+.t-n2 .c-aud{background:#16233B;color:#FDF6EC;border:1px solid #B98B3E;--muted:#B9BFCC}
+.t-n2 .c-tbl thead th{border-bottom-color:#B98B3E}
+.t-n2 .c-occ{border-color:#B98B3E;color:#8A6425}
+.t-n2 .foot{background:#0D1626;color:#B9BFCC;border-top:2px solid #B98B3E}
+.t-n2 .foot .door{color:#D9B36C}
+
+/* ---------- N3 Gilt: navy page, gilt frames, gold display type ---------- */
+.t-n3{--bg:#16233B}
+.t-n3 .c-mast{border-bottom:0;box-shadow:inset 0 -1px 0 #B98B3E,inset 0 -4px 0 #16233B,inset 0 -5px 0 #B98B3E}
+.t-n3 .c-mark{color:#D9B36C;letter-spacing:.2em;text-transform:uppercase;font-size:1rem}
+.t-n3 .c-ttl{color:#D9B36C;font-style:italic}
+.t-n3 .c-yr{color:#F3EBDD}
+.t-n3 .c-th{border-top:3px double #B98B3E}
+.t-n3 .c-cover-i{padding:12px;border:1px solid #B98B3E;outline:1px solid #B98B3E;outline-offset:4px;background:#0D1626}
+.t-n3 .c-body>section:not(.c-tech):not(.c-gb){border:1px solid rgba(217,179,108,.45);padding:clamp(1.25rem,4vw,2.75rem);position:relative}
+.t-n3 .c-body>section:not(.c-tech):not(.c-gb)::before{content:"";position:absolute;inset:5px;border:1px solid rgba(217,179,108,.2);pointer-events:none}
+.t-n3 .c-tech{outline:1px solid #B98B3E;outline-offset:6px}
+.t-n3 .c-hl h3,.t-n3 .c-sig,.t-n3 .c-aud-t{color:#D9B36C}
+.t-n3 .c-plates figure{padding:8px;border:1px solid #B98B3E}
+.t-n3 .c-occ{color:#D9B36C;border-color:#B98B3E}
+
+/* ---------- Collection pages for all three: navy gallery walls, cream labels with gold tabs ---------- */
+.t-n1c,.t-n2c,.t-n3c{--bg:#16233B;--fg:#F3EBDD;--muted:#AEB4C2;--accent:#D9B36C;--rule:rgba(217,179,108,.3)}
+.t-n1c .d-lbl,.t-n2c .d-lbl,.t-n3c .d-lbl{background:#FDF6EC;color:#14120F;border:0;border-top:3px solid #B98B3E;--muted:#6E6759;--fg:#14120F}
+.t-n1c .d-work img,.t-n2c .d-work img,.t-n3c .d-work img{box-shadow:0 40px 60px -40px rgba(0,0,0,.85)}
+.t-n1c .d-void,.t-n2c .d-void,.t-n3c .d-void{border-color:rgba(217,179,108,.45);background:repeating-linear-gradient(135deg,transparent 0 14px,rgba(217,179,108,.05) 14px 15px)}
+.t-n1c .gb-f input,.t-n1c .gb-f textarea,.t-n2c .gb-f input,.t-n2c .gb-f textarea,.t-n3c .gb-f input,.t-n3c .gb-f textarea{color:#F3EBDD}
+.t-n1c .gb-b:hover,.t-n2c .gb-b:hover,.t-n3c .gb-b:hover{background:#D9B36C;color:#0D1626}
+.t-n1c .foot,.t-n2c .foot,.t-n3c .foot{background:#0D1626;border-top-color:rgba(217,179,108,.35)}
+.t-n3c .d-work img{outline:1px solid #B98B3E;outline-offset:6px}
+.t-n3c .d-hero h1{color:#D9B36C;font-style:italic}

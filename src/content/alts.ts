@@ -12,3 +12,20 @@ export const ALT: Record<string, string> = {
   'd-mug': 'A plain white mug, chipped at the rim, on a small stone plinth.',
   'd-umbrella': 'A furled black umbrella leaning against a small stone plinth.',
 };
+Object.assign(ALT, {
+  'n-chair': 'An empty navy velvet wingback chair under a single brass picture light.',
+  'n-watch': 'A gold pocket watch lying face down on navy leather.',
+  'n-pen': 'A gold-trimmed fountain pen on a closed navy ledger with gilt edges.',
+  'n-key': 'A brass house key on a navy stone plinth.',
+  'n-mug': 'A cream mug with a thin gold rim, chipped, on a navy stone plinth.',
+  'n-umbrella': 'A furled navy umbrella with brass fittings leaning on a navy plinth.',
+  'l-facade': 'A dark townhouse facade at night with a single window lit gold.',
+  'l-clock': 'A tall-case clock in a navy hallway, its brass pendulum catching the light.',
+  'l-door': 'A navy front door with a brass knocker, lit by a lantern.',
+  'g-edges': 'A close-up of gilded page edges on a stack of navy ledgers.',
+  'g-nib': 'A macro view of a gold fountain pen nib on navy paper.',
+  'g-watch': 'The plain gold back of a pocket watch on navy velvet.',
+  'g-key': 'A macro view of the teeth of a brass key against navy.',
+  'g-mug': 'A macro view of a chipped gold rim on a cream mug.',
+  'g-umbrella': 'A macro view of the brass tip of a furled navy umbrella.',
+});
