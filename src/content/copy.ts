@@ -94,7 +94,7 @@ export const REPORT = {
     'I would like to thank the board, the staff, and the shareholders, all of whom are me, for their patience with me.',
     'I look forward to next year, which is expected to be roughly the same length.',
   ],
-  signoff: 'The Chairman',
+  signoff: 'The Chairman of the Boardman',
   signoffNote: 'Also the board. Also the reader of this report.',
   // Every figure is about objects. Nothing here is money, a return, or a market.
   // Columns run 2026 back to 2020. Every figure is about objects. Nothing here is money, a return, or a market.

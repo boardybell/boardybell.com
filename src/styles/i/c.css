@@ -41,7 +41,7 @@ figcaption{font:400 italic .9rem/1.4 var(--serif);color:var(--muted);margin-top:
 .c-yr{font:400 clamp(3rem,9vw,8rem)/.92 var(--bodoni);color:var(--gold)}
 .c-th{margin-top:2rem;font:400 italic clamp(1.25rem,2.4vw,1.75rem)/1.35 var(--serif);max-width:24ch;padding-top:1.4rem;border-top:1px solid var(--rule)}
 .c-cover-i img{aspect-ratio:3/4;object-fit:cover}
-@media (max-width:900px){.c-cover{grid-template-columns:1fr}.c-cover-i{order:-1}.c-cover-i img{aspect-ratio:4/3}}
+@media (max-width:900px){.c-cover{grid-template-columns:1fr}}
 .c1 .c-letter{grid-template-columns:minmax(0,1fr)}
 
 /* C2 Magazine: navy band with key figures */
@@ -118,3 +118,39 @@ figcaption{font:400 italic .9rem/1.4 var(--serif);color:var(--muted);margin-top:
 .c-body>*,.c-tech>*,.c-chart>*{min-width:0}
 .c-tip[hidden]{display:none}
 .c-plates-sq img{aspect-ratio:1!important;object-fit:contain}.c-plates-sq{max-width:52rem;margin-inline:auto;width:100%}
+
+/* ---- Design review round (ChatGPT + Claude, 2026-11-09) ---- */
+/* cover: controlled gap between "Report" and the year */
+.c-cover h1{line-height:.95}
+.c-cover .c-yr{margin-top:.125em}
+.c-th{margin-top:1.75rem}
+/* phone: title first, portrait photograph kept whole and centred */
+@media (max-width:900px){
+  .c-cover-i{width:min(100%,18rem);margin:1.5rem auto 0}
+  .c-cover-i img{aspect-ratio:3/4}
+}
+/* highlights: one rhythm when stacked */
+@media (max-width:760px){
+  .c-hl-g{gap:1.5rem}
+  .c-hl h3{font-size:1.5rem;line-height:1.15;margin-bottom:.5rem}
+  .c-hl p{font-size:1.0625rem;line-height:1.55}
+}
+/* plates: supporting role on phones */
+@media (max-width:760px){
+  .c-plates{gap:1.5rem;padding-block:1rem}
+  .c-plates figure{width:min(100%,15rem);margin-inline:auto}
+  .c-plates figcaption{font-size:.875rem;line-height:1.4;margin-top:.5rem}
+}
+/* objects held: stack on phones, one clean link */
+.c-coll-a{display:inline-block;white-space:nowrap}
+@media (max-width:640px){
+  .c-coll{grid-template-columns:1fr;gap:1rem}
+  .c-coll-i{width:6rem}
+  .c-coll-a{font-size:.6875rem;letter-spacing:.1em}
+}
+/* tables and charts that scroll: say so on phones, keep columns readable */
+.c-scroll-hint{display:none;font:400 .72rem/1.3 var(--label);letter-spacing:.06em;color:var(--muted);margin-top:.5rem}
+.c-scroll-hint::before{content:"\2194  "}
+@media (max-width:700px){.c-scroll-hint{display:block}}
+.c-tbl td{min-width:4rem}
+.c-tbl-w{scrollbar-width:auto;scrollbar-color:var(--accent) transparent}

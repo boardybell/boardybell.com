@@ -24,7 +24,7 @@ const item = (n: string, t: string) => (v === 3 ? `Item ${n}. ${t}` : t);
   {v === 1 && (
     <section class="c-cover wrap">
       <div class="c-cover-t">
-        <p class="label">Boardy</p>
+        <p class="label">Year ended 31 December</p>
         <h1><span class="c-ttl">{R.title}</span> <span class="c-yr">{R.year}</span></h1>
         <p class="thesis c-th">{thesis}</p>
       </div>
@@ -84,6 +84,7 @@ const item = (n: string, t: string) => (v === 3 ? `Item ${n}. ${t}` : t);
           <tbody>{R.metrics.map(([m, vals, n]) => <tr><th scope="row">{m}{n && <sup><a href={`#fn${n}`} aria-label={`Footnote ${n}`}>{n}</a></sup>}</th>{(vals as readonly string[]).map((v) => <td>{v}</td>)}</tr>)}</tbody>
         </table>
       </div>
+      <p class="c-scroll-hint" aria-hidden="true">Scroll sideways for earlier years</p>
       <ol class="c-fn">{R.footnotes.map((f, i) => <li id={`fn${i + 1}`}>{f}</li>)}</ol>
     </section>
 

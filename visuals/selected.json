@@ -473,7 +473,7 @@
  },
  "p-joystick-stipple-2": {
   "src": "visuals/inbox/B4-p-joystick-stipple/raw-2.png",
-  "grade": "none",
+  "grade": "ink",
   "q": 60
  },
  "p-case-tradecard-1": {
@@ -568,7 +568,7 @@
  },
  "p-terminal-stamp-1": {
   "src": "visuals/inbox/D0-p-terminal-stamp/raw-1.png",
-  "grade": "none",
+  "grade": "ink",
   "q": 60
  },
  "p-terminal-stamp-2": {

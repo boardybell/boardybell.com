@@ -26,19 +26,19 @@ const ticks = (a: number, b: number, s: number) => { const t = []; for (let v = 
 let s1 = '';
 s1 += ticks(lo, hi, 0.5).map((v) => hline(py(v)) + lbl(X1 + 6, py(v) + 4, f1(v))).join('');
 s1 += years(366);
-s1 += `<line x1="${X0}" x2="${X1}" y1="${py(support)}" y2="${py(support)}" stroke="${INK}" stroke-width="1" stroke-dasharray="4 3"/>` + lbl(X0 + 4, py(support) + 14, 'Support: the morning cup', { fill: INK });
-s1 += `<line x1="${X0}" x2="${X1}" y1="${py(resist)}" y2="${py(resist)}" stroke="${INK}" stroke-width="1" stroke-dasharray="4 3"/>` + lbl(X0 + 4, py(resist) - 6, 'Resistance: medical advice', { fill: INK });
+s1 += `<line x1="${X0}" x2="${X1}" y1="${py(support)}" y2="${py(support)}" stroke="${INK}" stroke-width="1" stroke-dasharray="4 3"/>` + lbl(X1 - 4, py(support) + 14, 'Support: the morning cup', { fill: INK, 'text-anchor': 'end' });
+s1 += `<line x1="${X0}" x2="${X1}" y1="${py(resist)}" y2="${py(resist)}" stroke="${INK}" stroke-width="1" stroke-dasharray="4 3"/>` + lbl(X1 - 4, py(resist) - 6, 'Resistance: medical advice', { fill: INK, 'text-anchor': 'end' });
 s1 += C.map((k, i) => {
   const up = k.c >= k.o, col = up ? UP : DN, x = cx(i), top = py(Math.max(k.o, k.c)), bot = py(Math.min(k.o, k.c)), bh = Math.max(1.5, bot - top);
   return `<line x1="${x}" x2="${x}" y1="${py(k.h)}" y2="${py(k.l)}" stroke="${col}" stroke-width="1"/><rect x="${(x - 2.25).toFixed(2)}" y="${top.toFixed(1)}" width="4.5" height="${bh.toFixed(1)}" fill="${up ? '#FDF6EC' : col}" stroke="${col}" stroke-width="1"/>`;
 }).join('');
 s1 += `<path d="${path(C.flatMap((k, i) => (k.ma ? [[cx(i), py(k.ma)] as [number, number]] : [])))}" fill="none" stroke="${INK}" stroke-width="2" stroke-linejoin="round"/>`;
-s1 += hline(256) + lbl(X0 + 2, 220, 'CUPS PER MONTH', { 'font-size': 9.5, 'letter-spacing': 1 }) + lbl(X1 + 6, vy(vmax) + 4, String(vmax));
+s1 += hline(256) + lbl(X1 - 4, 204, 'CUPS PER MONTH', { 'font-size': 9.5, 'letter-spacing': 1, 'text-anchor': 'end' }) + lbl(X1 + 6, vy(vmax) + 4, String(vmax));
 s1 += C.map((k, i) => `<rect x="${(cx(i) - 2.25).toFixed(2)}" y="${vy(k.vol).toFixed(1)}" width="4.5" height="${(256 - vy(k.vol)).toFixed(1)}" rx="1" fill="${k.c >= k.o ? UP : DN}" opacity=".55"/>`).join('');
 s1 += `<rect x="${X0}" y="${ry(70)}" width="${X1 - X0}" height="${ry(30) - ry(70)}" fill="rgba(22,35,59,.035)"/>` + hline(ry(70), '3 3') + hline(ry(30), '3 3');
 s1 += lbl(X1 + 6, ry(70) + 4, '70') + lbl(X1 + 6, ry(30) + 4, '30');
-s1 += lbl(X0 + 2, ry(100) + 10, 'RELATIVE SLEEPINESS INDEX (6)', { 'font-size': 9.5, 'letter-spacing': 1 });
-s1 += lbl(X1 - 4, ry(70) - 4, 'Overcaffeinated', { 'text-anchor': 'end', 'font-size': 10 }) + lbl(X1 - 4, ry(30) + 12, 'Rested', { 'text-anchor': 'end', 'font-size': 10 });
+s1 += lbl(X1 - 4, ry(100) + 8, 'RELATIVE SLEEPINESS INDEX (6)', { 'font-size': 9.5, 'letter-spacing': 1, 'text-anchor': 'end' });
+s1 += lbl(X0 + 4, ry(70) + 11, 'Overcaffeinated', { 'font-size': 10 }) + lbl(X0 + 4, ry(30) - 4, 'Rested', { 'font-size': 10 });
 s1 += `<path d="${path(C.flatMap((k, i) => (k.rsi != null ? [[cx(i), ry(k.rsi)] as [number, number]] : [])))}" fill="none" stroke="${INK}" stroke-width="1.5" stroke-linejoin="round"/>`;
 const coffeePts = C.map((k) => [`${MON[k.m]} ${k.y}`, f2(k.o), f2(k.h), f2(k.l), f2(k.c), k.vol, k.ma ? f2(k.ma) : '', k.rsi != null ? Math.round(k.rsi) : '']);
 
@@ -63,7 +63,7 @@ const lampPts = L.map((p) => [`${MON[p.m]} ${p.y}`, p.v, p.mid != null ? f2(p.mi
 const cy3 = scale(0, 2, 14, 94);
 let s3 = [0, 1, 2].map((v) => hline(cy3(v)) + lbl(X1 + 6, cy3(v) + 4, v.toFixed(2))).join('') + years(118);
 s3 += `<path d="M${cx(0)},${cy3(1)}L${cx(N - 1)},${cy3(1)}" stroke="${UP}" stroke-width="2"/>`;
-s3 += `<path d="M${cx(0)},${cy3(1) - 18}v-6H${cx(N - 1)}v6" fill="none" stroke="${INK}" stroke-width="1"/>` + lbl((cx(0) + cx(N - 1)) / 2, cy3(1) - 30, 'Consolidation phase (ongoing)', { 'text-anchor': 'middle', fill: INK });
+s3 += `<path d="M${cx(0)},${cy3(1) - 18}v-6H${cx(N - 1)}v6" fill="none" stroke="${INK}" stroke-width="1"/>` + lbl(cx(N - 1) - 4, cy3(1) - 30, 'Consolidation phase (ongoing)', { 'text-anchor': 'end', fill: INK });
 
 const T = R.technical;
 const svg = (h: number, body: string, label: string) => `<svg viewBox="0 0 ${W} ${h}" width="${W}" height="${h}" role="img" aria-label="${label}" font-family="IBM Plex Sans, system-ui, sans-serif">${body}<line class="xh" x1="0" x2="0" y1="4" y2="${h - 18}" stroke="${INK}" stroke-width="1" opacity="0"/><rect class="hit" x="${X0}" y="0" width="${X1 - X0}" height="${h - 16}" fill="transparent"/></svg>`;
@@ -78,6 +78,7 @@ const svg = (h: number, body: string, label: string) => `<svg viewBox="0 0 ${W} 
       <li><i class="k-hollow"></i>Rising month</li><li><i class="k-fill"></i>Falling month</li><li><i class="k-line"></i>12-month average</li>
     </ul>
     <div class="c-chart-w" tabindex="0" aria-label="Coffee chart. Use left and right arrow keys to read months."><Fragment set:html={svg(372, s1, 'Candlestick chart of daily cups of coffee per month, 2020 to 2026, rising slowly from about 2.2 to about 3.1 cups a day, with monthly volume and a sleepiness index.')} /><div class="c-tip" role="status" aria-live="polite" hidden></div></div>
+    <p class="c-scroll-hint" aria-hidden="true">Scroll sideways for earlier years</p>
   </figure>
 
   <figure class="c-chart" data-kind="lamps" data-x0={X0} data-slot={SLOT} data-pts={JSON.stringify(lampPts)}>
@@ -86,6 +87,7 @@ const svg = (h: number, body: string, label: string) => `<svg viewBox="0 0 ${W} 
       <li><i class="k-line k-blue"></i>Lamps left on</li><li><i class="k-dash"></i>Six-month average</li><li><i class="k-band"></i>Bands (two deviations)</li>
     </ul>
     <div class="c-chart-w" tabindex="0" aria-label="Lamps chart. Use left and right arrow keys to read months."><Fragment set:html={svg(202, s2, 'Line chart of lamps left on overnight each month, mostly zero or one, rising above its upper band in the second half of 2026.')} /><div class="c-tip" role="status" aria-live="polite" hidden></div></div>
+    <p class="c-scroll-hint" aria-hidden="true">Scroll sideways for earlier years</p>
   </figure>
 
   <figure class="c-chart c-chart-sm">

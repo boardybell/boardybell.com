@@ -4,7 +4,7 @@ import man from '../../public/img/manifest.json';
 import { base } from '../lib/rich';
 interface Props { name: string; alt: string; sizes?: string; class?: string; eager?: boolean }
 const { name, alt, sizes = '100vw', class: cls, eager = false } = Astro.props;
-const m = (man as Record<string, { w: number; h: number; widths: number[] }>)[name];
+const m = (man as Record<string, { w: number; h: number; widths: number[]; fb?: string }>)[name];
 if (!m) throw new Error(`image ${name} missing from manifest`);
 const set = (ext: string) => m.widths.map((w) => `${base}img/${name}-${w}.${ext} ${w}w`).join(', ');
 const mid = m.widths[Math.min(1, m.widths.length - 1)];
@@ -12,6 +12,6 @@ const mid = m.widths[Math.min(1, m.widths.length - 1)];
 <picture class={cls}>
   <source type="image/avif" srcset={set('avif')} sizes={sizes} />
   <source type="image/webp" srcset={set('webp')} sizes={sizes} />
-  <img src={`${base}img/${name}-${mid}.jpg`} srcset={set('jpg')} sizes={sizes} width={m.w} height={m.h} alt={alt}
+  <img src={`${base}img/${name}-${mid}.${m.fb ?? 'jpg'}`} srcset={set(m.fb ?? 'jpg')} sizes={sizes} width={m.w} height={m.h} alt={alt}
     loading={eager ? 'eager' : 'lazy'} decoding={eager ? 'sync' : 'async'} fetchpriority={eager ? 'high' : 'auto'} />
 </picture>

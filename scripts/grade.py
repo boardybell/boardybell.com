@@ -20,7 +20,22 @@ STOPS = {
 def lin(c): return np.where(c <= 0.04045, c / 12.92, ((c + 0.055) / 1.055) ** 2.4)
 def srgb(c): return np.where(c <= 0.0031308, c * 12.92, 1.055 * np.power(np.clip(c, 0, None), 1 / 2.4) - 0.055)
 
+def ink(src, dst):
+    """Lift a gold-on-navy engraving off its paper: alpha from distance to the paper colour, colour un-mixed."""
+    im = np.asarray(Image.open(src).convert('RGB'), dtype=np.float64) / 255
+    h, w, _ = im.shape; b = max(8, w // 40)
+    border = np.concatenate([im[:b].reshape(-1, 3), im[-b:].reshape(-1, 3), im[:, :b].reshape(-1, 3), im[:, -b:].reshape(-1, 3)])
+    bg = np.median(border, axis=0)
+    d = np.sqrt(((im - bg) ** 2).sum(-1))
+    a = np.clip((d - 0.035) / 0.30, 0, 1); a = a * a * (3 - 2 * a)
+    col = np.clip(bg + (im - bg) / np.maximum(a[..., None], 1e-3), 0, 1)
+    col = np.where(a[..., None] > 0.02, col, im)
+    out = np.dstack([col, a])
+    Image.fromarray((out * 255).round().astype(np.uint8), 'RGBA').save(dst, optimize=True)
+    print(f'ink {src} -> {dst} (paper {bg.round(3)})')
+
 def grade(kind, src, dst, lift=0.0, gamma=1.0, mix=0.0):
+    if kind == 'ink': return ink(src, dst)
     im = np.asarray(Image.open(src).convert('RGB'), dtype=np.float64) / 255
     L = lin(im) @ np.array([0.2126, 0.7152, 0.0722])
     L = np.clip(L, 0, 1) ** (1 / 2.4)            # perceptual

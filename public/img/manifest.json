@@ -927,7 +927,8 @@
    1024,
    1254
   ],
-  "key": "{\"src\":\"visuals/inbox/B4-p-joystick-stipple/raw-2.png\",\"grade\":\"none\",\"q\":60}1794253917760.6265"
+  "key": "{\"src\":\"visuals/inbox/B4-p-joystick-stipple/raw-2.png\",\"grade\":\"ink\",\"q\":60}1794253917760.6265",
+  "fb": "png"
  },
  "p-case-tradecard-1": {
   "w": 1254,
@@ -1117,7 +1118,8 @@
    1024,
    1254
   ],
-  "key": "{\"src\":\"visuals/inbox/D0-p-terminal-stamp/raw-1.png\",\"grade\":\"none\",\"q\":60}1794255020580.8125"
+  "key": "{\"src\":\"visuals/inbox/D0-p-terminal-stamp/raw-1.png\",\"grade\":\"ink\",\"q\":60}1794255020580.8125",
+  "fb": "png"
  },
  "p-terminal-stamp-2": {
   "w": 1254,
