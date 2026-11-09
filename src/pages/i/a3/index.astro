@@ -7,5 +7,5 @@ const it = ITER.find((x) => x.id === 'a3')!;
 ---
 <Base title="Boardy" theme="a3">
   <Dossier v={3} />
-  <a class="gal-back" href={import.meta.env.BASE_URL}>Gallery · {it.id.toUpperCase()} {it.name}</a>
+  <a class="gal-back" href={`${import.meta.env.BASE_URL}gallery/`}>Gallery · {it.id.toUpperCase()} {it.name}</a>
 </Base>

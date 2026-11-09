@@ -6,11 +6,13 @@ import Guestbook from './Guestbook.astro';
 import Foot from './Foot.astro';
 import { COLLECTION as C, THESES, SWAPS } from '../content/copy';
 import { ALT } from '../content/alts';
-import { rich } from '../lib/rich';
+import { rich, base } from '../lib/rich';
+interface Props { back?: boolean }
+const { back = false } = Astro.props;
 ---
 <header class="d-mast wrap">
   <span class="d-mark">Boardy</span>
-  <span class="label">Galleries open daily</span>
+  {back ? <a class="label d-back" href={base}>Return to the Annual Report</a> : <span class="label">Galleries open daily</span>}
 </header>
 <main id="main" class="d">
   <section class="d-hero wrap">

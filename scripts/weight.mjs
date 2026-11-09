@@ -11,7 +11,7 @@ for (const [w, h] of [[1920, 1080], [390, 844]]) {
   const ctx = await b.newContext({ viewport: { width: w, height: h }, deviceScaleFactor: w < 500 ? 3 : 1 }); const pg = await ctx.newPage();
   for (const id of ['a1', 'a2', 'a3', 'b1', 'b2', 'b3', 'c1', 'c2', 'c3', 'd1']) {
     let n = 0; pg.removeAllListeners('response'); pg.on('response', async (r) => { try { n += (await r.body()).length; } catch {} });
-    await pg.goto(`${O}i/${id}/?quiet`, { waitUntil: 'networkidle' }); await pg.waitForTimeout(200);
+    await pg.goto((id === 'c1' ? `${O}?quiet` : `${O}i/${id}/?quiet`), { waitUntil: 'networkidle' }); await pg.waitForTimeout(200);
     worst = Math.max(worst, n); process.stdout.write(`${id}@${w}:${Math.round(n / 1024)}KB  `);
   }
   console.log();

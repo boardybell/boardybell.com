@@ -1,0 +1,137 @@
+---
+// "Technical analysis" of the Annual Report's figures. Build-time inline SVG, no chart library.
+// Palette validated on #FDF6EC: rising #2F5597 (hollow), falling #9A650C (filled); ink for averages.
+// Panels are stacked, each with its own scale (never two y-scales on one plot).
+import { REPORT as R } from '../content/copy';
+import { coffee, lamps, MON } from '../lib/series';
+interface Props { n?: string }
+const { n = '' } = Astro.props;
+const UP = '#2F5597', DN = '#9A650C', INK = '#16233B', MUTED = '#6E6759', GRID = 'rgba(22,35,59,.09)', BAND = 'rgba(185,139,62,.16)';
+const W = 640, X0 = 8, X1 = 584, f1 = (v: number) => v.toFixed(1), f2 = (v: number) => v.toFixed(2);
+const C = coffee(), L = lamps(), N = C.length, SLOT = (X1 - X0) / N;
+const cx = (i: number) => X0 + SLOT * (i + 0.5);
+const scale = (d0: number, d1: number, r0: number, r1: number) => (v: number) => r1 - ((v - d0) / (d1 - d0)) * (r1 - r0);
+const lbl = (x: number, y: number, t: string, o: Record<string, string | number> = {}) =>
+  `<text x="${x}" y="${y}" ${Object.entries({ 'font-size': 11, fill: MUTED, 'paint-order': 'stroke', stroke: '#FDF6EC', 'stroke-width': 4, 'stroke-linejoin': 'round', ...o }).map(([k, v]) => `${k}="${v}"`).join(' ')}>${t}</text>`;
+const hline = (y: number, dash = '') => `<line x1="${X0}" x2="${X1}" y1="${y}" y2="${y}" stroke="${GRID}" stroke-width="1" ${dash ? `stroke-dasharray="${dash}"` : ''}/>`;
+const years = (yAxis: number) => C.map((k, i) => (k.m === 0 ? `<line x1="${cx(i) - SLOT / 2}" x2="${cx(i) - SLOT / 2}" y1="4" y2="${yAxis - 14}" stroke="${GRID}"/>${lbl(cx(i) - SLOT / 2 + 3, yAxis, String(k.y))}` : '')).join('');
+const path = (pts: [number, number][]) => pts.map(([x, y], i) => `${i ? 'L' : 'M'}${x.toFixed(1)},${y.toFixed(1)}`).join('');
+
+// ---------- 1. Coffee: candles + 12-month average, volume, Relative Sleepiness Index ----------
+const lo = Math.floor(Math.min(...C.map((k) => k.l)) * 4) / 4 - 0.25, hi = Math.ceil(Math.max(...C.map((k) => k.h)) * 4) / 4 + 0.25;
+const py = scale(lo, hi, 10, 190), vmax = Math.max(...C.map((k) => k.vol)), vy = scale(0, vmax * 1.1, 208, 256), ry = scale(0, 100, 274, 334);
+const sortedL = C.map((k) => k.l).sort((a, b) => a - b), sortedH = C.map((k) => k.h).sort((a, b) => a - b);
+const support = Math.round(sortedL[4] * 4) / 4, resist = Math.round(sortedH[N - 4] * 4) / 4;
+const ticks = (a: number, b: number, s: number) => { const t = []; for (let v = Math.ceil(a / s) * s; v <= b; v += s) t.push(+v.toFixed(2)); return t; };
+let s1 = '';
+s1 += ticks(lo, hi, 0.5).map((v) => hline(py(v)) + lbl(X1 + 6, py(v) + 4, f1(v))).join('');
+s1 += years(366);
+s1 += `<line x1="${X0}" x2="${X1}" y1="${py(support)}" y2="${py(support)}" stroke="${INK}" stroke-width="1" stroke-dasharray="4 3"/>` + lbl(X0 + 4, py(support) + 14, 'Support: the morning cup', { fill: INK });
+s1 += `<line x1="${X0}" x2="${X1}" y1="${py(resist)}" y2="${py(resist)}" stroke="${INK}" stroke-width="1" stroke-dasharray="4 3"/>` + lbl(X0 + 4, py(resist) - 6, 'Resistance: medical advice', { fill: INK });
+s1 += C.map((k, i) => {
+  const up = k.c >= k.o, col = up ? UP : DN, x = cx(i), top = py(Math.max(k.o, k.c)), bot = py(Math.min(k.o, k.c)), bh = Math.max(1.5, bot - top);
+  return `<line x1="${x}" x2="${x}" y1="${py(k.h)}" y2="${py(k.l)}" stroke="${col}" stroke-width="1"/><rect x="${(x - 2.25).toFixed(2)}" y="${top.toFixed(1)}" width="4.5" height="${bh.toFixed(1)}" fill="${up ? '#FDF6EC' : col}" stroke="${col}" stroke-width="1"/>`;
+}).join('');
+s1 += `<path d="${path(C.flatMap((k, i) => (k.ma ? [[cx(i), py(k.ma)] as [number, number]] : [])))}" fill="none" stroke="${INK}" stroke-width="2" stroke-linejoin="round"/>`;
+s1 += hline(256) + lbl(X0 + 2, 220, 'CUPS PER MONTH', { 'font-size': 9.5, 'letter-spacing': 1 }) + lbl(X1 + 6, vy(vmax) + 4, String(vmax));
+s1 += C.map((k, i) => `<rect x="${(cx(i) - 2.25).toFixed(2)}" y="${vy(k.vol).toFixed(1)}" width="4.5" height="${(256 - vy(k.vol)).toFixed(1)}" rx="1" fill="${k.c >= k.o ? UP : DN}" opacity=".55"/>`).join('');
+s1 += `<rect x="${X0}" y="${ry(70)}" width="${X1 - X0}" height="${ry(30) - ry(70)}" fill="rgba(22,35,59,.035)"/>` + hline(ry(70), '3 3') + hline(ry(30), '3 3');
+s1 += lbl(X1 + 6, ry(70) + 4, '70') + lbl(X1 + 6, ry(30) + 4, '30');
+s1 += lbl(X0 + 2, ry(100) + 10, 'RELATIVE SLEEPINESS INDEX (6)', { 'font-size': 9.5, 'letter-spacing': 1 });
+s1 += lbl(X1 - 4, ry(70) - 4, 'Overcaffeinated', { 'text-anchor': 'end', 'font-size': 10 }) + lbl(X1 - 4, ry(30) + 12, 'Rested', { 'text-anchor': 'end', 'font-size': 10 });
+s1 += `<path d="${path(C.flatMap((k, i) => (k.rsi != null ? [[cx(i), ry(k.rsi)] as [number, number]] : [])))}" fill="none" stroke="${INK}" stroke-width="1.5" stroke-linejoin="round"/>`;
+const coffeePts = C.map((k) => [`${MON[k.m]} ${k.y}`, f2(k.o), f2(k.h), f2(k.l), f2(k.c), k.vol, k.ma ? f2(k.ma) : '', k.rsi != null ? Math.round(k.rsi) : '']);
+
+// ---------- 2. Lamps: monthly count with six-month bands ----------
+const lmax = Math.max(4, Math.ceil(Math.max(...L.map((p) => p.hi ?? p.v)))), ly = scale(0, lmax, 12, 172);
+let s2 = '';
+s2 += ticks(0, lmax, 1).map((v) => hline(ly(v)) + lbl(X1 + 6, ly(v) + 4, String(v))).join('');
+s2 += years(196);
+const banded = L.map((p, i) => [i, p] as const).filter(([, p]) => p.hi != null);
+s2 += `<path d="${path(banded.map(([i, p]) => [cx(i), ly(p.hi!)]))}${path(banded.slice().reverse().map(([i, p]) => [cx(i), ly(p.lo!)])).replace('M', 'L')}Z" fill="${BAND}"/>`;
+s2 += `<path d="${path(banded.map(([i, p]) => [cx(i), ly(p.mid!)]))}" fill="none" stroke="${INK}" stroke-width="1.25" stroke-dasharray="4 3"/>`;
+s2 += `<path d="${path(L.map((p, i) => [cx(i), ly(p.v)]))}" fill="none" stroke="${UP}" stroke-width="2" stroke-linejoin="round"/>`;
+const bi = L.findIndex((p) => p.y === 2026 && p.hi != null && p.v > p.hi);
+if (bi >= 0) {
+  const bx = cx(bi), byy = ly(L[bi].v);
+  s2 += `<circle cx="${bx}" cy="${byy}" r="4.5" fill="${UP}" stroke="#FDF6EC" stroke-width="2"/>`;
+  s2 += `<line x1="${bx}" x2="${bx - 40}" y1="${byy - 6}" y2="${byy - 20}" stroke="${INK}" stroke-width="1"/>` + lbl(bx - 44, byy - 22, 'Breakout', { 'text-anchor': 'end', fill: INK });
+}
+const lampPts = L.map((p) => [`${MON[p.m]} ${p.y}`, p.v, p.mid != null ? f2(p.mid) : '', p.hi != null ? f2(p.hi) : '', p.lo != null ? f2(p.lo) : '']);
+
+// ---------- 3. Chairs: a flat line ----------
+const cy3 = scale(0, 2, 14, 94);
+let s3 = [0, 1, 2].map((v) => hline(cy3(v)) + lbl(X1 + 6, cy3(v) + 4, v.toFixed(2))).join('') + years(118);
+s3 += `<path d="M${cx(0)},${cy3(1)}L${cx(N - 1)},${cy3(1)}" stroke="${UP}" stroke-width="2"/>`;
+s3 += `<path d="M${cx(0)},${cy3(1) - 18}v-6H${cx(N - 1)}v6" fill="none" stroke="${INK}" stroke-width="1"/>` + lbl((cx(0) + cx(N - 1)) / 2, cy3(1) - 30, 'Consolidation phase (ongoing)', { 'text-anchor': 'middle', fill: INK });
+
+const T = R.technical;
+const svg = (h: number, body: string, label: string) => `<svg viewBox="0 0 ${W} ${h}" width="${W}" height="${h}" role="img" aria-label="${label}" font-family="IBM Plex Sans, system-ui, sans-serif">${body}<line class="xh" x1="0" x2="0" y1="4" y2="${h - 18}" stroke="${INK}" stroke-width="1" opacity="0"/><rect class="hit" x="${X0}" y="0" width="${X1 - X0}" height="${h - 16}" fill="transparent"/></svg>`;
+---
+<section class="c-tech rv" aria-labelledby="tech-h">
+  <h2 class="label" id="tech-h">{n}{T.title}</h2>
+  <p class="c-tech-i">{T.intro}</p>
+
+  <figure class="c-chart" data-kind="coffee" data-x0={X0} data-slot={SLOT} data-pts={JSON.stringify(coffeePts)}>
+    <figcaption><b>{T.coffee[0]}</b><span>{T.coffee[1]}</span></figcaption>
+    <ul class="c-legend" aria-hidden="true">
+      <li><i class="k-hollow"></i>Rising month</li><li><i class="k-fill"></i>Falling month</li><li><i class="k-line"></i>12-month average</li>
+    </ul>
+    <div class="c-chart-w" tabindex="0" aria-label="Coffee chart. Use left and right arrow keys to read months."><Fragment set:html={svg(372, s1, 'Candlestick chart of daily cups of coffee per month, 2020 to 2026, rising slowly from about 2.2 to about 3.1 cups a day, with monthly volume and a sleepiness index.')} /><div class="c-tip" role="status" aria-live="polite" hidden></div></div>
+  </figure>
+
+  <figure class="c-chart" data-kind="lamps" data-x0={X0} data-slot={SLOT} data-pts={JSON.stringify(lampPts)}>
+    <figcaption><b>{T.lamps[0]}</b><span>{T.lamps[1]}</span></figcaption>
+    <ul class="c-legend" aria-hidden="true">
+      <li><i class="k-line k-blue"></i>Lamps left on</li><li><i class="k-dash"></i>Six-month average</li><li><i class="k-band"></i>Bands (two deviations)</li>
+    </ul>
+    <div class="c-chart-w" tabindex="0" aria-label="Lamps chart. Use left and right arrow keys to read months."><Fragment set:html={svg(202, s2, 'Line chart of lamps left on overnight each month, mostly zero or one, rising above its upper band in the second half of 2026.')} /><div class="c-tip" role="status" aria-live="polite" hidden></div></div>
+  </figure>
+
+  <figure class="c-chart c-chart-sm">
+    <figcaption><b>{T.chairs[0]}</b><span>{T.chairs[1]}</span></figcaption>
+    <div class="c-chart-w"><Fragment set:html={svg(124, s3, 'A flat line at 1.00 chairs occupied for every month from 2020 to 2026.')} /></div>
+  </figure>
+
+  <details class="c-data">
+    <summary>View the monthly figures</summary>
+    <div class="c-tbl-w">
+      <table class="c-tbl c-tbl-sm">
+        <thead><tr><th scope="col">Month</th><th scope="col">Open</th><th scope="col">High</th><th scope="col">Low</th><th scope="col">Close</th><th scope="col">Cups</th><th scope="col">Sleepiness</th><th scope="col">Lamps</th></tr></thead>
+        <tbody>{coffeePts.slice().reverse().map((r, i) => <tr><th scope="row">{r[0]}</th><td>{r[1]}</td><td>{r[2]}</td><td>{r[3]}</td><td>{r[4]}</td><td>{r[5]}</td><td>{r[7]}</td><td>{lampPts[N - 1 - i][1]}</td></tr>)}</tbody>
+      </table>
+    </div>
+  </details>
+  <p class="c-tech-n">{T.note}</p>
+</section>
+
+<script is:inline>
+(() => {
+  // On narrow screens the charts scroll sideways; open on the most recent years.
+  document.querySelectorAll('.c-chart-w').forEach((w) => { w.scrollLeft = w.scrollWidth; });
+  document.querySelectorAll('.c-chart[data-pts]').forEach((fig) => {
+    const pts = JSON.parse(fig.dataset.pts), x0 = +fig.dataset.x0, slot = +fig.dataset.slot, kind = fig.dataset.kind;
+    const wrap = fig.querySelector('.c-chart-w'), svg = wrap.querySelector('svg'), xh = svg.querySelector('.xh'), tip = wrap.querySelector('.c-tip');
+    const rows = kind === 'coffee'
+      ? (p) => [['Close', p[4] + ' cups/day'], ['Open', p[1]], ['High', p[2]], ['Low', p[3]], ['12-mo avg', p[6] || 'n/a'], ['Cups', p[5]], ['Sleepiness', p[7] === '' ? 'n/a' : p[7]]]
+      : (p) => [['Lamps', p[1]], ['6-mo avg', p[2] || 'n/a'], ['Upper', p[3] || 'n/a'], ['Lower', p[4] || 'n/a']];
+    let idx = -1;
+    const show = (i) => {
+      idx = Math.max(0, Math.min(pts.length - 1, i));
+      const x = x0 + slot * (idx + 0.5);
+      xh.setAttribute('x1', x); xh.setAttribute('x2', x); xh.setAttribute('opacity', '.45');
+      tip.replaceChildren();
+      const h = document.createElement('b'); h.textContent = pts[idx][0]; tip.append(h);
+      for (const [k, v] of rows(pts[idx])) { const r = document.createElement('span'); const vv = document.createElement('strong'); vv.textContent = v; r.append(vv, document.createTextNode(' ' + k)); tip.append(r); }
+      tip.hidden = false;
+      const sx = svg.getBoundingClientRect().width / svg.viewBox.baseVal.width, left = x * sx + svg.getBoundingClientRect().left - wrap.getBoundingClientRect().left + wrap.scrollLeft;
+      const tw = tip.offsetWidth; tip.style.left = (left + 14 + tw > wrap.scrollLeft + wrap.clientWidth ? left - 14 - tw : left + 14) + 'px';
+    };
+    const hide = () => { xh.setAttribute('opacity', '0'); tip.hidden = true; };
+    svg.addEventListener('pointermove', (e) => { const r = svg.getBoundingClientRect(), vx = ((e.clientX - r.left) / r.width) * svg.viewBox.baseVal.width; show(Math.floor((vx - x0) / slot)); });
+    svg.addEventListener('pointerleave', hide);
+    wrap.addEventListener('keydown', (e) => { if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') { e.preventDefault(); show((idx < 0 ? pts.length - 1 : idx) + (e.key === 'ArrowRight' ? 1 : -1)); } if (e.key === 'Escape') hide(); });
+    wrap.addEventListener('blur', hide);
+  });
+})();
+</script>

@@ -19,7 +19,7 @@ for (const [name, o] of Object.entries(sel)) {
   for (const w of widths) {
     const r = sharp(buf).resize({ width: w });
     await r.clone().avif({ quality: o.q ?? 52, effort: 6 }).toFile(`public/img/${name}-${w}.avif`);
-    await r.clone().webp({ quality: 74 }).toFile(`public/img/${name}-${w}.webp`);
+    await r.clone().webp({ quality: o.grade === 'none' ? 82 : 74 }).toFile(`public/img/${name}-${w}.webp`);
     await r.clone().jpeg({ quality: 78, mozjpeg: true, progressive: true }).toFile(`public/img/${name}-${w}.jpg`);
   }
   man[name] = { w: meta.width, h: meta.height, widths };

@@ -17,7 +17,11 @@
 .c-tbl th,.c-tbl td{padding:.8rem .6rem;border-bottom:1px solid var(--rule);text-align:right;vertical-align:baseline}
 .c-tbl th[scope=row],.c-tbl thead th:first-child{text-align:left;font-weight:400}
 .c-tbl thead th{font:500 .7rem/1.2 var(--label);letter-spacing:.14em;text-transform:uppercase;color:var(--accent);border-bottom:1px solid var(--fg)}
-.c-tbl td:nth-child(3){color:var(--muted)}
+.c-tbl td:not(:nth-child(2)){color:var(--muted)}
+.c-tbl td:nth-child(2){font-weight:500}
+.c-tbl th[scope=row]{position:sticky;left:0;background:var(--bg);min-width:11rem;padding-left:0}
+.c-tbl th,.c-tbl td{white-space:nowrap}.c-tbl th[scope=row]{white-space:normal}
+.c-tbl-w{scrollbar-width:thin}
 .c-tbl sup a{color:var(--accent);text-decoration:none;font-size:.72em;margin-left:.15em}
 .c-fn{margin-top:1.2rem;padding-left:1.2rem;font:400 .82rem/1.55 var(--label);color:var(--muted);display:grid;gap:.25rem}
 .c-plates{display:grid;grid-template-columns:1fr 1fr;gap:clamp(1rem,3vw,2.5rem)}
@@ -75,3 +79,41 @@ figcaption{font:400 italic .9rem/1.4 var(--serif);color:var(--muted);margin-top:
 .c3 .c-aud-t{font:500 1.15rem/1.4 var(--mono)}
 .c3 .c-plates img{filter:grayscale(1) contrast(1.05)}
 @media (max-width:640px){.c-form-dl{grid-template-columns:1fr}.c-form-dl dt{border-bottom:0;padding-bottom:0}}
+/* Link to the collection (C1 production) */
+.c-coll{display:grid;grid-template-columns:minmax(0,14rem) minmax(0,1fr);gap:clamp(1.25rem,4vw,3rem);align-items:center;border-block:1px solid var(--rule);padding-block:2rem}
+.c-coll-i img{aspect-ratio:1;object-fit:cover}
+.c-coll-t{max-width:var(--measure);margin-bottom:1rem}
+.c-coll-a{font:500 .74rem/1 var(--label);letter-spacing:.16em;text-transform:uppercase;color:var(--accent);text-decoration:none;border-bottom:1px solid var(--gold);padding-bottom:.35rem}
+.c-coll-a::after{content:" \2192"}
+.c-coll-a:hover{color:var(--fg)}
+@media (max-width:560px){.c-coll{grid-template-columns:7rem 1fr}}
+/* Technical analysis */
+.c-tech{display:grid;gap:2.2rem}
+.c-tech .label{margin-bottom:0}
+.c-tech-i{max-width:var(--measure);margin-top:-1rem}
+.c-chart{display:grid;gap:.7rem}
+.c-chart figcaption{display:grid;gap:.25rem;margin:0;font:400 .92rem/1.45 var(--serif);font-style:normal;color:var(--muted);max-width:44rem}
+.c-chart figcaption b{font:500 1rem/1.3 var(--label);color:var(--fg)}
+.c-legend{list-style:none;padding:0;display:flex;flex-wrap:wrap;gap:.4rem 1.2rem;font:400 .78rem/1.2 var(--label);color:var(--muted)}
+.c-legend li{display:flex;align-items:center;gap:.45rem}
+.c-legend i{display:inline-block;width:14px;height:10px}
+.k-hollow{border:1.5px solid #2F5597;background:#FDF6EC;width:7px!important}
+.k-fill{background:#9A650C;width:7px!important}
+.k-line{height:2px!important;background:#16233B}.k-blue{background:#2F5597}
+.k-dash{height:0!important;border-top:1.5px dashed #16233B}
+.k-band{background:rgba(185,139,62,.28)}
+.c-chart-w{position:relative;overflow-x:auto;border-top:1px solid var(--rule);padding-top:.5rem;scrollbar-width:thin}
+.c-chart-w:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.c-chart-w svg{display:block;width:100%;height:auto;min-width:640px;touch-action:pan-x pan-y}
+.c-chart-sm .c-chart-w svg{min-width:640px}
+.c-tip{position:absolute;top:.5rem;z-index:2;display:grid;gap:.15rem;min-width:9.5rem;padding:.55rem .7rem;background:#FFFDF9;border:1px solid var(--rule);
+  box-shadow:0 8px 24px -14px rgba(13,22,38,.45);font:400 .74rem/1.35 var(--label);color:var(--muted);pointer-events:none;white-space:nowrap}
+.c-tip b{font-weight:500;color:var(--fg);margin-bottom:.15rem}
+.c-tip strong{font-weight:500;color:var(--fg);font-variant-numeric:tabular-nums}
+.c-data summary{cursor:pointer;font:500 .74rem/1 var(--label);letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+.c-data .c-tbl-w{max-height:24rem;overflow:auto;margin-top:1rem}
+.c-tbl-sm{font-size:.82rem}.c-tbl-sm th,.c-tbl-sm td{padding:.4rem .5rem}
+.c-tbl-sm thead th{position:sticky;top:0;background:var(--bg)}
+.c-tech-n{font:400 .8rem/1.5 var(--label);color:var(--muted)}
+.c-body>*,.c-tech>*,.c-chart>*{min-width:0}
+.c-tip[hidden]{display:none}

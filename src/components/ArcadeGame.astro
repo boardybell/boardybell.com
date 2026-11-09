@@ -1,0 +1,67 @@
+---
+import Base from '../layouts/Base.astro';
+import Pic from './Pic.astro';
+import { DISCLAIMER, GAMES } from '../content/arcade';
+import { base } from '../lib/rich';
+import '../styles/arcade.css';
+interface Props { slug: string }
+const g = GAMES.find((x) => x.slug === Astro.props.slug)!;
+---
+<Base title={`${g.title} · Boardy Arcade`} theme="arcade" bodyClass="crt ag-page" eggs={false}>
+<main id="main" class="ag">
+  <header class="ag-h">
+    <a href={`${base}arcade/`} class="ag-back">◄ ARCADE</a>
+    <span class="ag-name">{g.title.toUpperCase()}</span>
+    <span class="ag-tools"><button type="button" id="ag-sound" aria-pressed="false">SOUND OFF</button><button type="button" id="ag-pausebtn" aria-label="Pause">II</button></span>
+  </header>
+
+  <div class="ag-frame">
+    <canvas id="ag-cv" width="240" height="320" tabindex="0" aria-label={`${g.title} game screen`}></canvas>
+
+    <section class="ag-ov ag-title" id="ag-title" aria-labelledby="ag-t">
+      <div class="ag-art"><Pic name={g.art} alt="" sizes="(min-width: 600px) 480px, 100vw" eager /></div>
+      <div class="ag-tc">
+        <p class="ag-k">BOARDY ARCADE PRESENTS</p>
+        <h1 id="ag-t">{g.title.toUpperCase()}</h1>
+        <p class="ag-hook">{g.hook}</p>
+        <button type="button" class="ag-btn ag-blink" id="ag-start">PRESS START</button>
+        <p class="ag-blurb">{g.blurb}</p>
+        <ul class="ag-ctl">{g.controls.map((c) => <li>{c}</li>)}</ul>
+        <h2 class="ag-sh">HIGH SCORES</h2>
+        <ol class="ag-scores" data-scores></ol>
+        <p class="ag-disc">{DISCLAIMER}</p>
+      </div>
+    </section>
+
+    <section class="ag-ov ag-pause" id="ag-pause" hidden aria-label="Paused">
+      <p class="ag-big">PAUSED</p>
+      <p class="ag-small">The market is closed for lunch.</p>
+      <button type="button" class="ag-btn" id="ag-resume">RESUME</button>
+    </section>
+
+    <section class="ag-ov ag-over" id="ag-over" hidden aria-label="Game over">
+      <p class="ag-big" id="ag-over-msg">GAME OVER</p>
+      <p class="ag-small">SCORE <b id="ag-over-score">0</b></p>
+      <form id="ag-init" class="ag-init" hidden autocomplete="off">
+        <label for="ag-in">NEW HIGH SCORE. ENTER INITIALS</label>
+        <input id="ag-in" maxlength="3" autocapitalize="characters" spellcheck="false" enterkeyhint="done" />
+        <button type="submit" class="ag-btn">SAVE</button>
+      </form>
+      <ol class="ag-scores" data-scores></ol>
+      <button type="button" class="ag-btn" id="ag-again">PLAY AGAIN</button>
+      <p class="ag-disc">{DISCLAIMER}</p>
+    </section>
+  </div>
+
+  <div class={`ag-pad ag-pad-${g.pad}`} aria-hidden="true">
+    {g.pad === 'dpad' ? (
+      <div class="ag-dpad"><button type="button" tabindex="-1" data-btn="up" class="u">▲</button><button type="button" tabindex="-1" data-btn="left" class="l">◄</button><button type="button" tabindex="-1" data-btn="right" class="r">►</button><button type="button" tabindex="-1" data-btn="down" class="d">▼</button></div>
+    ) : (
+      <div class="ag-lr"><button type="button" tabindex="-1" data-btn="left">◄</button><button type="button" tabindex="-1" data-btn="right">►</button></div>
+    )}
+    {g.pad === 'lr' && <button type="button" tabindex="-1" data-btn="act" class="ag-a">A</button>}
+  </div>
+  <p class="ag-foot">{DISCLAIMER}</p>
+</main>
+<script type="module" is:inline src={`${base}arcade/games/${g.id}.js`}></script>
+</Base>

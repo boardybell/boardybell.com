@@ -10,7 +10,8 @@ const BASE = process.env.SITE_BASE ?? '/boardybell.com/';
 const ARGS = process.argv.slice(2);
 const ONLY = ARGS.includes('--only') ? ARGS[ARGS.indexOf('--only') + 1].split(',') : null;
 const IDS = ['a1', 'a2', 'a3', 'b1', 'b2', 'b3', 'c1', 'c2', 'c3', 'd1'].filter((i) => !ONLY || ONLY.includes(i));
-const PAGES = [...IDS.map((i) => `i/${i}/`), ...(ONLY ? [] : ['', 'arcade/', 'certificate/', 'nope/'])];
+const GAMES = ['tax-man', 'margin-invaders', 'compound-interest', 'break-the-market'];
+const PAGES = [...IDS.map((i) => `i/${i}/`), ...(ONLY ? [] : ['', 'collection/', 'gallery/', 'arcade/', ...GAMES.map((g) => `arcade/${g}/`), 'certificate/', 'nope/'])];
 const WIDTHS = [360, 768, 1280, 1920];
 // Blocklist is base64 so the names themselves never appear in this public repo.
 const FIRMS = new RegExp(Buffer.from('Ym9uZGJlbGx8YmVsbGFzc2V0fGJlbGxmYW1pbHl8YmVsbCBhc3NldHxiZWxsIGZhbWlseXxib25kIGJlbGwgJiBjb3xib25kIGJlbGwgYW5kIGNvfFxiQ1JEXGJ8ZmlucmF8c2VjXC5nb3Y=', 'base64').toString(), 'i');
@@ -61,12 +62,12 @@ const LAYOUT = () => {
     .filter((e) => vis(e) && !e.closest('.toast,.loader,.term,.sr,.skip,.gal-back,.y94-bar') && e.getClientRects().length);
   for (const e of T) {
     const r = e.getBoundingClientRect();
-    if (r.width && (r.right > W + 1 || r.left < -1)) out.push(`offscreen: ${e.tagName}.${e.className} "${e.textContent.trim().slice(0, 40)}"`);
+    if (r.width && !e.closest('.c-tbl-w,.c-chart-w') && (r.right > W + 1 || r.left < -1)) out.push(`offscreen: ${e.tagName}.${e.className} "${e.textContent.trim().slice(0, 40)}"`);
     const s = getComputedStyle(e);
     if (/hidden|clip/.test(s.overflowX) && e.scrollWidth > e.clientWidth + 2 && !/INPUT|TEXTAREA/.test(e.tagName)) out.push(`clipped: ${e.tagName} "${e.textContent.trim().slice(0, 40)}"`);
   }
   // text-on-text overlap between unrelated blocks
-  const blocks = T.filter((e) => /^(H1|H2|H3|P|LI|DT|DD|FIGCAPTION|TH|TD)$/.test(e.tagName) && e.textContent.trim());
+  const blocks = T.filter((e) => /^(H1|H2|H3|P|LI|DT|DD|FIGCAPTION|TH|TD)$/.test(e.tagName) && e.textContent.trim() && !e.closest('.c-tbl-w,.c-chart-w,.ag-ov'));
   const R = blocks.map((e) => e.getBoundingClientRect());
   for (let i = 0; i < blocks.length; i++) for (let j = i + 1; j < blocks.length; j++) {
     const a = blocks[i], b = blocks[j]; if (a.contains(b) || b.contains(a)) continue;
@@ -75,7 +76,7 @@ const LAYOUT = () => {
   }
   // text over images must be inside a designated overlay
   for (const img of document.querySelectorAll('img')) {
-    if (!img.alt && !img.closest('.g-thumb')) out.push(`img without alt: ${img.src}`);
+    if (!img.hasAttribute('alt')) out.push(`img without alt: ${img.src}`);
     if (!img.getAttribute('width') || !img.getAttribute('height')) out.push(`img without size: ${img.src}`);
     if (img.complete && img.naturalWidth === 0) out.push(`broken img: ${img.currentSrc || img.src}`);
   }
@@ -94,7 +95,7 @@ for (const w of WIDTHS) {
     await page.evaluate(async () => { for (let y = 0; y < document.body.scrollHeight; y += 600) { scrollTo(0, y); await new Promise((r) => setTimeout(r, 40)); } scrollTo(0, 0); });
     await page.waitForLoadState('networkidle');
     for (const m of await page.evaluate(LAYOUT)) fail(`${p || 'gallery'} @${w}`, m);
-    const name = (p || 'gallery').replace(/\//g, '_').replace(/_$/, '');
+    const name = (p || 'home').replace(/\//g, '_').replace(/_$/, '');
     await page.screenshot({ path: `qa/shots/${name}-${w}.png`, fullPage: true });
   }
   await ctx.close();
@@ -158,6 +159,37 @@ for (const mode of ['desktop', 'touch']) {
   // 404 counts as a find
   await page.goto(url('nope/'), { waitUntil: 'networkidle' });
   if (!(await page.evaluate(() => JSON.parse(localStorage.getItem('bb.found') || '[]').includes('notfound')))) fail(W, '404 not recorded as a find');
+  await ctx.close();
+}
+
+// ---------- arcade: every game starts, runs, pauses, ends, saves a score ----------
+const GID = { 'tax-man': 'taxman', 'margin-invaders': 'invaders', 'compound-interest': 'snake', 'break-the-market': 'breakout' };
+if (!ONLY) for (const mode of ['desktop', 'touch']) {
+  const ctx = await browser.newContext(mode === 'touch' ? { ...devices['iPhone 13'] } : { viewport: { width: 1280, height: 900 } });
+  const page = await ctx.newPage(); const W = `arcade/${mode}`;
+  page.on('pageerror', (e) => fail(W, `JS error ${e.message}`));
+  for (const g of GAMES) {
+    await page.goto(url(`arcade/${g}/`), { waitUntil: 'networkidle' });
+    await page.evaluate(() => localStorage.clear());
+    if (mode === 'touch') await page.tap('#ag-start'); else await page.keyboard.press('Enter');
+    if ((await page.evaluate(() => window.__arcade?.state)) !== 'play') { fail(`${W} ${g}`, 'did not start'); continue; }
+    if (mode === 'desktop') { for (const k of ['ArrowLeft', 'ArrowUp', 'ArrowRight', 'ArrowDown', ' ']) { await page.keyboard.down(k); await page.waitForTimeout(250); await page.keyboard.up(k); } }
+    else { const pad = await page.$$('[data-btn]'); if (!pad.length) fail(`${W} ${g}`, 'no touch pad'); for (const b of pad) await b.tap(); }
+    await page.waitForTimeout(1500);
+    const lit = await page.evaluate(() => { const c = document.getElementById('ag-cv'), d = c.getContext('2d').getImageData(0, 0, c.width, c.height).data; let n = 0; for (let i = 0; i < d.length; i += 4) if (d[i] + d[i + 1] + d[i + 2] > 120) n++; return n; });
+    if (lit < 300) fail(`${W} ${g}`, `canvas looks empty (${lit})`);
+    if (mode === 'desktop') { await page.keyboard.press('p'); if ((await page.evaluate(() => window.__arcade.state)) !== 'paused') fail(`${W} ${g}`, 'pause failed'); await page.keyboard.press('p'); }
+    else { await page.tap('#ag-pausebtn'); if ((await page.evaluate(() => window.__arcade.state)) !== 'paused') fail(`${W} ${g}`, 'pause failed'); await page.tap('#ag-resume'); }
+    if (mode === 'desktop') await page.screenshot({ path: `qa/shots/game-${g}.png` });
+    await page.evaluate(() => { window.__arcade.score = 9999; window.__arcade.gameOver(); });
+    if (await page.isHidden('#ag-init')) fail(`${W} ${g}`, 'no initials entry for a high score');
+    else {
+      await page.fill('#ag-in', 'qa'); await page.press('#ag-in', 'Enter');
+      const top = await page.evaluate((id) => JSON.parse(localStorage.getItem('bb.hs.' + id) || '[]')[0], GID[g]);
+      if (!top || top.n !== 'QA_' || top.s !== 9999) fail(`${W} ${g}`, `score not saved ${JSON.stringify(top)}`);
+    }
+    for (const m of await page.evaluate(LAYOUT)) if (/overflow|offscreen/.test(m)) fail(`${W} ${g}`, m);
+  }
   await ctx.close();
 }
 

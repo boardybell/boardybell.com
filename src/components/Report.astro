@@ -5,6 +5,9 @@ import Guestbook from './Guestbook.astro';
 import Foot from './Foot.astro';
 import { REPORT as R, THESES, OCCUPATION, SWAPS } from '../content/copy';
 import { ALT } from '../content/alts';
+import { base } from '../lib/rich';
+import { YEARS } from '../lib/series';
+import TechCharts from './TechCharts.astro';
 interface Props { v: 1 | 2 | 3 }
 const { v } = Astro.props;
 const thesis = THESES.C[v - 1];
@@ -73,18 +76,31 @@ const item = (n: string, t: string) => (v === 3 ? `Item ${n}. ${t}` : t);
       <h2 class="label">{item('3', 'Selected figures')}</h2>
       <div class="c-tbl-w">
         <table class="c-tbl">
-          <thead><tr><th scope="col">Measure</th><th scope="col">{R.year}</th><th scope="col">{+R.year - 1}</th></tr></thead>
-          <tbody>{R.metrics.map(([m, a, b, n]) => <tr><th scope="row">{m}{n && <sup><a href={`#fn${n}`} aria-label={`Footnote ${n}`}>{n}</a></sup>}</th><td>{a}</td><td>{b}</td></tr>)}</tbody>
+          <caption class="sr">Selected figures, {YEARS[YEARS.length - 1]} to {YEARS[0]}</caption>
+          <thead><tr><th scope="col">Measure</th>{YEARS.map((y) => <th scope="col">{y}</th>)}</tr></thead>
+          <tbody>{R.metrics.map(([m, vals, n]) => <tr><th scope="row">{m}{n && <sup><a href={`#fn${n}`} aria-label={`Footnote ${n}`}>{n}</a></sup>}</th>{(vals as readonly string[]).map((v) => <td>{v}</td>)}</tr>)}</tbody>
         </table>
       </div>
       <ol class="c-fn">{R.footnotes.map((f, i) => <li id={`fn${i + 1}`}>{f}</li>)}</ol>
     </section>
+
+    <TechCharts n={v === 3 ? 'Item 3A. ' : ''} />
 
     {v !== 2 && (
       <div class="c-plates rv">
         <figure><Pic name="c-watch" alt={ALT['c-watch']} sizes="(min-width: 760px) 45vw, 100vw" /><figcaption>The year, face down.</figcaption></figure>
         <figure><Pic name="c-pen" alt={ALT['c-pen']} sizes="(min-width: 760px) 45vw, 100vw" /><figcaption>The ledger, closed.</figcaption></figure>
       </div>
+    )}
+    {v === 1 && (
+      <section class="c-coll rv">
+        <a class="c-coll-i" href={`${base}collection/`} tabindex="-1" aria-hidden="true"><Pic name="d-key" alt="" sizes="(min-width: 760px) 14rem, 40vw" /></a>
+        <div>
+          <h2 class="label">{R.collection.title}</h2>
+          <p class="c-coll-t">{R.collection.text}</p>
+          <a class="c-coll-a" href={`${base}collection/`}>{R.collection.link}</a>
+        </div>
+      </section>
     )}
     {v === 2 && <figure class="c-wide rv"><Pic name="c-chair" alt={ALT['c-chair']} sizes="100vw" /><figcaption>The board, in session.</figcaption></figure>}
 

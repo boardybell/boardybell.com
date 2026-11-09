@@ -97,20 +97,21 @@ export const REPORT = {
   signoff: 'The Chairman',
   signoffNote: 'Also the board. Also the reader of this report.',
   // Every figure is about objects. Nothing here is money, a return, or a market.
+  // Columns run 2026 back to 2020. Every figure is about objects. Nothing here is money, a return, or a market.
   metrics: [
-    ['Chairs occupied', '1.00', '1.00', ''],
-    ['Lamps left on overnight', '14', '9', '1'],
-    ['Umbrellas owned', '3', '3', ''],
-    ['Umbrellas present when it rained', '0', '0', '2'],
-    ['Cups of coffee', '1,140', '1,096', '3'],
-    ['Emails answered promptly', 'Rounded to zero', 'Same', ''],
-    ['Days', '365', '365', '4'],
+    ['Chairs occupied', ['1.00', '1.00', '1.00', '1.00', '1.00', '1.00', '1.00'], ''],
+    ['Lamps left on overnight', ['14', '9', '7', '8', '6', '5', '3'], '1'],
+    ['Umbrellas owned', ['3', '3', '3', '2', '2', '1', '1'], ''],
+    ['Umbrellas present when it rained', ['0', '0', '0', '0', '0', '0', '0'], '2'],
+    ['Cups of coffee', ['1,140', '1,096', '1,062', '1,010', '955', '901', '812'], '3'],
+    ['Emails answered promptly', ['≈0', '≈0', '≈0', '≈0', '≈0', 'Few', 'Some'], ''],
+    ['Days', ['365', '365', '366', '365', '365', '365', '366'], '4'],
   ],
   footnotes: [
     'Includes one lamp that is still on.',
     'Management is reviewing the umbrella situation.',
     'Restated after a recount of the cups. The cups have been informed.',
-    'In line with guidance from the calendar.',
+    'In line with guidance from the calendar. 2020 and 2024 included an additional day at no extra charge.',
   ],
   highlights: [
     ['Year one of one', 'This report covers a full year. Previous reports are not available, because there were none.'],
@@ -122,6 +123,19 @@ export const REPORT = {
     'The lamp may be on.',
     'Past chairs are no guarantee of future chairs.',
   ],
+  collection: {
+    title: 'Objects held',
+    text: 'In keeping with tradition, a selection of the Chairman’s objects is on public view. It includes a key, a mug and an umbrella. The chair is not shown, because it is in use.',
+    link: 'Visit the Permanent Collection',
+  },
+  technical: {
+    title: 'Technical analysis',
+    intro: 'The figures above have been charted monthly, in the manner of serious people.',
+    coffee: ['Cups of coffee per day, monthly', 'Each candle is a month: the first and last week’s daily average, and the best and worst weeks. Support has held at the morning cup since 2020.'],
+    lamps: ['Lamps left on overnight, monthly', 'Six-month bands. The breakout in the second half of 2026 is attributed to the lamp that is still on.'],
+    chairs: ['Chairs occupied', 'A consolidation phase now in its seventh year. Analysts expect continued sitting.'],
+    note: 'Patterns identified are decorative. Nothing on this page is investment advice, or about investments.',
+  },
   auditor: 'We have reviewed the above and have no opinion.',
   auditorSign: 'An auditor, unaffiliated, possibly asleep',
 };

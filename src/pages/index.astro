@@ -1,57 +1,8 @@
 ---
 import Base from '../layouts/Base.astro';
-import { ITER } from '../content/iterations';
-import { base } from '../lib/rich';
-import { existsSync } from 'node:fs';
-const FAM = { A: 'The Redacted File', B: 'The Overqualified Page', C: 'The Annual Report', D: 'Wildcard' } as const;
-const thumb = (id: string) => existsSync(`public/gallery/${id}.webp`);
+import Report from '../components/Report.astro';
+import '../styles/i/c.css';
 ---
-<Base title="Boardy: design gallery" theme="gallery" eggs={false}>
-<main id="main" class="g wrap">
-  <header class="g-h">
-    <p class="label">boardybell.com · front room · design gallery</p>
-    <h1>Ten front rooms. Pick one.</h1>
-    <p>Each one is a full working page with real imagery, real draft copy, the redactions, guestbook, visitor counter, lying loader, terminal (press ` or hold the counter), highlight swaps, the Konami code and the hidden door. The door leads to a stub for now: the arcade gets built after the pick.</p>
-  </header>
-  {(['A', 'B', 'C', 'D'] as const).map((f) => (
-    <section class="g-fam">
-      <h2><span>{f}</span> {FAM[f]}</h2>
-      <div class="g-grid">
-        {ITER.filter((i) => i.fam === f).map((i) => (
-          <a class="g-card" href={`${base}i/${i.id}/`}>
-            <div class="g-thumb">{thumb(i.id) ? <img src={`${base}gallery/${i.id}.webp`} width="800" height="1000" alt="" loading="lazy" /> : <span>{i.id}</span>}</div>
-            <h3>{i.id.toUpperCase()} · {i.name}</h3>
-            <dl>
-              <dt>Concept</dt><dd>{i.concept}</dd>
-              <dt>Type</dt><dd>{i.type}</dd>
-              <dt>Palette</dt><dd>{i.palette}</dd>
-              <dt>The joke</dt><dd>{i.joke}</dd>
-            </dl>
-          </a>
-        ))}
-      </div>
-    </section>
-  ))}
-  <p class="g-f">Not indexed. Not linked from anywhere. Images made with ChatGPT image generation and colour-graded to the family palette.</p>
-</main>
+<Base title="Boardy" theme="c1">
+  <Report v={1} />
 </Base>
-<style is:global>
-.t-gallery{--bg:#F4EEE3}
-.g{padding-block:3rem 5rem;display:grid;gap:3.5rem}
-.g-h{display:grid;gap:1rem;max-width:46rem}
-.g-h h1{font:400 clamp(2.2rem,5vw,3.8rem)/1.05 var(--display)}
-.g-h p:last-child{color:var(--warm)}
-.g-fam h2{font:400 1.6rem/1.2 var(--display);border-bottom:1px solid var(--rule);padding-bottom:.7rem;margin-bottom:1.5rem}
-.g-fam h2 span{font:500 .8rem/1 var(--label);color:var(--gold-ink);border:1px solid var(--gold);padding:.3rem .45rem;vertical-align:.35em;margin-right:.4rem}
-.g-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,19rem),1fr));gap:1.75rem}
-.g-card{display:grid;align-content:start;gap:.8rem;text-decoration:none;background:#FFFDF9;border:1px solid var(--rule);padding:.8rem .8rem 1.1rem;transition:transform .25s var(--ease),box-shadow .25s}
-.g-card:hover{transform:translateY(-3px);box-shadow:0 18px 40px -26px rgba(13,22,38,.45)}
-.g-thumb{aspect-ratio:4/5;overflow:hidden;background:var(--navy);display:grid;place-items:center;color:var(--cream)}
-.g-thumb img{width:100%;height:100%;object-fit:cover;object-position:top}
-.g-card h3{font:500 1rem/1.2 var(--label);letter-spacing:.04em}
-.g-card dl{display:grid;grid-template-columns:5.2rem 1fr;gap:.3rem .7rem;font:400 .82rem/1.45 var(--label)}
-.g-card dt{color:var(--gold-ink);text-transform:uppercase;letter-spacing:.1em;font-size:.65rem;padding-top:.2rem}
-.g-card dd{color:var(--ink)}
-.g-f{font:400 .8rem/1.5 var(--label);color:var(--warm)}
-@media (prefers-reduced-motion:reduce){.g-card{transition:none}.g-card:hover{transform:none}}
-</style>

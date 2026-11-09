@@ -63,5 +63,30 @@
   "src": "visuals/inbox/12-d-umbrella/raw-1.png",
   "grade": "warm",
   "mix": 0.7
+ },
+ "arcade-hall": {
+  "src": "visuals/inbox/13-arcade-hall/raw-1.png",
+  "grade": "none",
+  "q": 68
+ },
+ "title-taxman": {
+  "src": "visuals/inbox/14-title-taxman/raw-1.png",
+  "grade": "none",
+  "q": 68
+ },
+ "title-invaders": {
+  "src": "visuals/inbox/15-title-invaders/raw-1.png",
+  "grade": "none",
+  "q": 68
+ },
+ "title-snake": {
+  "src": "visuals/inbox/16-title-snake/raw-1.png",
+  "grade": "none",
+  "q": 68
+ },
+ "title-breakout": {
+  "src": "visuals/inbox/17-title-breakout/raw-1.png",
+  "grade": "none",
+  "q": 68
  }
 }

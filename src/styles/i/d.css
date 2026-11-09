@@ -24,3 +24,4 @@
 .d-audio{font:400 .85rem/1.4 var(--mono);color:var(--muted);padding-top:.5rem}
 .d-gb{border-top:1px solid var(--rule);padding-block:3rem 5rem}
 @media (max-width:640px){.d-work,.d-work:nth-child(even){grid-template-columns:1fr}.d-work:nth-child(even)>:first-child{order:0}.d-lbl{max-width:none}}
+.d-back{text-decoration:none}.d-back::before{content:"\2190  "}.d-back:hover{color:var(--fg)}
