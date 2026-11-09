@@ -21,4 +21,21 @@ export const PLATE_SUBJECTS: [string, string, string][] = [
   ['p-mug-banknote', 'The mug, chipped', 'banknote'],
   ['p-magnifier-woodcut', 'The review', 'woodcut'],
 ];
+// Round 6, appended after EARLIER so existing picker numbers never change.
+export const PLATE_SUBJECTS_2: [string, string, string][] = [
+  ['p-radio-stamp', 'The radio, on channel', 'stamp'],
+  ['p-cassette-banknote', 'The tape, rewound', 'banknote'],
+  ['p-vinyl-bookplate', 'The record, half out', 'bookplate'],
+  ['p-television-woodcut', 'The set, between channels', 'woodcut'],
+  ['p-joystick-stipple', 'The controls', 'stipple'],
+  ['p-case-tradecard', 'The case, packed', 'tradecard'],
+  ['p-labelmaker-stamp', 'The label, blank', 'stamp'],
+  ['p-sunglasses-banknote', 'The glasses, folded', 'banknote'],
+  ['p-microphone-stipple', 'The microphone, off', 'stipple'],
+  ['p-compass-bookplate', 'The compass, consulted', 'bookplate'],
+  ['p-lantern-woodcut', 'The lantern, charged', 'woodcut'],
+  ['p-terminal-tradecard', 'The terminal, ready', 'tradecard'],
+  ['p-camera-banknote', 'The camera, loaded', 'banknote'],
+  ['p-parcel-stipple', 'The parcel, outbound', 'stipple'],
+];
 export const EARLIER: [string, string][] = [['e-nib', 'The pen, at rest'], ['e-watch', 'The year, face down'], ['e-lamp', 'The lamp, left on'], ['e-chair', 'The board, in session']];

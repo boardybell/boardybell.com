@@ -2,13 +2,14 @@
 import Base from '../../../layouts/Base.astro';
 import Pic from '../../../components/Pic.astro';
 import man from '../../../../public/img/manifest.json';
-import { PLATE_SUBJECTS, PLATE_STYLES, EARLIER } from '../../../content/plates';
+import { PLATE_SUBJECTS, PLATE_SUBJECTS_2, PLATE_STYLES, EARLIER } from '../../../content/plates';
 import { base } from '../../../lib/rich';
 const M = man as Record<string, unknown>;
 let n = 0;
 const items = [
   ...PLATE_SUBJECTS.flatMap(([slug, label, style]) => [1, 2].map((v) => ({ name: `${slug}-${v}`, label, style: PLATE_STYLES[style] }))),
   ...EARLIER.map(([name, label]) => ({ name, label, style: PLATE_STYLES.earlier })),
+  ...PLATE_SUBJECTS_2.flatMap(([slug, label, style]) => [1, 2].map((v) => ({ name: `${slug}-${v}`, label, style: `${PLATE_STYLES[style]} · from your interests` }))),
 ].filter((i) => M[i.name]).map((i) => ({ ...i, n: ++n }));
 ---
 <Base title="Pick the plates" theme="plates" eggs={false}>

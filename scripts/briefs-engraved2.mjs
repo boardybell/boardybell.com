@@ -27,8 +27,23 @@ const S = [
   ['A3', 'p-telephone-stipple', 'stipple', 'a rotary desk telephone with the receiver resting in its cradle'],
   ['A4', 'p-mug-banknote', 'banknote', 'a plain coffee mug with a small chip in the rim'],
   ['A5', 'p-magnifier-woodcut', 'woodcut', 'a magnifying glass lying on a single blank sheet of paper'],
+  // Round 6: objects from Bond's own interests (2026-11-09: "a list of items based off your understanding of my interests")
+  ['B0', 'p-radio-stamp', 'stamp', 'a handheld two-way radio with a short rubber antenna, generic, no brand'],
+  ['B1', 'p-cassette-banknote', 'banknote', 'an audio cassette tape, blank label, slightly angled'],
+  ['B2', 'p-vinyl-bookplate', 'bookplate', 'a vinyl record sliding halfway out of a plain sleeve'],
+  ['B3', 'p-television-woodcut', 'woodcut', 'a small 1980s CRT television with rabbit-ear antennas, blank screen'],
+  ['B4', 'p-joystick-stipple', 'stipple', 'an arcade joystick with a ball top and two round buttons on a small panel'],
+  ['B5', 'p-case-tradecard', 'tradecard', 'a rugged hard-shell equipment case with two latches and a handle, generic, no brand'],
+  ['B6', 'p-labelmaker-stamp', 'stamp', 'a small handheld label maker with a blank strip of label coming out of it'],
+  ['B7', 'p-sunglasses-banknote', 'banknote', 'a pair of classic thick-framed sunglasses, folded'],
+  ['B8', 'p-microphone-stipple', 'stipple', 'a vintage studio microphone on a small stand'],
+  ['B9', 'p-compass-bookplate', 'bookplate', 'an open pocket compass resting on a folded map with no legible place names'],
+  ['C0', 'p-lantern-woodcut', 'woodcut', 'a hand-crank emergency lantern with its crank handle folded out'],
+  ['C1', 'p-terminal-tradecard', 'tradecard', 'an old computer terminal with a keyboard and a glowing blank screen'],
+  ['C2', 'p-camera-banknote', 'banknote', 'a vintage rangefinder film camera, three-quarter view, no brand'],
+  ['C3', 'p-parcel-stipple', 'stipple', 'a brown-paper parcel tied with string, a blank tag attached'],
 ];
-for (const [n, slug, style, subject] of S) writeFileSync(`visuals/prompts/${n}-${slug}.md`, `# Brief ${n}: ${slug}
+for (const [n, slug, style, subject] of S) if (n >= 'B0') writeFileSync(`visuals/prompts/${n}-${slug}.md`, `# Brief ${n}: ${slug}
 
 You are an engraver. Work ONLY inside the current directory.
 

@@ -425,5 +425,145 @@
   "src": "visuals/inbox/A5-p-magnifier-woodcut/raw-2.png",
   "grade": "none",
   "q": 60
+ },
+ "p-radio-stamp-1": {
+  "src": "visuals/inbox/B0-p-radio-stamp/raw-1.png",
+  "grade": "none",
+  "q": 60
+ },
+ "p-radio-stamp-2": {
+  "src": "visuals/inbox/B0-p-radio-stamp/raw-2.png",
+  "grade": "none",
+  "q": 60
+ },
+ "p-cassette-banknote-1": {
+  "src": "visuals/inbox/B1-p-cassette-banknote/raw-1.png",
+  "grade": "none",
+  "q": 60
+ },
+ "p-cassette-banknote-2": {
+  "src": "visuals/inbox/B1-p-cassette-banknote/raw-2.png",
+  "grade": "none",
+  "q": 60
+ },
+ "p-vinyl-bookplate-1": {
+  "src": "visuals/inbox/B2-p-vinyl-bookplate/raw-1.png",
+  "grade": "none",
+  "q": 60
+ },
+ "p-vinyl-bookplate-2": {
+  "src": "visuals/inbox/B2-p-vinyl-bookplate/raw-2.png",
+  "grade": "none",
+  "q": 60
+ },
+ "p-television-woodcut-1": {
+  "src": "visuals/inbox/B3-p-television-woodcut/raw-1.png",
+  "grade": "none",
+  "q": 60
+ },
+ "p-television-woodcut-2": {
+  "src": "visuals/inbox/B3-p-television-woodcut/raw-2.png",
+  "grade": "none",
+  "q": 60
+ },
+ "p-joystick-stipple-1": {
+  "src": "visuals/inbox/B4-p-joystick-stipple/raw-1.png",
+  "grade": "none",
+  "q": 60
+ },
+ "p-joystick-stipple-2": {
+  "src": "visuals/inbox/B4-p-joystick-stipple/raw-2.png",
+  "grade": "none",
+  "q": 60
+ },
+ "p-case-tradecard-1": {
+  "src": "visuals/inbox/B5-p-case-tradecard/raw-1.png",
+  "grade": "none",
+  "q": 60
+ },
+ "p-case-tradecard-2": {
+  "src": "visuals/inbox/B5-p-case-tradecard/raw-2.png",
+  "grade": "none",
+  "q": 60
+ },
+ "p-labelmaker-stamp-1": {
+  "src": "visuals/inbox/B6-p-labelmaker-stamp/raw-1.png",
+  "grade": "none",
+  "q": 60
+ },
+ "p-labelmaker-stamp-2": {
+  "src": "visuals/inbox/B6-p-labelmaker-stamp/raw-2.png",
+  "grade": "none",
+  "q": 60
+ },
+ "p-sunglasses-banknote-1": {
+  "src": "visuals/inbox/B7-p-sunglasses-banknote/raw-1.png",
+  "grade": "none",
+  "q": 60
+ },
+ "p-sunglasses-banknote-2": {
+  "src": "visuals/inbox/B7-p-sunglasses-banknote/raw-2.png",
+  "grade": "none",
+  "q": 60
+ },
+ "p-microphone-stipple-1": {
+  "src": "visuals/inbox/B8-p-microphone-stipple/raw-1.png",
+  "grade": "none",
+  "q": 60
+ },
+ "p-microphone-stipple-2": {
+  "src": "visuals/inbox/B8-p-microphone-stipple/raw-2.png",
+  "grade": "none",
+  "q": 60
+ },
+ "p-compass-bookplate-1": {
+  "src": "visuals/inbox/B9-p-compass-bookplate/raw-1.png",
+  "grade": "none",
+  "q": 60
+ },
+ "p-compass-bookplate-2": {
+  "src": "visuals/inbox/B9-p-compass-bookplate/raw-2.png",
+  "grade": "none",
+  "q": 60
+ },
+ "p-lantern-woodcut-1": {
+  "src": "visuals/inbox/C0-p-lantern-woodcut/raw-1.png",
+  "grade": "none",
+  "q": 60
+ },
+ "p-lantern-woodcut-2": {
+  "src": "visuals/inbox/C0-p-lantern-woodcut/raw-2.png",
+  "grade": "none",
+  "q": 60
+ },
+ "p-terminal-tradecard-1": {
+  "src": "visuals/inbox/C1-p-terminal-tradecard/raw-1.png",
+  "grade": "none",
+  "q": 60
+ },
+ "p-terminal-tradecard-2": {
+  "src": "visuals/inbox/C1-p-terminal-tradecard/raw-2.png",
+  "grade": "none",
+  "q": 60
+ },
+ "p-camera-banknote-1": {
+  "src": "visuals/inbox/C2-p-camera-banknote/raw-1.png",
+  "grade": "none",
+  "q": 60
+ },
+ "p-camera-banknote-2": {
+  "src": "visuals/inbox/C2-p-camera-banknote/raw-2.png",
+  "grade": "none",
+  "q": 60
+ },
+ "p-parcel-stipple-1": {
+  "src": "visuals/inbox/C3-p-parcel-stipple/raw-1.png",
+  "grade": "none",
+  "q": 60
+ },
+ "p-parcel-stipple-2": {
+  "src": "visuals/inbox/C3-p-parcel-stipple/raw-2.png",
+  "grade": "none",
+  "q": 60
  }
 }
