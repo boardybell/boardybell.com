@@ -109,3 +109,26 @@ p,li,dd{text-wrap:pretty}
   font:500 .68rem/1 var(--label);letter-spacing:.12em;text-transform:uppercase;padding:.6rem .8rem;border-radius:2px;backdrop-filter:blur(6px)}
 .gal-back:hover{background:#0D1626}
 html.y1994 .gal-back{display:none}
+
+/* Round 2 eggs */
+@keyframes bow{0%,100%{transform:none}30%{transform:rotate(-6deg) translateY(2px)}60%{transform:rotate(3deg)}}
+.bow{display:inline-block;animation:bow .9s var(--ease)}
+.lamp-on{all:unset;cursor:pointer;width:14px;height:14px;border-radius:50%;margin-left:.6rem;align-self:center;
+  background:radial-gradient(circle,#ffe7a8 0 30%,#d9b36c 45%,rgba(217,179,108,0) 70%);box-shadow:0 0 14px 4px rgba(255,214,120,.55)}
+.lamp-on:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.c-yr[data-note]::after{content:attr(data-note);font:400 italic .9rem/1 var(--serif);color:var(--muted);margin-left:.4rem;vertical-align:middle}
+@media (prefers-reduced-motion:reduce){.bow{animation:none}}
+@media print{
+  body::before{content:"COPY. PRINTED AT THE READER’S OWN EXPENSE.";display:block;margin:0 auto 6mm;width:max-content;max-width:100%;
+    padding:2mm 4mm;border:2px solid #9B2D20;color:#9B2D20;font:600 9pt/1.2 'IBM Plex Mono',monospace;letter-spacing:.12em;transform:rotate(-2deg)}
+  .t-cert body::before,body.t-cert::before{display:none}
+  .gal-back{display:none!important}
+}
+
+/* Sturdier display type (Bond, 2026-11-09: "letters are too thin on some letters").
+   Bodoni Moda's large optical sizes have razor hairlines; pin a mid optical size and a heavier weight. */
+h1,h2:not(.label),h3,.thesis,.c-sig,.c-aud-t,.b-name,.b-close,.d-th{font-weight:500}
+.c-ttl,.c-yr,.c-keys b,.b-n,.b-mono,.b2-h,.b-hero3 h1,.a-hero h1,.cert h1,.c2 .c-letter-t>p:nth-child(2)::first-letter{
+  font-weight:500;font-optical-sizing:none;font-variation-settings:'opsz' 24}
+/* light type on dark grounds renders thinner with greyscale antialiasing; use the system default there */
+.t-a2,.t-n1,.t-n3,.t-n1c,.t-n2c,.t-n3c,.t-n4c,.t-n5c,.t-n6c,.c-mag,.b3 .b-prin{-webkit-font-smoothing:auto;-moz-osx-font-smoothing:auto}

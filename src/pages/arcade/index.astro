@@ -9,12 +9,12 @@ import '../../styles/arcade.css';
 <main id="main" class="ar">
   <div class="ar-bg" aria-hidden="true"><Pic name="arcade-hall" alt="" eager /></div>
   <h1 class="ar-mq">BOARDY ARCADE</h1>
-  <p class="ar-sub">You found the door. Nobody will believe you.</p>
+  <p class="ar-sub">You found the door. Nobody will believe you. Twenty cabinets, all on free play.</p>
   <ul class="ar-list">
     {GAMES.map((g, i) => (
       <li class="ar-item">
         <a href={`${base}arcade/${g.slug}/`} class={i === 0 ? 'sel' : ''} data-id={g.id}>
-          <Pic name={g.art} alt="" sizes="8rem" eager />
+          <Pic name={g.art} alt="" sizes="8rem" eager={i < 6} />
           <span><span class="ar-t">{g.title.toUpperCase()}</span><span class="ar-g" style="display:block">{g.genre}. {g.hook}</span><span class="ar-hs" style="display:block" data-top></span></span>
         </a>
       </li>

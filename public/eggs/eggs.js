@@ -15,7 +15,8 @@
 
   // ---------- finds + certificate ----------
   const NAMES = { door: 'Found an unmarked door', konami: 'Entered the code', terminal: 'Located the terminal', guestbook: 'Attempted the guestbook',
-    highlight: 'Highlighted something it asked you not to', redaction: 'Lifted a redaction', counter: 'Counted the counter', loader: 'Read the loading screen', notfound: 'Visited a page that is not there', y1994: 'Restored dignity' };
+    highlight: 'Highlighted something it asked you not to', redaction: 'Lifted a redaction', counter: 'Counted the counter', loader: 'Read the loading screen', notfound: 'Visited a page that is not there', y1994: 'Restored dignity',
+    tab: 'Left, and came back', idle: 'Stopped reading', name: 'Called him by name', forecast: 'Withdrew a forecast', print: 'Printed it', lamp: 'Found the lamp on' };
   window.bbNames = NAMES;
   let toastT;
   const toast = (html, ms = 5200) => {
@@ -98,7 +99,7 @@
   let term;
   const FILES = { 'chair.txt': 'It is a chair. It is occupied.', 'lamp.txt': 'The lamp is on. See previous filings.', 'plans.txt': 'There are no plans. This is the plan.' };
   const CMDS = {
-    help: () => 'Commands: help, whoami, ls, cat <file>, cd, pwd, date, uptime, sudo, arcade, certificate, clear, exit',
+    help: () => 'Commands: help, whoami, ls, cat <file>, cd, pwd, date, uptime, sudo, arcade, certificate, konami, clear, exit',
     whoami: () => 'boardy. Details withheld.',
     ls: () => Object.keys(FILES).join('    ') + '    [redacted]/',
     cat: (a) => !a ? 'cat: which one' : a.startsWith('[redacted]') ? 'cat: Permission denied. By you, earlier.' : FILES[a] || `cat: ${a}: Not on file.`,
@@ -113,7 +114,6 @@
     clear: () => { term.querySelector('.term-o').textContent = ''; return ''; },
     arcade: () => { setTimeout(() => (location.href = BASE + 'arcade/'), 500); return 'Opening the door.'; },
     certificate: () => { setTimeout(() => (location.href = BASE + 'certificate/'), 500); return 'Preparing your certificate.'; },
-    konami: () => 'Nice try. Use the keys.',
     buy: () => 'This terminal does not do that. Nothing on this page does.',
     sell: () => 'This terminal does not do that. Nothing on this page does.',
     hello: () => 'Hello.', hi: () => 'Hello.',
@@ -142,23 +142,38 @@
   d.querySelector('[data-terminal-tap]')?.addEventListener('dblclick', openTerm);
 
   // ---------- keys: terminal + Konami ----------
+  // Forgiving matcher: only arrows, B and A count; other keys, Shift, key-repeat and ordinary
+  // scrolling never break the sequence. Overlaps (an extra "up" at the start) are handled.
   const KONAMI = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
-  let seq = [];
-  const push = (k) => { seq = [...seq, k].slice(-10); if (seq.join() === KONAMI.join()) { seq = []; go1994(); } };
+  const RELEVANT = new Set(KONAMI);
+  let kIdx = 0;
+  const step = (k) => {
+    if (!RELEVANT.has(k)) return;
+    if (k === KONAMI[kIdx]) kIdx++;
+    else if (kIdx === 2 && k === 'ArrowUp') kIdx = 2;
+    else kIdx = k === KONAMI[0] ? 1 : 0;
+    if (kIdx === KONAMI.length) { kIdx = 0; go1994(); }
+  };
+  let typed = '';
   addEventListener('keydown', (e) => {
     const typing = /INPUT|TEXTAREA/.test(e.target.tagName);
     if (e.key === 'Escape') closeTerm();
-    if (typing) return;
+    if (typing || e.metaKey || e.ctrlKey || e.altKey) return;
     if (e.key === '`' || e.key === '~') { e.preventDefault(); openTerm(); return; }
-    push(e.key.length === 1 ? e.key.toLowerCase() : e.key);
+    if (e.repeat) return;
+    const k = e.key.length === 1 ? e.key.toLowerCase() : e.key;
+    step(k);
+    if (k.length === 1) { typed = (typed + k).slice(-6); if (typed === 'boardy') nameCalled(); }
   });
-  // Touch Konami: swipe up, up, down, down, left, right, left, right, then tap twice.
-  let tx, ty;
-  addEventListener('touchstart', (e) => { const t = e.touches[0]; tx = t.clientX; ty = t.clientY; }, { passive: true });
+  // Touch: swipe up, up, down, down, left, right, left, right, then tap twice anywhere.
+  // Taps only count once the eight swipes are in, so reading and scrolling first is harmless.
+  let tx = 0, ty = 0, tt = 0;
+  addEventListener('touchstart', (e) => { const t = e.touches[0]; tx = t.clientX; ty = t.clientY; tt = Date.now(); }, { passive: true });
   addEventListener('touchend', (e) => {
     const t = e.changedTouches[0], dx = t.clientX - tx, dy = t.clientY - ty, ax = Math.abs(dx), ay = Math.abs(dy);
-    if (ax < 30 && ay < 30) { const want = KONAMI[seq.length]; if (seq.length >= 8 && (want === 'b' || want === 'a')) push(want); else seq = []; return; }
-    push(ax > ay ? (dx > 0 ? 'ArrowRight' : 'ArrowLeft') : (dy > 0 ? 'ArrowDown' : 'ArrowUp'));
+    if (ax < 24 && ay < 24) { if (kIdx >= 8 && Date.now() - tt < 500) step(KONAMI[kIdx]); return; }
+    if (Math.max(ax, ay) < 40 || Math.min(ax, ay) > Math.max(ax, ay) * 0.75) return; // diagonal or tiny: ignore
+    step(ax > ay ? (dx > 0 ? 'ArrowRight' : 'ArrowLeft') : (dy > 0 ? 'ArrowDown' : 'ArrowUp'));
   }, { passive: true });
 
   // ---------- 1994 ----------
@@ -167,10 +182,75 @@
     found('konami');
     if (!d.getElementById('css1994')) { const l = d.createElement('link'); l.id = 'css1994'; l.rel = 'stylesheet'; l.href = BASE + 'eggs/1994.css'; d.head.append(l); }
     root.classList.add('y1994');
+    const n = (ls.get('visits', 1) * 3 + 4812377).toString().padStart(8, '0');
     const bar = d.createElement('div'); bar.className = 'y94-bar';
-    bar.innerHTML = '<div class="y94-uc">UNDER CONSTRUCTION</div><div class="y94-mq"><span>Welcome to my HOME PAGE!!! You are visitor number a lot. Please sign my guestbook. Best viewed in Netscape Navigator 2.0 at 800x600. This page is Y2K compliant.</span></div><button type="button" class="y94-x">Restore dignity</button>';
+    bar.innerHTML = `<div class="y94-top"><img class="y94-uc" src="${BASE}eggs/construction.png" width="120" height="80" alt=""><div><p class="y94-h">~*~ Welcome to Boardy's Home Page ~*~</p><p class="y94-sub">This page is <b>UNDER CONSTRUCTION</b>. Please come back soon!!!</p></div><img class="y94-uc" src="${BASE}eggs/construction.png" width="120" height="80" alt=""></div>
+<div class="y94-mq"><span>Welcome to my HOME PAGE!!! You are visitor number ${n}!!! Please sign my guestbook. Best viewed at 800x600 in any browser. This page is Y2K compliant. No frames were harmed.</span></div>
+<div class="y94-row"><span class="y94-count">${[...n].map((c) => `<i>${c}</i>`).join('')}</span><span class="y94-new">NEW!</span><span class="y94-btns"><b>MADE WITH NOTEPAD</b><b>800 x 600</b><b>Y2K READY</b><b>NO FRAMES</b></span></div>
+<div class="y94-ring">&lt;&lt; Prev | <u>Boardy WebRing</u> | Next &gt;&gt;</div>
+<button type="button" class="y94-x">Restore dignity</button>`;
     d.body.prepend(bar); scrollTo({ top: 0 });
-    bar.querySelector('.y94-x').onclick = () => { root.classList.remove('y1994'); bar.remove(); found('y1994'); toast('Dignity restored. It was close.', 3200); };
+    bar.querySelector('.y94-ring').onclick = () => toast('The webring has been dissolved by mutual agreement.', 3500);
+    if (!RM && matchMedia('(pointer:fine)').matches) sparkles(true);
+    toast('Code accepted. Welcome to 1996.', 3000);
+    bar.querySelector('.y94-x').onclick = () => { root.classList.remove('y1994'); bar.remove(); sparkles(false); found('y1994'); toast('Dignity restored. It was close.', 3200); };
   }
+  // the classic cursor sparkle trail, desktop only, off for reduced motion
+  let spark = null;
+  function sparkles(on) {
+    if (!on) { if (spark) removeEventListener('mousemove', spark); spark = null; d.querySelectorAll('.y94-s').forEach((x) => x.remove()); return; }
+    let last = 0;
+    spark = (e) => {
+      const now = performance.now(); if (now - last < 40) return; last = now;
+      const s = d.createElement('span'); s.className = 'y94-s'; s.textContent = '*';
+      s.style.left = e.clientX + 'px'; s.style.top = e.clientY + 'px'; s.style.color = ['#ff0', '#f0f', '#0ff', '#fff'][Math.floor(Math.random() * 4)];
+      d.body.append(s); setTimeout(() => s.remove(), 700);
+    };
+    addEventListener('mousemove', spark);
+  }
+
+  // ---------- round 2 eggs ----------
+  // 1. Leave the tab: the title begs.
+  const origTitle = d.title;
+  d.addEventListener('visibilitychange', () => {
+    if (d.hidden) { d.title = 'Come back. The lamp is still on.'; ls.set('tabLeft', true); }
+    else { d.title = origTitle; if (ls.get('tabLeft', false)) found('tab'); }
+  });
+  // 2. Stop reading for a while: the page notices.
+  let idleT; const idle = () => { clearTimeout(idleT); idleT = setTimeout(() => { if (!d.hidden && !term) { toast('The page has noticed you have stopped reading. It will wait.', 6000); found('idle'); } }, 75000); };
+  ['pointermove', 'keydown', 'scroll', 'touchstart'].forEach((ev) => addEventListener(ev, idle, { passive: true })); idle();
+  // 3. Type his name.
+  function nameCalled() {
+    const m = d.querySelector('.c-mark,.d-mark,.a-mark,.b-mark'); if (m) { m.classList.remove('bow'); void m.offsetWidth; m.classList.add('bow'); }
+    toast('Yes?', 2200); found('name');
+  }
+  // 4. Click the year on the report cover: forecasts, then a withdrawal.
+  const yr = d.querySelector('.c-yr');
+  if (yr) {
+    const base0 = +yr.textContent; let clicks = 0;
+    const LBL = ['', ' (forecast)', ' (projected)', ' (aspirational)'];
+    yr.style.cursor = 'pointer'; yr.setAttribute('role', 'button'); yr.tabIndex = 0;
+    const bump = () => {
+      clicks++;
+      if (clicks < 4) { yr.textContent = String(base0 + clicks); yr.dataset.note = LBL[clicks]; yr.setAttribute('aria-label', `${base0 + clicks}${LBL[clicks]}`); toast(`${base0 + clicks}${LBL[clicks]}.`, 1800); }
+      else { clicks = 0; yr.textContent = String(base0); delete yr.dataset.note; toast('Forecast withdrawn. Results remain as reported.', 3200); found('forecast'); }
+    };
+    yr.addEventListener('click', bump); yr.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); bump(); } });
+  }
+  // 5. Print the page: it is stamped (see the print styles) and noted.
+  addEventListener('beforeprint', () => found('print'));
+  // 6. After hours (10pm to 5am local time) the lamp in the masthead is on.
+  const hr = new Date().getHours();
+  if (hr >= 22 || hr < 5) {
+    const m = d.querySelector('.c-mast,.d-mast,.a-mast,.b-mast');
+    if (m) {
+      const lamp = d.createElement('button'); lamp.type = 'button'; lamp.className = 'lamp-on'; lamp.setAttribute('aria-label', 'A lamp, left on');
+      lamp.onclick = () => { toast('After hours. The lamp has been left on. It is not involved.', 4000); found('lamp'); };
+      m.append(lamp);
+    }
+  }
+  // Terminal shortcut for anyone who cannot do the code.
+  CMDS.konami = () => { setTimeout(go1994, 300); return 'Fine. Going back to 1996.'; };
+  CMDS['1996'] = CMDS.konami;
   window.bb1994 = go1994;
 })();

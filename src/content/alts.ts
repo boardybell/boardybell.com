@@ -29,3 +29,9 @@ Object.assign(ALT, {
   'g-mug': 'A macro view of a chipped gold rim on a cream mug.',
   'g-umbrella': 'A macro view of the brass tip of a furled navy umbrella.',
 });
+Object.assign(ALT, {
+  'e-nib': 'A gold line engraving of a fountain pen nib inside an ornamental oval border.',
+  'e-watch': 'A gold engraving of a pocket watch lying face down, framed like an old revenue stamp.',
+  'e-lamp': 'A gold stipple engraving of a desk lamp, switched on.',
+  'e-chair': 'A gold stipple engraving of an empty wingback chair.',
+});

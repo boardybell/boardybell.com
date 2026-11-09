@@ -1,5 +1,5 @@
 /* Konami payoff: the expensive page rebuilds itself as a 1994 home page. Code-drawn UI only. */
-html.y1994 body{background:#008080 repeating-conic-gradient(#0a9a9a 0 25%,#008080 0 50%) 0 0/28px 28px!important;
+html.y1994 body{background:#000 url(tile.png) 0 0/256px 256px!important;
   color:#000!important;font-family:'Times New Roman',Times,serif!important}
 html.y1994 body *{font-family:'Comic Sans MS','Comic Sans','Chalkboard SE','Times New Roman',serif!important;letter-spacing:0!important;text-transform:none!important}
 html.y1994 main,html.y1994 header,html.y1994 section,html.y1994 article,html.y1994 footer{background:#C0C0C0!important;color:#000!important;
@@ -7,14 +7,34 @@ html.y1994 main,html.y1994 header,html.y1994 section,html.y1994 article,html.y19
   width:auto!important;max-width:calc(100% - 20px)!important}
 html.y1994 main *{max-width:100%!important}
 html.y1994 .b-band,html.y1994 .b3 .b-prin{margin-inline:0!important;width:auto!important}
-html.y1994 h1,html.y1994 h2,html.y1994 h3{color:#FF00FF!important;text-align:center!important;text-shadow:2px 2px 0 #FFFF00!important;font-style:normal!important}
+html.y1994 :is(main,header,section,article,footer) :is(p,span,dd,dt,li,td,th,div,b,small,strong,em,figcaption,label,sup,i){color:#000!important;-webkit-text-fill-color:#000}
+html.y1994 :is(main,header) .label{color:#008!important}
+html.y1994 .c-tech,html.y1994 .c-cover-i,html.y1994 .c-aud{background:#C0C0C0!important}
+html.y1994 h1,html.y1994 h2,html.y1994 h3,html.y1994 h1 *,html.y1994 .c-ttl,html.y1994 .c-yr{color:#FF00FF!important;-webkit-text-fill-color:#FF00FF;text-align:center!important;text-shadow:2px 2px 0 #FFFF00!important;font-style:normal!important}
 html.y1994 h1{font-size:clamp(2rem,7vw,3.4rem)!important}
 html.y1994 a,html.y1994 .door{color:#0000EE!important;text-decoration:underline!important;opacity:1!important}
 html.y1994 img{border:6px ridge #FFD700!important;filter:saturate(1.8) contrast(1.15)!important}
 html.y1994 .redact{background:#000!important}
 html.y1994 .rv{opacity:1!important;transform:none!important}
 html.y1994 hr,html.y1994 .rule{border:0!important;height:6px!important;background:linear-gradient(90deg,red,orange,yellow,lime,cyan,blue,magenta)!important}
-.y94-bar{position:sticky;top:0;z-index:80;display:grid;gap:4px;padding:6px;background:#000080;border-bottom:3px outset #fff}
+.y94-bar{position:relative;z-index:80;display:grid;gap:8px;padding:10px 8px;background:#000080 url(tile.png) 0 0/256px;border-bottom:3px outset #fff;text-align:center;font-family:'Comic Sans MS','Chalkboard SE','Times New Roman',serif}
+.y94-top{display:flex;align-items:center;justify-content:center;gap:10px}
+.y94-top img{width:clamp(56px,14vw,120px);height:auto;image-rendering:pixelated}
+.y94-h{font:700 clamp(15px,3.6vw,26px)/1.2 'Comic Sans MS','Chalkboard SE',serif;color:#ff0;text-shadow:2px 2px 0 #f0f}
+.y94-sub{font:400 14px/1.3 'Times New Roman',serif;color:#0ff}
+.y94-sub b{color:#f00;animation:y94b 1s steps(2) infinite}
+@keyframes y94b{50%{opacity:0}}
+.y94-row{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:8px}
+.y94-count{display:inline-flex;gap:1px;background:#000;border:2px inset #888;padding:2px}
+.y94-count i{font:700 15px/1 'Courier New',monospace;font-style:normal;color:#f00;background:#200;padding:2px 3px}
+.y94-new{font:900 14px/1 'Arial Black',Impact,sans-serif;color:#ff0;background:#f00;padding:3px 6px;transform:rotate(-8deg);animation:y94b .8s steps(2) infinite}
+.y94-btns{display:flex;flex-wrap:wrap;gap:4px;justify-content:center}
+.y94-btns b{display:inline-grid;place-items:center;width:88px;height:31px;font:700 9px/1.05 Verdana,Arial,sans-serif;color:#fff;border:2px outset #ccc;text-align:center;padding:2px}
+.y94-btns b:nth-child(1){background:linear-gradient(#36c,#039)}.y94-btns b:nth-child(2){background:linear-gradient(#0a0,#060)}
+.y94-btns b:nth-child(3){background:linear-gradient(#c60,#930)}.y94-btns b:nth-child(4){background:linear-gradient(#909,#606)}
+.y94-ring{font:400 15px/1.3 'Times New Roman',serif;color:#fff;cursor:pointer}.y94-ring u{color:#0ff}
+.y94-s{position:fixed;z-index:99;pointer-events:none;font:700 14px/1 serif;transform:translate(-50%,-50%);animation:y94sp .7s ease-out forwards}
+@keyframes y94sp{to{opacity:0;transform:translate(-50%,40%) scale(.4)}}
 .y94-uc{justify-self:center;padding:4px 14px;font:700 14px/1.3 'Comic Sans MS','Chalkboard SE',sans-serif;color:#000;letter-spacing:.08em;
   background:repeating-linear-gradient(45deg,#FFD800 0 14px,#111 14px 28px);text-shadow:0 0 2px #FFD800,0 0 4px #FFD800}
 .y94-mq{overflow:hidden;white-space:nowrap;color:#FFFF00;font:700 15px/1.6 'Comic Sans MS','Chalkboard SE',sans-serif}
@@ -22,4 +42,4 @@ html.y1994 hr,html.y1994 .rule{border:0!important;height:6px!important;backgroun
 @keyframes y94{to{transform:translateX(-100%)}}
 .y94-x{justify-self:center;font:700 13px/1 'Times New Roman',serif!important;padding:6px 12px;background:#C0C0C0;color:#000;border:2px outset #fff;cursor:pointer}
 .y94-x:active{border-style:inset}
-@media (prefers-reduced-motion:reduce){.y94-mq span{animation:none;padding-left:0;white-space:normal}}
+@media (prefers-reduced-motion:reduce){.y94-mq span{animation:none;padding-left:0;white-space:normal}.y94-sub b,.y94-new{animation:none}}

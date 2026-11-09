@@ -5,6 +5,16 @@ import { base } from '../../lib/rich';
 import { existsSync } from 'node:fs';
 const FAM = { A: 'The Redacted File', B: 'The Overqualified Page', C: 'The Annual Report', D: 'Wildcard' } as const;
 const thumb = (id: string) => existsSync(`public/gallery/${id}.webp`);
+const ROUND4 = [
+  { id: 'n7', name: 'Banknote and tax stamp', plates: 'A fountain pen nib in a guilloché oval vignette; the pocket watch face down inside a perforated revenue-stamp frame. Captions unchanged.' },
+  { id: 'n8', name: 'Stipple', plates: 'Dot-and-hatch engravings of the lamp, left on, and the empty wingback chair (“The board, in session.”).' },
+  { id: 'n6', name: 'For comparison: N6 as is', plates: 'The photographed gold nib and watch.' },
+];
+const ROUND3 = [
+  { id: 'n4', name: 'Midnight, Lamplit photographs', cover: 'Townhouse at night with one lit window (the lamp left on).', plates: 'Tall-case clock; navy door with brass knocker.' },
+  { id: 'n5', name: 'Midnight, Gilt photographs', cover: 'Gilded page edges of navy ledgers.', plates: 'Gold nib; back of a gold watch.' },
+  { id: 'n6', name: 'Midnight, mixed', cover: 'Townhouse at night with one lit window.', plates: 'Gold nib; back of a gold watch.' },
+];
 const ROUND2 = [
   { id: 'n1', name: 'Midnight', page: 'Deep navy throughout, cream and gold type, Bodoni year in gold, charts printed on a cream insert.', images: 'Still lifes in a navy studio: navy velvet chair under a brass picture light, gold watch on navy leather, gilt-edged ledger. Collection: brass key, gold-rimmed mug, navy umbrella on navy plinths.' },
   { id: 'n2', name: 'Lamplit', page: 'Cream page with full-width navy bands (masthead, cover, highlights, collection link, footer) and gold rules.', images: 'Navy architecture at night where gold appears only where a light is on: a townhouse with one lit window (the lamp left on), a tall-case clock, a brass-knockered front door. Collection as N1.' },
@@ -15,11 +25,37 @@ const ROUND2 = [
 <main id="main" class="g wrap">
   <header class="g-h">
     <p class="label">boardybell.com · front room · design gallery</p>
-    <h1>Round 2: the Annual Report in navy and gold. Pick one.</h1>
-    <p>Same page, same copy, same charts and arcade. Each look has its own new photography and its own navy and gold treatment, and its own Permanent Collection page.</p>
+    <h1>Round 4: N6 with engraved plates. Pick one.</h1>
+    <p>N6 as you liked it (Midnight layout, the lit-window townhouse cover, the N3 close-up collection), with the two photographed plates replaced by gold-on-navy engravings. N7 uses banknote and tax-stamp engraving; N8 uses newspaper-portrait stipple.</p>
   </header>
   <section class="g-fam">
-    <h2><span>R2</span> Navy and gold</h2>
+    <h2><span>R4</span> N6, engraved</h2>
+    <div class="g-grid">
+      {ROUND4.map((i) => (
+        <div class="g-card">
+          <a href={`${base}n/${i.id}/#plates`} class="g-thumb">{thumb(i.id) ? <img src={`${base}gallery/${i.id}.webp`} width="800" height="1000" alt="" loading="lazy" /> : <span>{i.id}</span>}</a>
+          <h3>{i.id.toUpperCase()} · {i.name}</h3>
+          <dl><dt>Plates</dt><dd>{i.plates}</dd></dl>
+          <p class="g-links"><a href={`${base}n/${i.id}/`}>Open the report</a> <a href={`${base}n/${i.id}/collection/`}>Open its collection</a></p>
+        </div>
+      ))}
+    </div>
+  </section>
+  <section class="g-fam">
+    <h2><span>R3</span> Midnight layout, Lamplit and Gilt photographs (earlier round)</h2>
+    <div class="g-grid">
+      {ROUND3.map((i) => (
+        <div class="g-card">
+          <a href={`${base}n/${i.id}/`} class="g-thumb">{thumb(i.id) ? <img src={`${base}gallery/${i.id}.webp`} width="800" height="1000" alt="" loading="lazy" /> : <span>{i.id}</span>}</a>
+          <h3>{i.id.toUpperCase()} · {i.name}</h3>
+          <dl><dt>Cover</dt><dd>{i.cover}</dd><dt>Plates</dt><dd>{i.plates}</dd><dt>Collection</dt><dd>N3 close-ups: the key’s teeth, the mug’s chipped gold rim, the umbrella’s brass tip.</dd></dl>
+          <p class="g-links"><a href={`${base}n/${i.id}/`}>Open the report</a> <a href={`${base}n/${i.id}/collection/`}>Open its collection</a></p>
+        </div>
+      ))}
+    </div>
+  </section>
+  <section class="g-fam">
+    <h2><span>R2</span> Navy and gold (earlier round)</h2>
     <div class="g-grid">
       {ROUND2.map((i) => (
         <div class="g-card">
@@ -43,17 +79,24 @@ const ROUND2 = [
 
   <section class="g-eggs" id="eggs">
     <h2><span>?</span> How to find the Easter eggs</h2>
+    <p class="g-eggs-n">They run on the real pages (the report and the collection), not on this gallery page or inside the arcade.</p>
     <ol>
       <li><b>The hidden door.</b> A small gold keyhole at the very bottom of every page, under the copyright line. Click it to enter the arcade.</li>
-      <li><b>Konami code.</b> On a keyboard: up, up, down, down, left, right, left, right, B, A. On a phone: swipe up, up, down, down, left, right, left, right, then tap twice. The page turns into a 1994 home page; “Restore dignity” puts it back.</li>
-      <li><b>Lying loading screen.</b> Appears once per browser session on your first page view. Open the site in a new private window to see it again.</li>
+      <li><b>Konami code.</b> On a keyboard: up, up, down, down, left, right, left, right, B, A (click the page once first so it has focus). On a phone: swipe up, up, down, down, left, right, left, right, then tap twice. Straight swipes work best. The page turns into a 1996 home page; “Restore dignity” puts it back. Shortcut: type konami in the terminal.</li>
+      <li><b>Lying loading screen.</b> Once per browser session, on your first page view. Open a new private window to see it again.</li>
       <li><b>Visitor counter.</b> The green odometer in the footer. Click or tap it to be counted again.</li>
-      <li><b>Guestbook.</b> Near the bottom of the page. Sign it; every entry is politely declined and nothing is stored or sent.</li>
-      <li><b>Terminal.</b> Press the backtick key ( ` ) on a keyboard, double-click the © in the footer, or press and hold the visitor counter on a phone. Try help, whoami, ls, cat chair.txt, sudo, arcade.</li>
-      <li><b>Certificate.</b> Find any three eggs and a link appears offering a certificate. Or type certificate in the terminal. It prints on one page.</li>
-      <li><b>Highlighting changes the text.</b> Select the “Works in private wealth. Details withheld.” line, or the colophon line in the footer.</li>
-      <li><b>Joke 404 and favicon.</b> Visit any address that does not exist (for example /nope/). The browser tab icon is a redacted document.</li>
+      <li><b>Guestbook.</b> Near the bottom of the page. Every entry is politely declined; nothing is stored or sent.</li>
+      <li><b>Terminal.</b> Press the backtick key ( ` ), double-click the © in the footer, or press and hold the visitor counter on a phone. Try help, whoami, ls, cat chair.txt, sudo, arcade, konami.</li>
+      <li><b>Certificate.</b> Find any three eggs and a link to a certificate appears, or type certificate in the terminal. It prints on one page.</li>
+      <li><b>Highlighting changes the text.</b> Select “Works in private wealth. Details withheld.”, or the colophon line in the footer.</li>
+      <li><b>Joke 404 and favicon.</b> Visit an address that does not exist (for example /nope/). The tab icon is a redacted document.</li>
       <li><b>Redaction bars.</b> On the Permanent Collection page, click the black bars on the labels.</li>
+      <li><b>New: the year.</b> Click the year on the report cover. It forecasts, projects, aspires, and is then withdrawn.</li>
+      <li><b>New: say his name.</b> Type boardy anywhere on the page (not in a box). The wordmark bows.</li>
+      <li><b>New: leave.</b> Switch to another tab and look at this one’s title. Come back.</li>
+      <li><b>New: stop reading.</b> Leave the page untouched for about a minute and a quarter.</li>
+      <li><b>New: print it.</b> Print the report (or print to PDF). Your copy is stamped.</li>
+      <li><b>New: after hours.</b> Between 10pm and 5am your time, a small lamp glows in the masthead. Click it.</li>
     </ol>
   </section>
   <h2 class="g-old">Round 1 (C1 picked)</h2>
@@ -102,6 +145,7 @@ const ROUND2 = [
 .g-eggs{background:#16233B;color:#FDF6EC;padding:clamp(1.25rem,4vw,2.5rem)}
 .g-eggs h2{font:400 1.6rem/1.2 var(--display);margin-bottom:1.2rem}
 .g-eggs h2 span{font:500 .8rem/1 var(--label);color:#D9B36C;border:1px solid #D9B36C;padding:.3rem .5rem;vertical-align:.35em;margin-right:.4rem}
+.g-eggs-n{color:#D9B36C;margin:-.4rem 0 1rem;font-size:.95rem}
 .g-eggs ol{display:grid;gap:.8rem;padding-left:1.4rem;max-width:52rem}
 .g-eggs b{color:#D9B36C;font-weight:500}
 .g-old{font:400 1.2rem/1.2 var(--display);color:var(--warm);border-top:1px solid var(--rule);padding-top:2rem}

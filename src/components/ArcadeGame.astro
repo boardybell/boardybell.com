@@ -54,12 +54,12 @@ const g = GAMES.find((x) => x.slug === Astro.props.slug)!;
   </div>
 
   <div class={`ag-pad ag-pad-${g.pad}`} aria-hidden="true">
-    {g.pad === 'dpad' ? (
+    {g.pad === 'dpad' || g.pad === 'full' ? (
       <div class="ag-dpad"><button type="button" tabindex="-1" data-btn="up" class="u">▲</button><button type="button" tabindex="-1" data-btn="left" class="l">◄</button><button type="button" tabindex="-1" data-btn="right" class="r">►</button><button type="button" tabindex="-1" data-btn="down" class="d">▼</button></div>
     ) : (
       <div class="ag-lr"><button type="button" tabindex="-1" data-btn="left">◄</button><button type="button" tabindex="-1" data-btn="right">►</button></div>
     )}
-    {g.pad === 'lr' && <button type="button" tabindex="-1" data-btn="act" class="ag-a">A</button>}
+    {(g.pad === 'lr' || g.pad === 'full') && <button type="button" tabindex="-1" data-btn="act" class="ag-a">A</button>}
   </div>
   <p class="ag-foot">{DISCLAIMER}</p>
 </main>

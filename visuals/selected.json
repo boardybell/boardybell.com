@@ -165,5 +165,105 @@
   "src": "visuals/inbox/45-g-umbrella/raw-1.png",
   "grade": "navygold",
   "mix": 0.3
+ },
+ "title-bear": {
+  "src": "visuals/inbox/50-title-bear/raw-1.png",
+  "grade": "none",
+  "q": 68
+ },
+ "title-trail": {
+  "src": "visuals/inbox/51-title-trail/raw-1.png",
+  "grade": "none",
+  "q": 68
+ },
+ "title-trader": {
+  "src": "visuals/inbox/52-title-trader/raw-1.png",
+  "grade": "none",
+  "q": 68
+ },
+ "title-crossing": {
+  "src": "visuals/inbox/53-title-crossing/raw-1.png",
+  "grade": "none",
+  "q": 68
+ },
+ "title-volatility": {
+  "src": "visuals/inbox/54-title-volatility/raw-1.png",
+  "grade": "none",
+  "q": 68
+ },
+ "title-office": {
+  "src": "visuals/inbox/55-title-office/raw-1.png",
+  "grade": "none",
+  "q": 68
+ },
+ "title-ladder": {
+  "src": "visuals/inbox/56-title-ladder/raw-1.png",
+  "grade": "none",
+  "q": 68
+ },
+ "title-blocks": {
+  "src": "visuals/inbox/57-title-blocks/raw-1.png",
+  "grade": "none",
+  "q": 68
+ },
+ "title-lander": {
+  "src": "visuals/inbox/58-title-lander/raw-1.png",
+  "grade": "none",
+  "q": 68
+ },
+ "title-audit": {
+  "src": "visuals/inbox/59-title-audit/raw-1.png",
+  "grade": "none",
+  "q": 68
+ },
+ "title-pinball": {
+  "src": "visuals/inbox/60-title-pinball/raw-1.png",
+  "grade": "none",
+  "q": 68
+ },
+ "title-runner": {
+  "src": "visuals/inbox/61-title-runner/raw-1.png",
+  "grade": "none",
+  "q": 68
+ },
+ "title-defence": {
+  "src": "visuals/inbox/62-title-defence/raw-1.png",
+  "grade": "none",
+  "q": 68
+ },
+ "title-ledger": {
+  "src": "visuals/inbox/63-title-ledger/raw-1.png",
+  "grade": "none",
+  "q": 68
+ },
+ "title-stack": {
+  "src": "visuals/inbox/64-title-stack/raw-1.png",
+  "grade": "none",
+  "q": 68
+ },
+ "title-missile": {
+  "src": "visuals/inbox/65-title-missile/raw-1.png",
+  "grade": "none",
+  "q": 68
+ },
+ "e-nib": {
+  "src": "visuals/inbox/80-e-nib/raw-1.png",
+  "grade": "none",
+  "q": 60
+ },
+ "e-watch": {
+  "src": "visuals/inbox/81-e-watch/raw-1.png",
+  "grade": "none",
+  "q": 60
+ },
+ "e-lamp": {
+  "src": "visuals/inbox/82-e-lamp/raw-1.png",
+  "grade": "none",
+  "q": 60
+ },
+ "e-chair": {
+  "src": "visuals/inbox/83-e-chair/raw-1.png",
+  "grade": "none",
+  "q": 60
  }
 }

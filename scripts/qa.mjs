@@ -10,8 +10,9 @@ const BASE = process.env.SITE_BASE ?? '/boardybell.com/';
 const ARGS = process.argv.slice(2);
 const ONLY = ARGS.includes('--only') ? ARGS[ARGS.indexOf('--only') + 1].split(',') : null;
 const IDS = ['a1', 'a2', 'a3', 'b1', 'b2', 'b3', 'c1', 'c2', 'c3', 'd1'].filter((i) => !ONLY || ONLY.includes(i));
-const GAMES = ['tax-man', 'margin-invaders', 'compound-interest', 'break-the-market'];
-const PAGES = [...IDS.map((i) => `i/${i}/`), ...(ONLY ? [] : ['', 'collection/', 'gallery/', ...['n1', 'n2', 'n3'].flatMap((n) => [`n/${n}/`, `n/${n}/collection/`]), 'arcade/', ...GAMES.map((g) => `arcade/${g}/`), 'certificate/', 'nope/'])];
+const ARC = readFileSync('src/content/arcade.ts', 'utf8');
+const GAMES = [...ARC.matchAll(/slug: '([^']+)'/g)].map((m) => m[1]);
+const PAGES = [...IDS.map((i) => `i/${i}/`), ...(ONLY ? [] : ['', 'collection/', 'gallery/', ...['n1', 'n2', 'n3', 'n4', 'n5', 'n6', 'n7', 'n8'].flatMap((n) => [`n/${n}/`, `n/${n}/collection/`]), 'arcade/', ...GAMES.map((g) => `arcade/${g}/`), 'certificate/', 'nope/'])];
 const WIDTHS = [360, 768, 1280, 1920];
 // Blocklist is base64 so the names themselves never appear in this public repo.
 const FIRMS = new RegExp(Buffer.from('Ym9uZGJlbGx8YmVsbGFzc2V0fGJlbGxmYW1pbHl8YmVsbCBhc3NldHxiZWxsIGZhbWlseXxib25kIGJlbGwgJiBjb3xib25kIGJlbGwgYW5kIGNvfFxiQ1JEXGJ8ZmlucmF8c2VjXC5nb3Y=', 'base64').toString(), 'i');
@@ -107,7 +108,7 @@ for (const mode of ['desktop', 'touch']) {
   const ctx = await browser.newContext(mode === 'touch' ? { ...devices['iPhone 13'], reducedMotion: 'reduce' } : { viewport: { width: 1280, height: 900 } });
   const page = await ctx.newPage(); const W = `eggs/${mode}`;
   page.on('pageerror', (e) => fail(W, `JS error ${e.message}`));
-  for (const id of [...IDS, ...(ONLY ? [] : ['n/n1', 'n/n2', 'n/n3', 'n/n1/collection', 'n/n3/collection'])]) {
+  for (const id of [...IDS, ...(ONLY ? [] : ['n/n6', 'n/n7', 'n/n8', 'n/n6/collection'])]) {
     await page.goto(url(id.startsWith('n/') ? `${id}/` : `i/${id}/`), { waitUntil: 'networkidle' });
     await page.evaluate(() => localStorage.clear());
     const tap = (sel) => (mode === 'touch' ? page.tap(sel) : page.click(sel));
@@ -129,14 +130,27 @@ for (const mode of ['desktop', 'touch']) {
     else { await page.evaluate(async () => { const c = document.querySelector('.counter-d'); c.dispatchEvent(new PointerEvent('pointerdown', { bubbles: true })); await new Promise((z) => setTimeout(z, 800)); c.dispatchEvent(new PointerEvent('pointerup', { bubbles: true })); }); }
     if (!(await page.$('.term'))) fail(`${W} ${id}`, 'terminal did not open');
     else { await page.fill('.term input', 'whoami'); await page.press('.term input', 'Enter'); if (!(await page.textContent('.term-o')).includes('Details withheld')) fail(`${W} ${id}`, 'terminal whoami'); await page.press('.term input', 'Escape'); }
+    if (await page.$('.c-yr')) {
+      for (let i = 0; i < 4; i++) await page.locator('.c-yr').first().click();
+      if (!(await page.evaluate(() => JSON.parse(localStorage.getItem('bb.found') || '[]').includes('forecast')))) fail(`${W} ${id}`, 'year forecast egg did not fire');
+    }
+    if (mode === 'desktop') {
+      await page.click('main', { position: { x: 5, y: 5 } }).catch(() => {}); await page.keyboard.type('boardy');
+      if (!(await page.evaluate(() => JSON.parse(localStorage.getItem('bb.found') || '[]').includes('name')))) fail(`${W} ${id}`, 'typing boardy did not fire');
+    }
     // Konami
-    if (mode === 'desktop') { await page.click('main', { position: { x: 5, y: 5 } }).catch(() => {}); for (const k of ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a']) await page.keyboard.press(k); }
+    if (mode === 'desktop') {
+      await page.click('main', { position: { x: 5, y: 5 } }).catch(() => {});
+      // realistic: some noise first, an extra up, a held arrow (repeat), Shift+B for a capital B
+      for (const k of ['x', 'ArrowDown', 'ArrowUp', 'ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight']) await page.keyboard.press(k);
+      await page.keyboard.press('Shift+B'); await page.keyboard.press('a');
+    }
     else {
       await page.evaluate(() => {
         const sw = (dx, dy) => { const mk = (x, y) => new Touch({ identifier: 1, target: document.body, clientX: x, clientY: y });
           document.body.dispatchEvent(new TouchEvent('touchstart', { bubbles: true, touches: [mk(200, 400)], changedTouches: [mk(200, 400)] }));
           document.body.dispatchEvent(new TouchEvent('touchend', { bubbles: true, touches: [], changedTouches: [mk(200 + dx, 400 + dy)] })); };
-        [[0, -80], [0, -80], [0, 80], [0, 80], [-80, 0], [80, 0], [-80, 0], [80, 0], [0, 0], [0, 0]].forEach(([x, y]) => sw(x, y));
+        [[0, 140], [0, -120], [0, 160], [5, 0], [0, -80], [0, -80], [0, 80], [0, 80], [-80, 0], [80, 0], [-80, 0], [80, 0], [0, 0], [0, 0]].forEach(([x, y]) => sw(x, y));
       });
     }
     await page.waitForTimeout(300);
@@ -163,7 +177,7 @@ for (const mode of ['desktop', 'touch']) {
 }
 
 // ---------- arcade: every game starts, runs, pauses, ends, saves a score ----------
-const GID = { 'tax-man': 'taxman', 'margin-invaders': 'invaders', 'compound-interest': 'snake', 'break-the-market': 'breakout' };
+const GID = Object.fromEntries([...ARC.matchAll(/slug: '([^']+)', id: '([^']+)'/g)].map((m) => [m[1], m[2]]));
 if (!ONLY) for (const mode of ['desktop', 'touch']) {
   const ctx = await browser.newContext(mode === 'touch' ? { ...devices['iPhone 13'] } : { viewport: { width: 1280, height: 900 } });
   const page = await ctx.newPage(); const W = `arcade/${mode}`;
@@ -178,7 +192,7 @@ if (!ONLY) for (const mode of ['desktop', 'touch']) {
     await page.waitForTimeout(1500);
     const lit = await page.evaluate(() => { const c = document.getElementById('ag-cv'), d = c.getContext('2d').getImageData(0, 0, c.width, c.height).data; let n = 0; for (let i = 0; i < d.length; i += 4) if (d[i] + d[i + 1] + d[i + 2] > 120) n++; return n; });
     if (lit < 300) fail(`${W} ${g}`, `canvas looks empty (${lit})`);
-    if (mode === 'desktop') { await page.keyboard.press('p'); if ((await page.evaluate(() => window.__arcade.state)) !== 'paused') fail(`${W} ${g}`, 'pause failed'); await page.keyboard.press('p'); }
+    if ((await page.evaluate(() => window.__arcade.state)) !== 'play') { /* game already ended during input (e.g. stacking miss) */ } else if (mode === 'desktop') { await page.keyboard.press('p'); if ((await page.evaluate(() => window.__arcade.state)) !== 'paused') fail(`${W} ${g}`, 'pause failed'); await page.keyboard.press('p'); }
     else { await page.tap('#ag-pausebtn'); if ((await page.evaluate(() => window.__arcade.state)) !== 'paused') fail(`${W} ${g}`, 'pause failed'); await page.tap('#ag-resume'); }
     if (mode === 'desktop') await page.screenshot({ path: `qa/shots/game-${g}.png` });
     await page.evaluate(() => { window.__arcade.score = 9999; window.__arcade.gameOver(); });
@@ -197,7 +211,7 @@ if (!ONLY) for (const mode of ['desktop', 'touch']) {
 {
   const ctx = await browser.newContext(); const page = await ctx.newPage();
   await page.goto(url('certificate/'), { waitUntil: 'networkidle' });
-  await page.evaluate(() => { localStorage.setItem('bb.found', JSON.stringify(['door', 'konami', 'terminal', 'guestbook', 'highlight', 'redaction', 'counter', 'loader', 'notfound', 'y1994'])); localStorage.setItem('bb.certName', 'A Very Long Visitor Name Indeed, Esq.'); });
+  await page.evaluate(() => { localStorage.setItem('bb.found', JSON.stringify(['door', 'konami', 'terminal', 'guestbook', 'highlight', 'redaction', 'counter', 'loader', 'notfound', 'y1994', 'tab', 'idle', 'name', 'forecast', 'print', 'lamp'])); localStorage.setItem('bb.certName', 'A Very Long Visitor Name Indeed, Esq.'); });
   await page.reload({ waitUntil: 'networkidle' });
   for (const format of ['Letter', 'A4']) {
     const pdf = await page.pdf({ format, preferCSSPageSize: false, printBackground: true });
@@ -212,7 +226,7 @@ if (!ONLY) for (const mode of ['desktop', 'touch']) {
 if (ARGS.includes('--thumbs')) {
   mkdirSync('public/gallery', { recursive: true });
   const ctx = await browser.newContext({ viewport: { width: 1280, height: 1600 }, reducedMotion: 'reduce' }); const page = await ctx.newPage();
-  const THUMBS = [...IDS.map((id) => [id, `i/${id}/`]), ...(ONLY ? [] : [['n1', 'n/n1/'], ['n2', 'n/n2/'], ['n3', 'n/n3/'], ['c1', '']])];
+  const THUMBS = [...IDS.map((id) => [id, `i/${id}/`]), ...(ONLY ? [] : [['n1', 'n/n1/'], ['n2', 'n/n2/'], ['n3', 'n/n3/'], ['n4', 'n/n4/'], ['n5', 'n/n5/'], ['n6', 'n/n6/'], ['n7', 'n/n7/'], ['n8', 'n/n8/'], ['c1', '']])];
   for (const [id, path] of THUMBS) {
     await page.goto(url(path), { waitUntil: 'networkidle' });
     await page.addStyleTag({ content: '.gal-back{display:none!important}' });
