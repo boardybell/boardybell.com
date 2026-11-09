@@ -1,0 +1,158 @@
+[
+ {
+  "name": "a-folio",
+  "prompt": "visuals/prompts/01-a-folio.md",
+  "source": "inbox (not committed): 01-a-folio/raw-1.png",
+  "grade": {
+   "kind": "warm",
+   "mix": 0.55,
+   "gamma": 1,
+   "upscale": null
+  },
+  "files": "public/img/a-folio-<w>.{avif,webp,jpg}",
+  "used": "A1 hero; A exhibits"
+ },
+ {
+  "name": "a-lamp",
+  "prompt": "visuals/prompts/02-a-lamp.md",
+  "source": "inbox (not committed): 02-a-lamp/raw-1.png",
+  "grade": {
+   "kind": "navy",
+   "mix": 0.5,
+   "gamma": 1,
+   "upscale": 2400
+  },
+  "files": "public/img/a-lamp-<w>.{avif,webp,jpg}",
+  "used": "A2 hero; A exhibits"
+ },
+ {
+  "name": "a-drawers",
+  "prompt": "visuals/prompts/03-a-drawers.md",
+  "source": "inbox (not committed): 03-a-drawers/raw-1.png",
+  "grade": {
+   "kind": "warm",
+   "mix": 0.55,
+   "gamma": 1,
+   "upscale": 2400
+  },
+  "files": "public/img/a-drawers-<w>.{avif,webp,jpg}",
+  "used": "A3 hero; A exhibits"
+ },
+ {
+  "name": "b-atrium",
+  "prompt": "visuals/prompts/04-b-atrium.md",
+  "source": "inbox (not committed): 04-b-atrium/raw-1.png",
+  "grade": {
+   "kind": "navy",
+   "mix": 0.2,
+   "gamma": 1.55,
+   "upscale": 2400
+  },
+  "files": "public/img/b-atrium-<w>.{avif,webp,jpg}",
+  "used": "B1 hero; B2 plate; B3 pair"
+ },
+ {
+  "name": "b-plinth",
+  "prompt": "visuals/prompts/05-b-plinth.md",
+  "source": "inbox (not committed): 05-b-plinth/raw-1.png",
+  "grade": {
+   "kind": "warm",
+   "mix": 0.5,
+   "gamma": 1,
+   "upscale": null
+  },
+  "files": "public/img/b-plinth-<w>.{avif,webp,jpg}",
+  "used": "B2 hero; B3 pair"
+ },
+ {
+  "name": "b-boardroom",
+  "prompt": "visuals/prompts/06-b-boardroom.md",
+  "source": "inbox (not committed): 06-b-boardroom/raw-1.png",
+  "grade": {
+   "kind": "warm",
+   "mix": 0.55,
+   "gamma": 1,
+   "upscale": 2400
+  },
+  "files": "public/img/b-boardroom-<w>.{avif,webp,jpg}",
+  "used": "B1 plate; B3 band"
+ },
+ {
+  "name": "c-chair",
+  "prompt": "visuals/prompts/07-c-chair.md",
+  "source": "inbox (not committed): 07-c-chair/raw-2.png",
+  "grade": {
+   "kind": "warm",
+   "mix": 0.55,
+   "gamma": 1,
+   "upscale": null
+  },
+  "files": "public/img/c-chair-<w>.{avif,webp,jpg}",
+  "used": "C1 cover; C2 wide plate"
+ },
+ {
+  "name": "c-watch",
+  "prompt": "visuals/prompts/08-c-watch.md",
+  "source": "inbox (not committed): 08-c-watch/raw-1.png",
+  "grade": {
+   "kind": "warm",
+   "mix": 0.6,
+   "gamma": 1,
+   "upscale": null
+  },
+  "files": "public/img/c-watch-<w>.{avif,webp,jpg}",
+  "used": "C plates"
+ },
+ {
+  "name": "c-pen",
+  "prompt": "visuals/prompts/09-c-pen.md",
+  "source": "inbox (not committed): 09-c-pen/raw-1.png",
+  "grade": {
+   "kind": "warm",
+   "mix": 0.55,
+   "gamma": 1,
+   "upscale": null
+  },
+  "files": "public/img/c-pen-<w>.{avif,webp,jpg}",
+  "used": "C1, C3 plates"
+ },
+ {
+  "name": "d-key",
+  "prompt": "visuals/prompts/10-d-key.md",
+  "source": "inbox (not committed): 10-d-key/raw-1.png",
+  "grade": {
+   "kind": "warm",
+   "mix": 0.7,
+   "gamma": 1,
+   "upscale": null
+  },
+  "files": "public/img/d-key-<w>.{avif,webp,jpg}",
+  "used": "D1 work 1"
+ },
+ {
+  "name": "d-mug",
+  "prompt": "visuals/prompts/11-d-mug.md",
+  "source": "inbox (not committed): 11-d-mug/raw-1.png",
+  "grade": {
+   "kind": "warm",
+   "mix": 0.7,
+   "gamma": 1,
+   "upscale": null
+  },
+  "files": "public/img/d-mug-<w>.{avif,webp,jpg}",
+  "used": "D1 work 2"
+ },
+ {
+  "name": "d-umbrella",
+  "prompt": "visuals/prompts/12-d-umbrella.md",
+  "source": "inbox (not committed): 12-d-umbrella/raw-1.png",
+  "grade": {
+   "kind": "warm",
+   "mix": 0.7,
+   "gamma": 1,
+   "upscale": null
+  },
+  "files": "public/img/d-umbrella-<w>.{avif,webp,jpg}",
+  "used": "D1 work 3"
+ }
+]

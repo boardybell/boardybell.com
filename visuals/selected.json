@@ -1,0 +1,67 @@
+{
+ "a-folio": {
+  "src": "visuals/inbox/01-a-folio/raw-1.png",
+  "grade": "warm",
+  "mix": 0.55
+ },
+ "a-lamp": {
+  "src": "visuals/inbox/02-a-lamp/raw-1.png",
+  "grade": "navy",
+  "mix": 0.5,
+  "up": 2400
+ },
+ "a-drawers": {
+  "src": "visuals/inbox/03-a-drawers/raw-1.png",
+  "grade": "warm",
+  "mix": 0.55,
+  "up": 2400
+ },
+ "b-atrium": {
+  "src": "visuals/inbox/04-b-atrium/raw-1.png",
+  "grade": "navy",
+  "mix": 0.2,
+  "gamma": 1.55,
+  "up": 2400
+ },
+ "b-plinth": {
+  "src": "visuals/inbox/05-b-plinth/raw-1.png",
+  "grade": "warm",
+  "mix": 0.5
+ },
+ "b-boardroom": {
+  "src": "visuals/inbox/06-b-boardroom/raw-1.png",
+  "grade": "warm",
+  "mix": 0.55,
+  "up": 2400
+ },
+ "c-chair": {
+  "src": "visuals/inbox/07-c-chair/raw-2.png",
+  "grade": "warm",
+  "mix": 0.55
+ },
+ "c-watch": {
+  "src": "visuals/inbox/08-c-watch/raw-1.png",
+  "grade": "warm",
+  "mix": 0.6
+ },
+ "c-pen": {
+  "src": "visuals/inbox/09-c-pen/raw-1.png",
+  "grade": "warm",
+  "mix": 0.55
+ },
+ "d-key": {
+  "src": "visuals/inbox/10-d-key/raw-1.png",
+  "grade": "warm",
+  "mix": 0.7
+ },
+ "d-mug": {
+  "src": "visuals/inbox/11-d-mug/raw-1.png",
+  "grade": "warm",
+  "mix": 0.7
+ },
+ "d-umbrella": {
+  "src": "visuals/inbox/12-d-umbrella/raw-1.png",
+  "grade": "warm",
+  "mix": 0.7
+ }
+}

@@ -1,0 +1,13 @@
+// Gallery captions: concept, type pairing, palette, and what the joke is.
+export const ITER = [
+  { id: 'a1', fam: 'A', name: 'Case File', concept: 'The Redacted File', type: 'Playfair Display over IBM Plex Mono typescript', palette: 'Cream page, paper sheets, one red rubber stamp', joke: 'A formal dossier on a man where every redaction hides something like “a sandwich”.' },
+  { id: 'a2', fam: 'A', name: 'Night File', concept: 'The Redacted File', type: 'Bodoni Moda over IBM Plex Mono', palette: 'Deep navy ground, cream type, gold rules', joke: 'The same file, lit like a thriller. The lamp is not involved.' },
+  { id: 'a3', fam: 'A', name: 'Card Catalogue', concept: 'The Redacted File', type: 'Bodoni Moda over IBM Plex Mono on ruled cards', palette: 'Cream, ruled index cards, gold tabs', joke: 'An archive built to hold a life story, with one empty drawer.' },
+  { id: 'b1', fam: 'B', name: 'Atrium', concept: 'The Overqualified Page', type: 'Playfair Display at enormous size, Source Serif 4 text', palette: 'Navy-graded marble, cream, gold hairlines', joke: 'A marble hall the size of a stadium, built to say “Nothing to announce.”' },
+  { id: 'b2', fam: 'B', name: 'Plinth', concept: 'The Overqualified Page', type: 'Bodoni Moda italic, Source Serif 4', palette: 'Warm stone and cream, black image panel', joke: 'A spotlit museum plinth with nothing on it holds the page together.' },
+  { id: 'b3', fam: 'B', name: 'Boardroom', concept: 'The Overqualified Page', type: 'Bodoni Moda, centred classical layout', palette: 'Cream with a deep navy principles band, gold monogram', joke: 'A board of directors, depicted as one chair at a very long table.' },
+  { id: 'c1', fam: 'C', name: 'Cover', concept: 'The Annual Report', type: 'Bodoni Moda display, Source Serif 4, Plex Sans figures', palette: 'Cream, ink, gold year', joke: 'A glossy annual report whose key finding is that the year ended at midnight.' },
+  { id: 'c2', fam: 'C', name: 'Key Figures', concept: 'The Annual Report', type: 'Playfair Display, Bodoni numerals, drop cap', palette: 'Navy key-figures band, cream body', joke: 'Meaningless precision at headline size: 1.00 chairs occupied.' },
+  { id: 'c3', fam: 'C', name: 'Filing', concept: 'The Annual Report', type: 'IBM Plex Mono with Source Serif 4', palette: 'Off-white form, black rules, grayscale plates', joke: 'A government filing for one person, complete with checkboxes.' },
+  { id: 'd1', fam: 'D', name: 'Permanent Collection', concept: 'Wildcard: museum labels plus redactions', type: 'Playfair Display, IBM Plex Sans wall labels', palette: 'Gallery greige, white labels, catalogue photography', joke: 'A key, a mug and an umbrella, catalogued with total reverence. The chair is not shown.' },
+] as const;

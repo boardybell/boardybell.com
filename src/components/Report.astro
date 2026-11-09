@@ -1,0 +1,105 @@
+---
+// Family C: The Annual Report. v1 Cover, v2 Magazine (key figures), v3 Filing (plain regulatory form).
+import Pic from './Pic.astro';
+import Guestbook from './Guestbook.astro';
+import Foot from './Foot.astro';
+import { REPORT as R, THESES, OCCUPATION, SWAPS } from '../content/copy';
+import { ALT } from '../content/alts';
+interface Props { v: 1 | 2 | 3 }
+const { v } = Astro.props;
+const thesis = THESES.C[v - 1];
+const item = (n: string, t: string) => (v === 3 ? `Item ${n}. ${t}` : t);
+---
+<header class="c-mast wrap">
+  <span class="c-mark">Boardy</span>
+  <span class="label">{v === 3 ? 'Form BB-1' : `${R.title} ${R.year}`}</span>
+</header>
+<main id="main" class={`c c${v}`}>
+  {v === 1 && (
+    <section class="c-cover wrap">
+      <div class="c-cover-t">
+        <p class="label">Boardy</p>
+        <h1><span class="c-ttl">{R.title}</span> <span class="c-yr">{R.year}</span></h1>
+        <p class="thesis c-th">{thesis}</p>
+      </div>
+      <div class="c-cover-i"><Pic name="c-chair" alt={ALT['c-chair']} eager sizes="(min-width: 900px) 42vw, 100vw" /></div>
+    </section>
+  )}
+  {v === 2 && (
+    <section class="c-mag">
+      <div class="wrap">
+        <p class="label">{R.title} {R.year}</p>
+        <h1 class="thesis">{thesis}</h1>
+        <div class="c-keys">
+          <div><b>1.00</b><span>Chairs occupied</span></div>
+          <div><b>365</b><span>Days, in line with the calendar</span></div>
+          <div><b>1,140</b><span>Cups, restated</span></div>
+        </div>
+      </div>
+    </section>
+  )}
+  {v === 3 && (
+    <section class="c-form wrap">
+      <p class="c-form-k">Form BB-1</p>
+      <h1>{R.title} of a Person<br /><span class="thesis">{thesis}</span></h1>
+      <dl class="c-form-dl">
+        <dt>For the fiscal year ended</dt><dd>December 31, {R.year}</dd>
+        <dt>Name of reporting person</dt><dd>Bond Bell, known as Boardy</dd>
+        <dt>Occupation</dt><dd data-swap={SWAPS.occupation}>{OCCUPATION}</dd>
+        <dt>Number of persons</dt><dd>1</dd>
+      </dl>
+      <p class="c-form-n">Check whether the reporting person has filed all reports required during the preceding twelve months. ☐ Yes ☐ No ☒ There were none</p>
+    </section>
+  )}
+
+  <div class="c-body wrap">
+    <section class="c-letter rv">
+      <h2 class="label">{item('1', R.letterTitle)}</h2>
+      <div class="c-letter-t">
+        {R.letter.map((p) => <p>{p}</p>)}
+        <p class="c-sig">{R.signoff}<br /><small>{R.signoffNote}</small></p>
+      </div>
+      {v === 2 && <figure class="c-plate"><Pic name="c-watch" alt={ALT['c-watch']} sizes="(min-width: 900px) 34vw, 100vw" /><figcaption>The year, face down.</figcaption></figure>}
+    </section>
+
+    {v !== 3 && <p class="c-occ rv" data-swap={SWAPS.occupation}>{OCCUPATION}</p>}
+
+    <section class="c-hl rv">
+      <h2 class="label">{item('2', 'Highlights')}</h2>
+      <div class="c-hl-g">{R.highlights.map(([h, t]) => <div><h3>{h}</h3><p>{t}</p></div>)}</div>
+    </section>
+
+    <section class="c-fig rv">
+      <h2 class="label">{item('3', 'Selected figures')}</h2>
+      <div class="c-tbl-w">
+        <table class="c-tbl">
+          <thead><tr><th scope="col">Measure</th><th scope="col">{R.year}</th><th scope="col">{+R.year - 1}</th></tr></thead>
+          <tbody>{R.metrics.map(([m, a, b, n]) => <tr><th scope="row">{m}{n && <sup><a href={`#fn${n}`} aria-label={`Footnote ${n}`}>{n}</a></sup>}</th><td>{a}</td><td>{b}</td></tr>)}</tbody>
+        </table>
+      </div>
+      <ol class="c-fn">{R.footnotes.map((f, i) => <li id={`fn${i + 1}`}>{f}</li>)}</ol>
+    </section>
+
+    {v !== 2 && (
+      <div class="c-plates rv">
+        <figure><Pic name="c-watch" alt={ALT['c-watch']} sizes="(min-width: 760px) 45vw, 100vw" /><figcaption>The year, face down.</figcaption></figure>
+        <figure><Pic name="c-pen" alt={ALT['c-pen']} sizes="(min-width: 760px) 45vw, 100vw" /><figcaption>The ledger, closed.</figcaption></figure>
+      </div>
+    )}
+    {v === 2 && <figure class="c-wide rv"><Pic name="c-chair" alt={ALT['c-chair']} sizes="100vw" /><figcaption>The board, in session.</figcaption></figure>}
+
+    <section class="c-risk rv">
+      <h2 class="label">{item('4', 'Risk factors')}</h2>
+      <ul>{R.risks.map((r) => <li>{r}</li>)}</ul>
+    </section>
+
+    <section class="c-aud rv">
+      <h2 class="label">{item('5', 'Report of the independent auditor')}</h2>
+      <p class="c-aud-t">{R.auditor}</p>
+      <p class="c-aud-s">{R.auditorSign}</p>
+    </section>
+
+    <section class="c-gb rv"><Guestbook /></section>
+  </div>
+</main>
+<Foot />

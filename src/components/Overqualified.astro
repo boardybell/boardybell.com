@@ -1,0 +1,61 @@
+---
+// Family B: The Overqualified Page. v1 Atrium, v2 Plinth (split), v3 Boardroom (classical, inverse band).
+import Pic from './Pic.astro';
+import Guestbook from './Guestbook.astro';
+import Foot from './Foot.astro';
+import { OVERQUALIFIED as O, THESES, SWAPS } from '../content/copy';
+import { ALT } from '../content/alts';
+interface Props { v: 1 | 2 | 3 }
+const { v } = Astro.props;
+const thesis = THESES.B[v - 1];
+const ROMAN = ['I', 'II', 'III', 'IV'];
+---
+<header class="b-mast wrap"><span class="b-mark">Boardy</span><span class="label">{O.eyebrow}</span></header>
+<main id="main" class={`b b${v}`}>
+  {v === 1 && (
+    <section class="b-hero1">
+      <Pic name="b-atrium" alt={ALT['b-atrium']} eager />
+      <div class="b-hero1-t"><h1 class="thesis">{thesis}</h1></div>
+    </section>
+  )}
+  {v === 3 && (
+    <section class="b-hero3 wrap">
+      <p class="b-mono" aria-hidden="true">B</p>
+      <h1 class="thesis">{thesis}</h1>
+      <hr class="rule b-short" />
+    </section>
+  )}
+
+  <div class={v === 2 ? 'b-split' : ''}>
+    {v === 2 && <div class="b-stick"><Pic name="b-plinth" alt={ALT['b-plinth']} eager sizes="(min-width: 900px) 45vw, 100vw" /></div>}
+    <div class="b-body">
+      {v === 2 && <h1 class="thesis b2-h">{thesis}</h1>}
+      <p class="b-intro rv">{O.intro}</p>
+      {v === 3 && <div class="b-band rv"><Pic name="b-boardroom" alt={ALT['b-boardroom']} eager sizes="100vw" /></div>}
+
+      <section class="b-prin rv" aria-labelledby="pr">
+        <h2 id="pr" class="label">Principles</h2>
+        <ol>{O.principles.map(([h, t], i) => <li><span class="b-n" aria-hidden="true">{ROMAN[i]}</span><h3>{h}</h3><p>{t}</p></li>)}</ol>
+      </section>
+
+      <section class="b-who rv">
+        <h2 class="label">{O.principal[0]}</h2>
+        <p class="b-name">{O.principal[1]}</p>
+        <p data-swap={SWAPS.occupation}>{O.principal[2]}</p>
+      </section>
+
+      {v !== 3 && <div class="b-plate rv"><Pic name={v === 1 ? 'b-boardroom' : 'b-atrium'} alt={ALT[v === 1 ? 'b-boardroom' : 'b-atrium']} sizes="(min-width: 900px) 60vw, 100vw" /></div>}
+      {v === 3 && <div class="b-pair rv"><Pic name="b-plinth" alt={ALT['b-plinth']} sizes="(min-width: 760px) 40vw, 100vw" /><Pic name="b-atrium" alt={ALT['b-atrium']} sizes="(min-width: 760px) 40vw, 100vw" /></div>}
+
+      <section class="b-proc rv">
+        <h2 class="label">Procedure</h2>
+        <ul>{O.procedure.map((p) => <li>{p}</li>)}</ul>
+      </section>
+
+      <p class="b-comm rv">{O.committee}</p>
+      <p class="b-close rv">{O.close}</p>
+      <section class="b-gb rv"><Guestbook /></section>
+    </div>
+  </div>
+</main>
+<Foot />

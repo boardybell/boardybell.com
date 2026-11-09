@@ -1,0 +1,12 @@
+---
+import { GUESTBOOK } from '../content/copy';
+// Nothing is stored or sent: no action, no name attributes, submit is intercepted by eggs.js.
+---
+<form class="guestbook" data-guestbook novalidate onsubmit="return false">
+  <h2 class="gb-h">{GUESTBOOK.title}</h2>
+  <p class="gb-i">{GUESTBOOK.intro}</p>
+  <label class="gb-f"><span>Your name</span><input type="text" autocomplete="off" maxlength="60" /></label>
+  <label class="gb-f"><span>Your remarks</span><textarea rows="3" maxlength="400"></textarea></label>
+  <button type="submit" class="gb-b">Sign the guestbook</button>
+  <p class="gb-r" role="status" aria-live="polite" data-declines={JSON.stringify(GUESTBOOK.declines)}></p>
+</form>

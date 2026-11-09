@@ -1,0 +1,55 @@
+---
+// Family D (wildcard): The Permanent Collection. Museum wall labels for ordinary objects,
+// with the dossier's redactions on the provenance lines (a hybrid of A and the gallery idea).
+import Pic from './Pic.astro';
+import Guestbook from './Guestbook.astro';
+import Foot from './Foot.astro';
+import { COLLECTION as C, THESES, SWAPS } from '../content/copy';
+import { ALT } from '../content/alts';
+import { rich } from '../lib/rich';
+---
+<header class="d-mast wrap">
+  <span class="d-mark">Boardy</span>
+  <span class="label">Galleries open daily</span>
+</header>
+<main id="main" class="d">
+  <section class="d-hero wrap">
+    <p class="label">Gallery 1</p>
+    <h1>{C.title}</h1>
+    <p class="thesis d-th">{THESES.D[0]}</p>
+    <p class="d-intro">{C.intro}</p>
+  </section>
+
+  <section class="d-wall wrap" aria-label="Works on view">
+    {C.works.map((w, i) => (
+      <article class="d-work rv">
+        <Pic name={w.img} alt={ALT[w.img]} sizes="(min-width: 1000px) 30vw, (min-width: 640px) 45vw, 100vw" eager={i === 0} />
+        <div class="d-lbl">
+          <h2>{w.title}</h2>
+          <p class="d-med">{w.medium}</p>
+          <p set:html={rich(w.label)} />
+          <p class="d-prov"><span>Provenance.</span> <span set:html={rich(w.provenance)} /></p>
+          <p class="d-acc">Acc. no. BB.{2019 + i}.{i + 1}</p>
+        </div>
+      </article>
+    ))}
+    <article class="d-work d-absent rv">
+      <div class="d-void" role="img" aria-label="An empty space where a chair is not shown."><span>Not shown</span></div>
+      <div class="d-lbl">
+        <h2>{C.absent[0]}</h2>
+        <p class="d-med">{C.absent[1]}</p>
+        <p>{C.absent[2]}</p>
+        <p class="d-prov" data-swap={SWAPS.occupation}>{C.principal}</p>
+      </div>
+    </article>
+  </section>
+
+  <section class="d-rules wrap rv">
+    <h2 class="label">Visitor information</h2>
+    <ul>{C.rules.map((r) => <li>{r}</li>)}</ul>
+    <p class="d-audio">{C.audio}</p>
+  </section>
+
+  <section class="d-gb wrap rv"><Guestbook /></section>
+</main>
+<Foot />

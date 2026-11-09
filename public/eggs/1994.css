@@ -1,0 +1,25 @@
+/* Konami payoff: the expensive page rebuilds itself as a 1994 home page. Code-drawn UI only. */
+html.y1994 body{background:#008080 repeating-conic-gradient(#0a9a9a 0 25%,#008080 0 50%) 0 0/28px 28px!important;
+  color:#000!important;font-family:'Times New Roman',Times,serif!important}
+html.y1994 body *{font-family:'Comic Sans MS','Comic Sans','Chalkboard SE','Times New Roman',serif!important;letter-spacing:0!important;text-transform:none!important}
+html.y1994 main,html.y1994 header,html.y1994 section,html.y1994 article,html.y1994 footer{background:#C0C0C0!important;color:#000!important;
+  border:3px outset #fff!important;margin:10px auto!important;box-shadow:none!important;
+  width:auto!important;max-width:calc(100% - 20px)!important}
+html.y1994 main *{max-width:100%!important}
+html.y1994 .b-band,html.y1994 .b3 .b-prin{margin-inline:0!important;width:auto!important}
+html.y1994 h1,html.y1994 h2,html.y1994 h3{color:#FF00FF!important;text-align:center!important;text-shadow:2px 2px 0 #FFFF00!important;font-style:normal!important}
+html.y1994 h1{font-size:clamp(2rem,7vw,3.4rem)!important}
+html.y1994 a,html.y1994 .door{color:#0000EE!important;text-decoration:underline!important;opacity:1!important}
+html.y1994 img{border:6px ridge #FFD700!important;filter:saturate(1.8) contrast(1.15)!important}
+html.y1994 .redact{background:#000!important}
+html.y1994 .rv{opacity:1!important;transform:none!important}
+html.y1994 hr,html.y1994 .rule{border:0!important;height:6px!important;background:linear-gradient(90deg,red,orange,yellow,lime,cyan,blue,magenta)!important}
+.y94-bar{position:sticky;top:0;z-index:80;display:grid;gap:4px;padding:6px;background:#000080;border-bottom:3px outset #fff}
+.y94-uc{justify-self:center;padding:4px 14px;font:700 14px/1.3 'Comic Sans MS','Chalkboard SE',sans-serif;color:#000;letter-spacing:.08em;
+  background:repeating-linear-gradient(45deg,#FFD800 0 14px,#111 14px 28px);text-shadow:0 0 2px #FFD800,0 0 4px #FFD800}
+.y94-mq{overflow:hidden;white-space:nowrap;color:#FFFF00;font:700 15px/1.6 'Comic Sans MS','Chalkboard SE',sans-serif}
+.y94-mq span{display:inline-block;padding-left:100%;animation:y94 18s linear infinite}
+@keyframes y94{to{transform:translateX(-100%)}}
+.y94-x{justify-self:center;font:700 13px/1 'Times New Roman',serif!important;padding:6px 12px;background:#C0C0C0;color:#000;border:2px outset #fff;cursor:pointer}
+.y94-x:active{border-style:inset}
+@media (prefers-reduced-motion:reduce){.y94-mq span{animation:none;padding-left:0;white-space:normal}}

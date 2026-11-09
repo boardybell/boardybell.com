@@ -1,0 +1,27 @@
+---
+import '../styles/base.css';
+import { base } from '../lib/rich';
+interface Props { title: string; theme: string; preload?: string; bodyClass?: string; eggs?: boolean; notfound?: boolean }
+const { title, theme, preload, bodyClass = '', eggs = true, notfound = false } = Astro.props;
+---
+<!doctype html>
+<html lang="en" data-base={base} data-theme-id={theme}>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex" />
+  <meta name="referrer" content="no-referrer" />
+  <meta name="color-scheme" content="light" />
+  <title>{title}</title>
+  <link rel="icon" href={`${base}favicon.svg`} type="image/svg+xml" />
+  <link rel="icon" href={`${base}favicon.ico`} sizes="32x32" />
+  <link rel="apple-touch-icon" href={`${base}apple-touch-icon.png`} />
+  <link rel="stylesheet" href={`${base}fonts/fonts.css`} />
+  {preload && <link rel="preload" as="image" type="image/avif" imagesrcset={preload} imagesizes="100vw" fetchpriority="high" />}
+  {eggs && <script is:inline defer src={`${base}eggs/eggs.js`}></script>}
+</head>
+<body class={`t-${theme} ${bodyClass}`} data-notfound={notfound ? '' : undefined} data-noloader={notfound ? '1' : undefined}>
+  <a class="skip" href="#main">Skip to content</a>
+  <slot />
+</body>
+</html>

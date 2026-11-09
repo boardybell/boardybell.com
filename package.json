@@ -1,0 +1,19 @@
+{
+  "name": "boardybell.com",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "images": "node scripts/images.mjs",
+    "qa": "node scripts/qa.mjs"
+  },
+  "dependencies": {
+    "astro": "^7.4.8",
+    "sharp": "^0.35.5"
+  },
+  "devDependencies": {
+    "playwright": "^1.65.0"
+  }
+}

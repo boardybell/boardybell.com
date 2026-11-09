@@ -1,0 +1,11 @@
+---
+import Base from '../../../layouts/Base.astro';
+import Collection from '../../../components/Collection.astro';
+import '../../../styles/i/d.css';
+import { ITER } from '../../../content/iterations';
+const it = ITER.find((x) => x.id === 'd1')!;
+---
+<Base title="Boardy" theme="d1">
+  <Collection  />
+  <a class="gal-back" href={import.meta.env.BASE_URL}>Gallery · {it.id.toUpperCase()} {it.name}</a>
+</Base>

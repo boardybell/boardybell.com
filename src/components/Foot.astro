@@ -1,0 +1,13 @@
+---
+import Counter from './Counter.astro';
+import Door from './Door.astro';
+import { FOOTER, SWAPS } from '../content/copy';
+interface Props { door?: boolean }
+const { door = true } = Astro.props;
+---
+<footer class="foot">
+  <Counter />
+  <p class="foot-l"><span class="copy-mark" data-terminal-tap>©</span> {new Date().getFullYear()} Boardy. {FOOTER.legal}</p>
+  <p class="foot-c" data-swap={SWAPS.close}>{FOOTER.colophon}</p>
+  {door && <Door class="door-foot" />}
+</footer>

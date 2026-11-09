@@ -1,0 +1,63 @@
+---
+// Family A: The Redacted File. v1 Case File (cream), v2 Night File (navy), v3 Card Catalogue.
+import Pic from './Pic.astro';
+import Guestbook from './Guestbook.astro';
+import Foot from './Foot.astro';
+import { DOSSIER as D, THESES, OCCUPATION, SWAPS } from '../content/copy';
+import { ALT } from '../content/alts';
+import { rich } from '../lib/rich';
+interface Props { v: 1 | 2 | 3 }
+const { v } = Astro.props;
+const thesis = THESES.A[v - 1];
+const hero = v === 1 ? 'a-folio' : v === 2 ? 'a-lamp' : 'a-drawers';
+const exhibits = [['a-folio', D.exhibits[0]], ['a-lamp', D.exhibits[1]], ['a-drawers', D.exhibits[2]]] as const;
+const val = (s: string) => (s === OCCUPATION ? `<span data-swap="${SWAPS.occupation}">${s}</span>` : rich(s));
+---
+<header class="a-mast wrap">
+  <span class="a-mark">Boardy</span>
+  <span class="a-meta">{D.header.map(([k, x]) => <span><b>{k}</b> {x}</span>)}</span>
+</header>
+
+<main id="main">
+  <section class={`a-hero a-hero-${v}`}>
+    <div class="a-hero-img"><Pic name={hero} alt={ALT[hero]} eager sizes={v === 1 ? '(min-width: 900px) 55vw, 100vw' : '100vw'} /></div>
+    <div class="a-hero-txt wrap">
+      <p class="label">File {D.fileNo}</p>
+      <h1 class="thesis">{thesis}</h1>
+      <p class="a-stamp" aria-hidden="true">Withheld</p>
+    </div>
+  </section>
+
+  <section class="a-sheet wrap">
+    <div class="a-paper rv">
+      <h2 class="label">Subject</h2>
+      <dl class="a-dl">
+        {D.subject.map(([k, x]) => <><dt>{k}</dt><dd set:html={val(x)} /></>)}
+      </dl>
+    </div>
+
+    <div class="a-paper rv">
+      <h2 class="label">Observations</h2>
+      <ol class="a-obs">{D.observations.map((o) => <li set:html={rich(o)} />)}</ol>
+    </div>
+
+    <div class="a-ex rv">
+      <h2 class="label">Exhibits</h2>
+      <div class="a-ex-g">
+        {exhibits.map(([img, [k, cap]]) => (
+          <figure>
+            <Pic name={img} alt={ALT[img]} sizes="(min-width: 900px) 30vw, 90vw" />
+            <figcaption><b>{k}.</b> {cap}</figcaption>
+          </figure>
+        ))}
+      </div>
+    </div>
+
+    <div class="a-paper a-close rv">
+      {D.closing.map((c) => <p set:html={rich(c)} />)}
+    </div>
+  </section>
+
+  <section class="a-gb wrap rv"><Guestbook /></section>
+</main>
+<Foot />

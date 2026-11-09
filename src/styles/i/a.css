@@ -1,0 +1,60 @@
+/* Family A: The Redacted File */
+.t-a1,.t-a2,.t-a3{--mono-s:400 .95rem/1.65 var(--mono)}
+.a-mast{display:flex;flex-wrap:wrap;gap:.6rem 2rem;justify-content:space-between;align-items:baseline;padding-block:1.25rem;border-bottom:1px solid var(--rule)}
+.a-mark{font:500 1.35rem/1 var(--display);letter-spacing:.02em}
+.a-meta{display:flex;flex-wrap:wrap;gap:.35rem 1.4rem;font:400 .72rem/1.3 var(--mono);color:var(--muted)}
+.a-meta b{font-weight:500;color:var(--accent);text-transform:uppercase;letter-spacing:.1em;margin-right:.3rem}
+.a-hero{position:relative}
+.a-hero h1{font:400 clamp(2.1rem,5.4vw,4.2rem)/1.06 var(--display);letter-spacing:-.01em;margin-top:.9rem;max-width:16ch}
+.a-stamp{display:inline-block;margin-top:1.6rem;padding:.35rem .9rem;border:2px solid #9B2D20;color:#9B2D20;font:500 .9rem/1 var(--mono);
+  letter-spacing:.32em;text-transform:uppercase;transform:rotate(-4deg);opacity:.82}
+.a-sheet{display:grid;gap:clamp(2rem,4vw,3.5rem);padding-block:clamp(3rem,7vw,6rem)}
+.a-paper{background:var(--paper);padding:clamp(1.4rem,4vw,3rem);border:1px solid var(--rule);max-width:52rem;width:100%;margin-inline:auto;
+  font:var(--mono-s);box-shadow:0 1px 0 rgba(20,18,15,.04),0 18px 40px -28px rgba(20,18,15,.35)}
+.a-paper .label{margin-bottom:1.2rem}
+.a-dl{display:grid;grid-template-columns:minmax(8rem,13rem) 1fr;gap:.55rem 1.5rem}
+.a-dl dt{color:var(--muted);text-transform:uppercase;font-size:.75rem;letter-spacing:.1em;padding-top:.2rem}
+.a-dl dd{min-width:0}
+.a-obs{padding-left:1.6rem;display:grid;gap:.8rem}
+.a-obs li::marker{color:var(--accent)}
+.a-ex{max-width:76rem;margin-inline:auto;width:100%}
+.a-ex .label{margin-bottom:1.2rem}
+.a-ex-g{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(1rem,2.5vw,2rem)}
+.a-ex figure{display:grid;gap:.7rem}
+.a-ex figcaption{font:400 .82rem/1.45 var(--mono);color:var(--muted)}
+.a-ex figcaption b{color:var(--fg);font-weight:500}
+.a-close{display:grid;gap:1rem;text-align:center}
+.a-gb{padding-block:2rem 5rem}
+@media (max-width:760px){.a-ex-g{grid-template-columns:1fr}.a-dl{grid-template-columns:1fr;gap:.15rem}.a-dl dd{margin-bottom:.7rem}}
+
+/* A1 Case File: split hero, cream */
+.a-hero-1{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);align-items:center;gap:clamp(1.5rem,4vw,4rem);
+  padding:clamp(2rem,5vw,4.5rem) var(--gutter) 0;max-width:86rem;margin-inline:auto}
+.a-hero-1 .a-hero-txt{padding:0}
+@media (max-width:900px){.a-hero-1{grid-template-columns:1fr}}
+
+/* A2 Night File: navy ground, full-bleed hero, Bodoni */
+.t-a2{--bg:var(--navy-deep);--fg:var(--cream);--accent:#D9B36C;--muted:#A9ADB6;--rule:var(--rule-dark);--paper:#132036}
+.t-a2 .a-mark,.t-a2 .a-hero h1{font-family:var(--bodoni)}
+.a-hero-2{min-height:min(88vh,52rem);display:grid;align-items:end}
+.a-hero-2 .a-hero-img{position:absolute;inset:0}
+.a-hero-2 .a-hero-img picture,.a-hero-2 .a-hero-img img{height:100%;object-fit:cover}
+.a-hero-2::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(13,22,38,0) 35%,rgba(13,22,38,.92) 100%)}
+.a-hero-2 .a-hero-txt{position:relative;z-index:1;padding-bottom:clamp(2.5rem,6vw,5rem);color:var(--cream)}
+.a-hero-2 h1{font-weight:400;max-width:18ch}
+.t-a2 .a-stamp{border-color:#E06A55;color:#E06A55}
+.t-a2 .a-paper{box-shadow:none}
+.t-a2 .redact{background:#000}
+.t-a2 .redact[aria-expanded=true]{background:rgba(217,179,108,.18)}
+.t-a2 .gb-b:hover{background:var(--cream);color:var(--navy-deep)}
+
+/* A3 Card Catalogue: band hero, index cards */
+.t-a3{--paper:#FFFDF8}
+.a-hero-3 .a-hero-img img{aspect-ratio:21/8;object-fit:cover}
+.a-hero-3 .a-hero-txt{padding-block:clamp(2rem,5vw,4rem) 0}
+.a-hero-3 h1{font-family:var(--bodoni);max-width:22ch}
+.t-a3 .a-sheet{grid-template-columns:repeat(2,minmax(0,1fr));align-items:start}
+.t-a3 .a-paper{border-top:3px solid var(--gold);background:var(--paper);
+  background-image:repeating-linear-gradient(transparent 0 calc(1.65rem - 1px),rgba(22,35,59,.08) calc(1.65rem - 1px) 1.65rem);background-position:0 3.6rem}
+.t-a3 .a-ex,.t-a3 .a-close{grid-column:1/-1}
+@media (max-width:900px){.t-a3 .a-sheet{grid-template-columns:1fr}}

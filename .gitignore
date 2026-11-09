@@ -1,0 +1,6 @@
+node_modules/
+dist/
+.astro/
+visuals/inbox/
+qa/shots/
+.DS_Store

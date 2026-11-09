@@ -1,0 +1,9 @@
+---
+import { COUNTER } from '../content/copy';
+const digits = String(COUNTER.base).padStart(10, '0');
+---
+<div class="counter" data-counter data-base={COUNTER.base}>
+  <span class="counter-l">{COUNTER.prefix}</span>
+  <button type="button" class="counter-d" aria-label={`Visitor number ${COUNTER.base.toLocaleString('en-US')}. Press and hold for more.`}>{[...digits].map((d) => <span>{d}</span>)}</button>
+  <span class="counter-n">{COUNTER.note}</span>
+</div>

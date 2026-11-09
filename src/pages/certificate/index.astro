@@ -1,0 +1,75 @@
+---
+import Base from '../../layouts/Base.astro';
+import { base } from '../../lib/rich';
+// Reads finds from localStorage (this browser only). Sized to print on one Letter or one A4 page:
+// the sheet is 186mm x 250mm, which fits inside both with 12mm margins.
+---
+<Base title="Certificate" theme="cert">
+<main id="main" class="cert-page">
+  <div class="cert-tools">
+    <a href={base}>Back</a>
+    <label>Name to appear <input id="cn" type="text" maxlength="48" autocomplete="off" placeholder="Your name" /></label>
+    <button type="button" id="cp">Print certificate</button>
+  </div>
+  <article class="cert">
+    <div class="cert-in">
+      <p class="cert-k">Boardy</p>
+      <h1>Certificate of<br />Finding Things</h1>
+      <p class="cert-p">This is to certify that</p>
+      <p class="cert-n" id="cname">A Visitor</p>
+      <p class="cert-p">has, without assistance or apparent reason, located the following:</p>
+      <ol class="cert-l" id="clist"><li>Nothing yet. Keep looking.</li></ol>
+      <p class="cert-c">The holder is entitled to no privileges whatsoever. This certificate is not transferable, not redeemable, and not, strictly speaking, necessary.</p>
+      <div class="cert-sig">
+        <div><span class="cert-line"></span><span>The Board</span></div>
+        <div class="cert-seal" aria-hidden="true"><span>Seal of<br />the Board</span></div>
+        <div><span class="cert-line" id="cdate"></span><span>Date</span></div>
+      </div>
+    </div>
+  </article>
+</main>
+<script is:inline>
+(() => {
+  const g = (k, f) => { try { const v = localStorage.getItem('bb.' + k); return v == null ? f : JSON.parse(v); } catch { return f; } };
+  const s = (k, v) => { try { localStorage.setItem('bb.' + k, JSON.stringify(v)); } catch {} };
+  const N = { door: 'An unmarked door', konami: 'The code', terminal: 'The terminal', guestbook: 'The guestbook, closed', highlight: 'A line that changes when watched',
+    redaction: 'A redaction, lifted', counter: 'The counter, counted', loader: 'The loading screen, read in full', notfound: 'A page that is not there', y1994: 'Its dignity, restored' };
+  const f = g('found', []).filter((k) => N[k]);
+  if (f.length) document.getElementById('clist').innerHTML = f.map((k) => `<li>${N[k]}</li>`).join('');
+  const inp = document.getElementById('cn'), out = document.getElementById('cname');
+  inp.value = g('certName', ''); if (inp.value) out.textContent = inp.value;
+  inp.addEventListener('input', () => { out.textContent = inp.value.trim() || 'A Visitor'; s('certName', inp.value.trim()); });
+  document.getElementById('cdate').textContent = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+  document.getElementById('cp').onclick = () => print();
+})();
+</script>
+</Base>
+<style is:global>
+.t-cert{--bg:#EDE6D9}
+.cert-page{padding:1.25rem var(--gutter) 3rem;display:grid;gap:1.5rem;justify-items:center}
+.cert-tools{display:flex;flex-wrap:wrap;gap:.8rem 1.4rem;align-items:center;justify-content:center;font:400 .85rem/1.3 var(--label)}
+.cert-tools input{font:inherit;padding:.45rem .6rem;border:1px solid var(--rule);background:#fff;margin-left:.4rem;width:12rem;max-width:50vw}
+.cert-tools button{font:500 .72rem/1 var(--label);letter-spacing:.14em;text-transform:uppercase;padding:.7rem 1rem;background:var(--navy);color:var(--cream);border:0;cursor:pointer}
+.cert{width:min(100%,186mm);aspect-ratio:186/250;background:var(--cream);padding:clamp(.6rem,2.2vw,6mm);box-shadow:0 20px 50px -30px rgba(13,22,38,.5);container-type:inline-size}
+.cert-in{height:100%;border:1px solid var(--gold);outline:3px double var(--gold);outline-offset:-9px;padding:7cqw 8cqw 6cqw;display:flex;flex-direction:column;align-items:center;text-align:center;gap:2.2cqw}
+.cert-k{font:500 2cqw/1 var(--label);letter-spacing:.4em;text-transform:uppercase;color:var(--gold-ink)}
+.cert h1{font:400 7.4cqw/1.05 var(--bodoni);margin-top:1.5cqw}
+.cert-p{font:400 italic 2.7cqw/1.4 var(--serif);color:var(--warm)}
+.cert-n{font:400 italic 6cqw/1.15 var(--display);border-bottom:1px solid var(--gold);padding:0 4cqw 1cqw;min-width:60%;overflow-wrap:anywhere}
+.cert-l{list-style:none;padding:0;font:400 2.6cqw/1.5 var(--serif);display:grid;gap:.4cqw;columns:2}
+.cert-l li::before{content:"✓ ";color:var(--gold-ink)}
+.cert-c{margin-top:auto;font:400 2cqw/1.5 var(--label);color:var(--warm);max-width:80%}
+.cert-sig{display:grid;grid-template-columns:1fr auto 1fr;gap:4cqw;align-items:end;width:100%;font:500 1.7cqw/1.2 var(--label);letter-spacing:.14em;text-transform:uppercase;color:var(--warm)}
+.cert-sig>div{display:grid;gap:1cqw}
+.cert-line{display:block;border-bottom:1px solid var(--ink);min-height:3.2cqw;font:400 italic 2.4cqw/1.2 var(--serif);text-transform:none;letter-spacing:0;color:var(--ink)}
+.cert-seal{width:15cqw;height:15cqw;border-radius:50%;border:1px solid var(--gold);outline:1px solid var(--gold);outline-offset:-1.2cqw;display:grid;place-items:center;
+  font:500 1.4cqw/1.3 var(--label);color:var(--gold-ink);background:radial-gradient(circle,#F6EBD3,#EAD7AE)}
+@page{size:auto;margin:12mm}
+@media print{
+  html,body{background:#fff!important}
+  .cert-tools,.skip{display:none!important}
+  .cert-page{padding:0;display:block}
+  .cert{width:186mm;height:250mm;aspect-ratio:auto;box-shadow:none;padding:5mm;margin:0 auto;break-inside:avoid;page-break-inside:avoid;
+    -webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+</style>

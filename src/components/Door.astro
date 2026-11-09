@@ -1,0 +1,6 @@
+---
+// The unlabeled arcade door: a small keyhole. Visually unlabeled; screen readers hear "A door".
+import { base } from '../lib/rich';
+interface Props { class?: string }
+---
+<a class:list={['door', Astro.props.class]} href={`${base}arcade/`} aria-label="A door" data-egg="door"><span class="door-k" aria-hidden="true"></span></a>

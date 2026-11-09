@@ -1,0 +1,17 @@
+---
+import Base from '../layouts/Base.astro';
+import { base } from '../lib/rich';
+---
+<Base title="Withheld" theme="nf" notfound>
+<main id="main" class="nf wrap" data-nf>
+  <p class="label">Error 404</p>
+  <h1>This page has been withheld.</h1>
+  <p>It may never have existed. If it did, it has been <button type="button" class="redact" aria-expanded="false"><span class="sr">Redacted. Press to reveal: </span><span class="redact-t">misplaced, briefly, then on purpose</span></button>.</p>
+  <p class="nf-s">Visitors are asked to return to the <a href={base}>beginning</a>, which is where most things start.</p>
+</main>
+</Base>
+<style is:global>
+.nf{min-height:100vh;min-height:100svh;display:grid;align-content:center;gap:1.2rem;max-width:44rem}
+.nf h1{font:400 clamp(2.2rem,6vw,4.4rem)/1.05 var(--display)}
+.nf-s{color:var(--warm)}
+</style>
