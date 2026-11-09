@@ -26,7 +26,24 @@ const ROUND2 = [
   <header class="g-h">
     <p class="label">boardybell.com · front room · design gallery</p>
     <p class="g-cta"><a href={`${base}gallery/plates/`}>New: pick from 36 engraved plates →</a></p>
-    <h1>Round 4: N6 with engraved plates. Pick one.</h1>
+    <h1>Round 5: N6 with the terminal and the microphone.</h1>
+    <p>Your picks: the computer terminal in the stamp outline, plus the microphone. N9 pairs it with a matching stamp microphone; N10 keeps the stipple microphone (#53).</p>
+  </header>
+  <section class="g-fam">
+    <h2><span>R5</span> Terminal and microphone</h2>
+    <div class="g-grid">
+      {[{ id: 'n9', name: 'Both in stamp frames', p: 'Terminal (stamp) and microphone (stamp).' }, { id: 'n10', name: 'Stamp terminal, stipple microphone', p: 'Terminal (stamp) and microphone (stipple, #53).' }].map((i) => (
+        <div class="g-card">
+          <a href={`${base}n/${i.id}/#plates`} class="g-thumb">{thumb(i.id) ? <img src={`${base}gallery/${i.id}.webp`} width="800" height="1000" alt="" loading="lazy" /> : <span>{i.id}</span>}</a>
+          <h3>{i.id.toUpperCase()} · {i.name}</h3>
+          <dl><dt>Plates</dt><dd>{i.p}</dd></dl>
+          <p class="g-links"><a href={`${base}n/${i.id}/#plates`}>See the plates</a> <a href={`${base}n/${i.id}/`}>Open the report</a></p>
+        </div>
+      ))}
+    </div>
+  </section>
+  <header class="g-h">
+    <h2 class="g-old">Round 4: N6 with engraved plates (earlier)</h2>
     <p>N6 as you liked it (Midnight layout, the lit-window townhouse cover, the N3 close-up collection), with the two photographed plates replaced by gold-on-navy engravings. N7 uses banknote and tax-stamp engraving; N8 uses newspaper-portrait stipple.</p>
   </header>
   <section class="g-fam">

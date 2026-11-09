@@ -1108,5 +1108,45 @@
    1254
   ],
   "key": "{\"src\":\"visuals/inbox/C3-p-parcel-stipple/raw-2.png\",\"grade\":\"none\",\"q\":60}1794254265762.6626"
+ },
+ "p-terminal-stamp-1": {
+  "w": 1254,
+  "h": 1254,
+  "widths": [
+   640,
+   1024,
+   1254
+  ],
+  "key": "{\"src\":\"visuals/inbox/D0-p-terminal-stamp/raw-1.png\",\"grade\":\"none\",\"q\":60}1794255020580.8125"
+ },
+ "p-terminal-stamp-2": {
+  "w": 1254,
+  "h": 1254,
+  "widths": [
+   640,
+   1024,
+   1254
+  ],
+  "key": "{\"src\":\"visuals/inbox/D0-p-terminal-stamp/raw-2.png\",\"grade\":\"none\",\"q\":60}1794255020583.0583"
+ },
+ "p-microphone-stamp-1": {
+  "w": 1254,
+  "h": 1254,
+  "widths": [
+   640,
+   1024,
+   1254
+  ],
+  "key": "{\"src\":\"visuals/inbox/D1-p-microphone-stamp/raw-1.png\",\"grade\":\"none\",\"q\":60}1794254977505.3064"
+ },
+ "p-microphone-stamp-2": {
+  "w": 1254,
+  "h": 1254,
+  "widths": [
+   640,
+   1024,
+   1254
+  ],
+  "key": "{\"src\":\"visuals/inbox/D1-p-microphone-stamp/raw-2.png\",\"grade\":\"none\",\"q\":60}1794255036861.0837"
  }
 }

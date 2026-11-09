@@ -117,3 +117,4 @@ figcaption{font:400 italic .9rem/1.4 var(--serif);color:var(--muted);margin-top:
 .c-tech-n{font:400 .8rem/1.5 var(--label);color:var(--muted)}
 .c-body>*,.c-tech>*,.c-chart>*{min-width:0}
 .c-tip[hidden]{display:none}
+.c-plates-sq img{aspect-ratio:1!important;object-fit:contain}.c-plates-sq{max-width:52rem;margin-inline:auto;width:100%}

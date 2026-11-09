@@ -565,5 +565,25 @@
   "src": "visuals/inbox/C3-p-parcel-stipple/raw-2.png",
   "grade": "none",
   "q": 60
+ },
+ "p-terminal-stamp-1": {
+  "src": "visuals/inbox/D0-p-terminal-stamp/raw-1.png",
+  "grade": "none",
+  "q": 60
+ },
+ "p-terminal-stamp-2": {
+  "src": "visuals/inbox/D0-p-terminal-stamp/raw-2.png",
+  "grade": "none",
+  "q": 60
+ },
+ "p-microphone-stamp-1": {
+  "src": "visuals/inbox/D1-p-microphone-stamp/raw-1.png",
+  "grade": "none",
+  "q": 60
+ },
+ "p-microphone-stamp-2": {
+  "src": "visuals/inbox/D1-p-microphone-stamp/raw-2.png",
+  "grade": "none",
+  "q": 60
  }
 }

@@ -11,5 +11,7 @@ export const LOOKS: Record<string, Look> = {
   n5: { cover: 'g-edges', a: 'g-nib', b: 'g-watch', capA: 'The pen, at rest.', capB: 'The year, face down.', key: 'g-key', objects: ['g-key', 'g-mug', 'g-umbrella'] },
   n6: { cover: 'l-facade', a: 'g-nib', b: 'g-watch', capA: 'The pen, at rest.', capB: 'The year, face down.', key: 'g-key', objects: ['g-key', 'g-mug', 'g-umbrella'] },
   n7: { cover: 'l-facade', a: 'e-nib', b: 'e-watch', capA: 'The pen, at rest.', capB: 'The year, face down.', key: 'g-key', objects: ['g-key', 'g-mug', 'g-umbrella'] },
+  n9: { cover: 'l-facade', a: 'p-terminal-stamp-1', b: 'p-microphone-stamp-1', capA: 'The terminal, ready.', capB: 'The microphone, off.', key: 'g-key', objects: ['g-key', 'g-mug', 'g-umbrella'] },
+  n10: { cover: 'l-facade', a: 'p-terminal-stamp-1', b: 'p-microphone-stipple-1', capA: 'The terminal, ready.', capB: 'The microphone, off.', key: 'g-key', objects: ['g-key', 'g-mug', 'g-umbrella'] },
   n8: { cover: 'l-facade', a: 'e-lamp', b: 'e-chair', capA: 'The lamp, left on.', capB: 'The board, in session.', key: 'g-key', objects: ['g-key', 'g-mug', 'g-umbrella'] },
 };

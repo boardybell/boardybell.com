@@ -39,3 +39,8 @@ export const PLATE_SUBJECTS_2: [string, string, string][] = [
   ['p-parcel-stipple', 'The parcel, outbound', 'stipple'],
 ];
 export const EARLIER: [string, string][] = [['e-nib', 'The pen, at rest'], ['e-watch', 'The year, face down'], ['e-lamp', 'The lamp, left on'], ['e-chair', 'The board, in session']];
+// Round 7: the terminal in the stamp outline, and a matching stamp microphone (#65-#68).
+export const PLATE_SUBJECTS_3: [string, string, string][] = [
+  ['p-terminal-stamp', 'The terminal, ready', 'stamp'],
+  ['p-microphone-stamp', 'The microphone, off', 'stamp'],
+];

@@ -35,3 +35,10 @@ Object.assign(ALT, {
   'e-lamp': 'A gold stipple engraving of a desk lamp, switched on.',
   'e-chair': 'A gold stipple engraving of an empty wingback chair.',
 });
+Object.assign(ALT, {
+  'p-terminal-stamp-1': 'A gold engraving of an old computer terminal inside a perforated stamp frame.',
+  'p-terminal-stamp-2': 'A gold engraving of an old computer terminal inside a perforated stamp frame.',
+  'p-microphone-stamp-1': 'A gold engraving of a vintage studio microphone inside a perforated stamp frame.',
+  'p-microphone-stamp-2': 'A gold engraving of a vintage studio microphone inside a perforated stamp frame.',
+  'p-microphone-stipple-1': 'A gold stipple engraving of a vintage studio microphone.',
+});

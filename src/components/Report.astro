@@ -90,7 +90,7 @@ const item = (n: string, t: string) => (v === 3 ? `Item ${n}. ${t}` : t);
     <TechCharts n={v === 3 ? 'Item 3A. ' : ''} />
 
     {v !== 2 && (
-      <div class="c-plates rv" id="plates">
+      <div class:list={["c-plates rv", { "c-plates-sq": IMG.a.startsWith("p-") }]} id="plates">
         <figure><Pic name={IMG.a} alt={ALT[IMG.a]} sizes="(min-width: 760px) 45vw, 100vw" /><figcaption>{IMG.capA}</figcaption></figure>
         <figure><Pic name={IMG.b} alt={ALT[IMG.b]} sizes="(min-width: 760px) 45vw, 100vw" /><figcaption>{IMG.capB}</figcaption></figure>
       </div>

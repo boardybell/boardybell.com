@@ -42,8 +42,11 @@ const S = [
   ['C1', 'p-terminal-tradecard', 'tradecard', 'an old computer terminal with a keyboard and a glowing blank screen'],
   ['C2', 'p-camera-banknote', 'banknote', 'a vintage rangefinder film camera, three-quarter view, no brand'],
   ['C3', 'p-parcel-stipple', 'stipple', 'a brown-paper parcel tied with string, a blank tag attached'],
+  // Round 7 (Bond: the terminal "with the stamp outline", plus the microphone on the site)
+  ['D0', 'p-terminal-stamp', 'stamp', 'an old computer terminal with a keyboard and a glowing blank screen, three-quarter view'],
+  ['D1', 'p-microphone-stamp', 'stamp', 'a vintage studio microphone on a small stand'],
 ];
-for (const [n, slug, style, subject] of S) if (n >= 'B0') writeFileSync(`visuals/prompts/${n}-${slug}.md`, `# Brief ${n}: ${slug}
+for (const [n, slug, style, subject] of S) if (n >= 'D0') writeFileSync(`visuals/prompts/${n}-${slug}.md`, `# Brief ${n}: ${slug}
 
 You are an engraver. Work ONLY inside the current directory.
 
