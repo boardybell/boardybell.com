@@ -1195,5 +1195,50 @@
    1024
   ],
   "key": "{\"src\":\"visuals/inbox/portrait-e/raw-1.png\",\"grade\":\"none\",\"q\":62,\"crop\":{\"left\":0,\"top\":90,\"width\":1024,\"height\":1365}}1794263747674.8691"
+ },
+ "portrait-f": {
+  "w": 1024,
+  "h": 1365,
+  "widths": [
+   640,
+   1024
+  ],
+  "key": "{\"src\":\"visuals/inbox/portrait-f/raw-1.png\",\"grade\":\"none\",\"q\":62,\"crop\":{\"left\":0,\"top\":90,\"width\":1024,\"height\":1365}}1794266170883.781"
+ },
+ "portrait-g": {
+  "w": 1024,
+  "h": 1365,
+  "widths": [
+   640,
+   1024
+  ],
+  "key": "{\"src\":\"visuals/inbox/portrait-g/raw-1.png\",\"grade\":\"none\",\"q\":62,\"crop\":{\"left\":0,\"top\":90,\"width\":1024,\"height\":1365}}1794266170885.051"
+ },
+ "portrait-h": {
+  "w": 1024,
+  "h": 1365,
+  "widths": [
+   640,
+   1024
+  ],
+  "key": "{\"src\":\"visuals/inbox/portrait-h/raw-1.png\",\"grade\":\"none\",\"q\":62,\"crop\":{\"left\":0,\"top\":90,\"width\":1024,\"height\":1365}}1794266170886.1677"
+ },
+ "portrait-i": {
+  "w": 1024,
+  "h": 1365,
+  "widths": [
+   640,
+   1024
+  ],
+  "key": "{\"src\":\"visuals/inbox/portrait-i/raw-1.png\",\"grade\":\"none\",\"q\":62,\"crop\":{\"left\":0,\"top\":90,\"width\":1024,\"height\":1365}}1794266170887.2742"
+ },
+ "portrait-j": {
+  "w": 1024,
+  "h": 1365,
+  "widths": [
+   640,
+   1024
+  ],
+  "key": "{\"src\":\"visuals/inbox/portrait-j/raw-1.png\",\"grade\":\"none\",\"q\":62,\"crop\":{\"left\":0,\"top\":90,\"width\":1024,\"height\":1365}}1794266170888.3562"
  }
 }

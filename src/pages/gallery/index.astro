@@ -25,7 +25,23 @@ const ROUND2 = [
 <main id="main" class="g wrap">
   <header class="g-h">
     <p class="label">boardybell.com · front room · design gallery</p>
-    <h1>Round 6: your portrait on the cover. Pick one.</h1>
+    <h1>Round 7: facing the sea. Pick one.</h1>
+    <p>Five new versions with you facing the water and the cottages (modelled on your photo) on the dune behind you.</p>
+  </header>
+  <section class="g-fam">
+    <h2><span>R7</span> Facing the sea</h2>
+    <div class="g-grid">
+      {[['pf','F · From the waterline'],['pg','G · Profile, looking out'],['ph','H · Over the shoulder'],['pi','I · Face to the sun'],['pj','J · Looking up from the book']].map(([id, name]) => (
+        <div class="g-card">
+          <a href={`${base}n/${id}/`} class="g-thumb">{thumb(id) ? <img src={`${base}gallery/${id}.webp`} width="800" height="1000" alt="" loading="lazy" /> : <span>{id}</span>}</a>
+          <h3>{name}</h3>
+          <p class="g-links"><a href={`${base}n/${id}/`}>Open the report</a></p>
+        </div>
+      ))}
+    </div>
+  </section>
+  <header class="g-h">
+    <h2 class="g-old">Round 6: portrait on the cover (earlier)</h2>
     <p>The beach-umbrella engraving (your favourite, #2) refined five ways to fix the head angle, hung as a framed cream print beside “Annual Report 2026”.</p>
   </header>
   <section class="g-fam">

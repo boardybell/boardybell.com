@@ -640,5 +640,60 @@
    "width": 1024,
    "height": 1365
   }
+ },
+ "portrait-f": {
+  "src": "visuals/inbox/portrait-f/raw-1.png",
+  "grade": "none",
+  "q": 62,
+  "crop": {
+   "left": 0,
+   "top": 90,
+   "width": 1024,
+   "height": 1365
+  }
+ },
+ "portrait-g": {
+  "src": "visuals/inbox/portrait-g/raw-1.png",
+  "grade": "none",
+  "q": 62,
+  "crop": {
+   "left": 0,
+   "top": 90,
+   "width": 1024,
+   "height": 1365
+  }
+ },
+ "portrait-h": {
+  "src": "visuals/inbox/portrait-h/raw-1.png",
+  "grade": "none",
+  "q": 62,
+  "crop": {
+   "left": 0,
+   "top": 90,
+   "width": 1024,
+   "height": 1365
+  }
+ },
+ "portrait-i": {
+  "src": "visuals/inbox/portrait-i/raw-1.png",
+  "grade": "none",
+  "q": 62,
+  "crop": {
+   "left": 0,
+   "top": 90,
+   "width": 1024,
+   "height": 1365
+  }
+ },
+ "portrait-j": {
+  "src": "visuals/inbox/portrait-j/raw-1.png",
+  "grade": "none",
+  "q": 62,
+  "crop": {
+   "left": 0,
+   "top": 90,
+   "width": 1024,
+   "height": 1365
+  }
  }
 }

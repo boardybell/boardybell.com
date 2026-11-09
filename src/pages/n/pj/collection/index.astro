@@ -1,0 +1,11 @@
+---
+import Base from '../../../../layouts/Base.astro';
+import Collection from '../../../../components/Collection.astro';
+import '../../../../styles/i/d.css';
+import '../../../../styles/looks.css';
+import { base } from '../../../../lib/rich';
+---
+<Base title="The Permanent Collection" theme="n1c">
+  <Collection back look="pj" home={`${base}n/pj/`} />
+  <a class="gal-back" href={`${base}gallery/`}>Gallery · Portrait collection</a>
+</Base>

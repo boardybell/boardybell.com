@@ -46,4 +46,4 @@ Object.assign(ALT, {
   'p-terminal-tradecard-1': 'A gold engraving of an old computer terminal inside an ornamental scroll frame.',
   'p-joystick-stipple-2': 'A gold stipple engraving of an arcade joystick and two buttons.',
 });
-for (const k of 'abcde') ALT[`portrait-${k}`] = 'An engraved portrait of Boardy in a beach chair under a striped umbrella, weathered cedar cottages on the dunes behind.';
+for (const k of 'abcdefghij') ALT[`portrait-${k}`] = 'An engraved portrait of Boardy in a beach chair under a striped umbrella, weathered cedar cottages on the dunes behind, facing the sea.';
