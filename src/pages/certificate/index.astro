@@ -18,7 +18,7 @@ import { base } from '../../lib/rich';
       <p class="cert-p">This is to certify that</p>
       <p class="cert-n" id="cname">A Visitor</p>
       <p class="cert-p">has, without assistance or apparent reason, located the following:</p>
-      <ol class="cert-l" id="clist"><li>Nothing yet. Keep looking.</li></ol>
+      <ol class="cert-l" id="clist"><li class="cert-empty">Nothing yet. Keep looking.</li></ol>
       <p class="cert-c">The holder is entitled to no privileges whatsoever. This certificate is not transferable, not redeemable, and not, strictly speaking, necessary.</p>
       <div class="cert-sig">
         <div><span class="cert-line"></span><span>The Board</span></div>
@@ -57,7 +57,9 @@ import { base } from '../../lib/rich';
 .cert h1{font:400 7.4cqw/1.05 var(--bodoni);margin-top:1.5cqw}
 .cert-p{font:400 italic 2.7cqw/1.4 var(--serif);color:var(--warm)}
 .cert-n{font:400 italic 6cqw/1.15 var(--display);border-bottom:1px solid var(--gold);padding:0 4cqw 1cqw;min-width:60%;overflow-wrap:anywhere}
-.cert-l:has(li:only-child){flex:1;display:grid;align-content:center;columns:auto}
+.cert-l:has(.cert-empty){flex:1;display:grid;align-content:center;columns:auto}
+.cert-l .cert-empty::before{content:none}
+.cert-l .cert-empty{font-style:italic;color:var(--warm)}
 .cert-l{list-style:none;padding:0;max-width:28rem;margin-inline:auto;font:400 2.3cqw/1.45 var(--serif);display:grid;gap:.4cqw;columns:2}
 .cert-l li::before{content:"✓ ";color:var(--gold-ink)}
 .cert-c{margin-top:auto;font:400 2cqw/1.5 var(--label);color:var(--warm);max-width:80%}

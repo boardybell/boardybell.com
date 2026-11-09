@@ -15,7 +15,7 @@ import '../../styles/arcade.css';
       <li class="ar-item">
         <a href={`${base}arcade/${g.slug}/`} class={i === 0 ? 'sel' : ''} data-id={g.id}>
           <Pic name={g.art} alt="" sizes="8rem" eager={i < 6} />
-          <span><span class="ar-t">{g.title.toUpperCase()}</span><span class="ar-g" style="display:block">{g.genre}. {g.hook}</span><span class="ar-hs" style="display:block" data-top></span></span>
+          <span><span class="ar-t">{g.title.toUpperCase()}</span><span class="ar-g" style="display:block">{g.genre}. {g.hook}</span><span class="ar-hs" style="display:block" data-top></span></span><span class="ar-num" aria-hidden="true">#{i + 1}</span>
         </a>
       </li>
     ))}

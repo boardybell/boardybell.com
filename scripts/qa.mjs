@@ -128,8 +128,16 @@ for (const mode of ['desktop', 'touch']) {
     // terminal: backtick on desktop, long-press on the counter for touch
     if (mode === 'desktop') { await page.keyboard.press('`'); }
     else { await page.evaluate(async () => { const c = document.querySelector('.counter-d'); c.dispatchEvent(new PointerEvent('pointerdown', { bubbles: true })); await new Promise((z) => setTimeout(z, 800)); c.dispatchEvent(new PointerEvent('pointerup', { bubbles: true })); }); }
-    if (!(await page.$('.term'))) fail(`${W} ${id}`, 'terminal did not open');
-    else { await page.fill('.term input', 'whoami'); await page.press('.term input', 'Enter'); if (!(await page.textContent('.term-o')).includes('Details withheld')) fail(`${W} ${id}`, 'terminal whoami'); await page.press('.term input', 'Escape'); }
+    try { await page.waitForSelector('.bos .bos-in', { timeout: 4000 }); } catch {}
+    if (!(await page.$('.bos'))) fail(`${W} ${id}`, 'terminal did not open');
+    else {
+      await page.waitForSelector('.bos-line:not([hidden])', { timeout: 5000 }).catch(() => {});
+      await page.fill('.bos-in', 'guest'); await page.press('.bos-in', 'Enter');
+      await page.fill('.bos-in', 'whoami'); await page.press('.bos-in', 'Enter');
+      if (!(await page.textContent('.bos-out')).includes('guest')) fail(`${W} ${id}`, 'terminal login/whoami');
+      await page.press('.bos-in', 'Escape');
+      if (await page.$('.bos')) fail(`${W} ${id}`, 'terminal did not close on Escape');
+    }
     if (await page.$('.c-yr')) {
       for (let i = 0; i < 4; i++) await page.locator('.c-yr').first().click();
       if (!(await page.evaluate(() => JSON.parse(localStorage.getItem('bb.found') || '[]').includes('forecast')))) fail(`${W} ${id}`, 'year forecast egg did not fire');
@@ -221,6 +229,35 @@ if (!ONLY) for (const mode of ['desktop', 'touch']) {
     await Promise.all([page.waitForURL(/\/arcade\/$/, { timeout: 5000 }).catch(() => fail(`button egg ${mode}`, 'did not navigate to the arcade')), mode === 'touch' ? b.tap() : b.click()]);
     if (!(await page.evaluate(() => JSON.parse(localStorage.getItem('bb.found') || '[]').includes('button')))) fail(`button egg ${mode}`, 'find not recorded');
   }
+  await ctx.close();
+}
+
+// ---------- BoardyOS: the computer engraving opens it, and the trail leads to the arcade ----------
+if (!ONLY) for (const mode of ['desktop', 'touch']) {
+  const ctx = await browser.newContext(mode === 'touch' ? { ...devices['iPhone 13'] } : { viewport: { width: 1280, height: 900 } });
+  const page = await ctx.newPage(); const W = `terminal/${mode}`;
+  page.on('pageerror', (e) => fail(W, `JS error ${e.message}`));
+  await page.goto(url(''), { waitUntil: 'networkidle' });
+  await page.evaluate(() => localStorage.clear());
+  const t = page.locator('.term-egg');
+  if (!(await t.count())) { fail(W, 'no .term-egg on the computer plate'); await ctx.close(); continue; }
+  await t.scrollIntoViewIfNeeded(); if (mode === 'touch') await t.tap(); else await t.click();
+  try { await page.waitForSelector('.bos-line:not([hidden])', { timeout: 6000 }); } catch { fail(W, 'terminal did not boot from the engraving'); await ctx.close(); continue; }
+  const run = async (c) => { await page.fill('.bos-in', c); await page.press('.bos-in', 'Enter'); };
+  for (const c of ['guest', 'cat README', 'ls /srv', 'cd /srv/arcade']) await run(c);
+  if (!(await page.textContent('.bos-out')).includes('locked after hours')) fail(W, 'arcade was not locked before the key');
+  for (const c of ['cd ~', 'cat notes.txt', 'ls -a', 'cat .cabinet_key', 'unlock /srv/arcade', 'cd /srv/arcade', 'ls', './insert_coin']) await run(c);
+  const txt = await page.textContent('.bos-out');
+  if (!txt.includes('.cabinet_key')) fail(W, 'ls -a did not show the hidden key');
+  if (!txt.includes('CREDIT 01')) fail(W, 'coin slot did not give a credit');
+  if (!txt.includes('insert_coin*')) fail(W, 'ls in /srv/arcade did not list insert_coin');
+  // tab completion
+  await page.fill('.bos-in', 'cat cab'); await page.press('.bos-in', 'Tab');
+  if ((await page.inputValue('.bos-in')) !== 'cat cabinets.txt') fail(W, `tab completion gave "${await page.inputValue('.bos-in')}"`);
+  await page.fill('.bos-in', '');
+  for (const m of await page.evaluate(LAYOUT)) if (/overflow/.test(m)) fail(W, m);
+  if (mode === 'desktop') await page.screenshot({ path: 'qa/shots/terminal.png' });
+  await Promise.all([page.waitForURL(/\/arcade\/$/, { timeout: 8000 }).catch(() => fail(W, 'start did not open the arcade')), run('start')]);
   await ctx.close();
 }
 

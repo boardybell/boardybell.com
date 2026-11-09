@@ -123,7 +123,13 @@
     vim: () => 'You are now trapped in vim. Just kidding. That would be cruel.',
     man: () => 'No manual entry. There is no manual. There is barely a page.',
   };
+  // The full BoardyOS terminal lives in eggs/terminal.js and loads on first use.
   function openTerm() {
+    if (window.bbTerminal) return window.bbTerminal.open();
+    const sc = d.createElement('script'); sc.src = BASE + 'eggs/terminal.js'; sc.onload = () => window.bbTerminal?.open(); d.head.append(sc);
+  }
+  window.bbOpenTerm = openTerm;
+  function openTermOld() {
     if (term) { term.querySelector('input').focus(); return; }
     found('terminal');
     term = d.createElement('div'); term.className = 'term'; term.setAttribute('role', 'dialog'); term.setAttribute('aria-label', 'Terminal');
@@ -140,7 +146,7 @@
     };
     inp.focus();
   }
-  function closeTerm() { term?.remove(); term = null; }
+  function closeTerm() { term?.remove(); term = null; window.bbTerminal?.close?.(); }
   d.querySelector('[data-terminal-tap]')?.addEventListener('dblclick', openTerm);
 
   // ---------- keys: terminal + Konami ----------

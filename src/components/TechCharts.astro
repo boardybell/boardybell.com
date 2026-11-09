@@ -26,8 +26,8 @@ const ticks = (a: number, b: number, s: number) => { const t = []; for (let v = 
 let s1 = '';
 s1 += ticks(lo, hi, 0.5).map((v) => hline(py(v)) + lbl(X1 + 6, py(v) + 4, f1(v))).join('');
 s1 += years(366);
-s1 += `<line x1="${X0}" x2="${X1}" y1="${py(support)}" y2="${py(support)}" stroke="${INK}" stroke-width="1" stroke-dasharray="4 3"/>` + lbl(X1 - 4, py(support) + 14, 'Support: the morning cup', { fill: INK, 'text-anchor': 'end' });
-s1 += `<line x1="${X0}" x2="${X1}" y1="${py(resist)}" y2="${py(resist)}" stroke="${INK}" stroke-width="1" stroke-dasharray="4 3"/>` + lbl(X1 - 4, py(resist) - 6, 'Resistance: medical advice', { fill: INK, 'text-anchor': 'end' });
+s1 += `<line x1="${X0}" x2="${X1}" y1="${py(support)}" y2="${py(support)}" stroke="${INK}" stroke-width="1" stroke-dasharray="4 3"/>` ;
+s1 += `<line x1="${X0}" x2="${X1}" y1="${py(resist)}" y2="${py(resist)}" stroke="${INK}" stroke-width="1" stroke-dasharray="4 3"/>` ;
 s1 += C.map((k, i) => {
   const up = k.c >= k.o, col = up ? UP : DN, x = cx(i), top = py(Math.max(k.o, k.c)), bot = py(Math.min(k.o, k.c)), bh = Math.max(1.5, bot - top);
   return `<line x1="${x}" x2="${x}" y1="${py(k.h)}" y2="${py(k.l)}" stroke="${col}" stroke-width="1"/><rect x="${(x - 2.25).toFixed(2)}" y="${top.toFixed(1)}" width="4.5" height="${bh.toFixed(1)}" fill="${up ? '#FDF6EC' : col}" stroke="${col}" stroke-width="1"/>`;
@@ -38,8 +38,10 @@ s1 += C.map((k, i) => `<rect x="${(cx(i) - 2.25).toFixed(2)}" y="${vy(k.vol).toF
 s1 += `<rect x="${X0}" y="${ry(70)}" width="${X1 - X0}" height="${ry(30) - ry(70)}" fill="rgba(22,35,59,.035)"/>` + hline(ry(70), '3 3') + hline(ry(30), '3 3');
 s1 += lbl(X1 + 6, ry(70) + 4, '70') + lbl(X1 + 6, ry(30) + 4, '30');
 s1 += lbl(X1 - 4, ry(100) + 8, 'RELATIVE SLEEPINESS INDEX (6)', { 'font-size': 9.5, 'letter-spacing': 1, 'text-anchor': 'end' });
-s1 += lbl(X0 + 4, ry(70) + 11, 'Overcaffeinated', { 'font-size': 10 }) + lbl(X0 + 4, ry(30) - 4, 'Rested', { 'font-size': 10 });
 s1 += `<path d="${path(C.flatMap((k, i) => (k.rsi != null ? [[cx(i), ry(k.rsi)] as [number, number]] : [])))}" fill="none" stroke="${INK}" stroke-width="1.5" stroke-linejoin="round"/>`;
+s1 += lbl(X1 - 4, py(support) + 14, 'Support: the morning cup', { fill: INK, 'text-anchor': 'end' }) + lbl(X1 - 4, py(resist) - 6, 'Resistance: medical advice', { fill: INK, 'text-anchor': 'end' });
+// RSI qualitative labels last too, so their halo masks the trace
+s1 += lbl(X0 + 4, ry(70) + 11, 'Overcaffeinated', { 'font-size': 10 }) + lbl(X0 + 4, ry(30) - 4, 'Rested', { 'font-size': 10 });
 const coffeePts = C.map((k) => [`${MON[k.m]} ${k.y}`, f2(k.o), f2(k.h), f2(k.l), f2(k.c), k.vol, k.ma ? f2(k.ma) : '', k.rsi != null ? Math.round(k.rsi) : '']);
 
 // ---------- 2. Lamps: monthly count with six-month bands ----------
@@ -93,6 +95,7 @@ const svg = (h: number, body: string, label: string) => `<svg viewBox="0 0 ${W} 
   <figure class="c-chart c-chart-sm">
     <figcaption><b>{T.chairs[0]}</b><span>{T.chairs[1]}</span></figcaption>
     <div class="c-chart-w"><Fragment set:html={svg(124, s3, 'A flat line at 1.00 chairs occupied for every month from 2020 to 2026.')} /></div>
+    <p class="c-scroll-hint" aria-hidden="true">Scroll sideways for earlier years</p>
   </figure>
 
   <details class="c-data">

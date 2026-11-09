@@ -157,3 +157,30 @@ html body :is(h1,h2:not(.label),h3,.thesis,.c-sig,.c-aud-t,.b-name,.b-close,.d-t
   .counter-l,.counter-n{font-size:.625rem;line-height:1.4;letter-spacing:.1em}
   .foot .counter{margin-bottom:.75rem}
 }
+
+/* ---- BoardyOS terminal (opened from the computer engraving, backtick, or counter long-press) ---- */
+html.bos-open{overflow:hidden}
+.bos{position:fixed;inset:0;z-index:120;display:grid;place-items:center;background:rgba(5,8,15,.82);padding:clamp(.5rem,3vw,2.5rem)}
+.bos-screen{position:relative;width:min(100%,54rem);height:min(100%,36rem);display:flex;flex-direction:column;background:#06080d;color:#E8C77E;
+  border:1px solid rgba(217,179,108,.5);border-radius:10px;box-shadow:0 0 0 6px #10151f,0 0 0 7px rgba(217,179,108,.25),0 30px 80px rgba(0,0,0,.6),inset 0 0 80px rgba(217,179,108,.06);
+  font:400 clamp(.82rem,2.6vw,.95rem)/1.5 var(--mono);overflow:hidden;text-shadow:0 0 6px rgba(232,199,126,.35)}
+.bos-screen::after{content:"";position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,rgba(0,0,0,.18) 0 1px,transparent 1px 3px)}
+.bos-bar{display:flex;justify-content:space-between;align-items:center;padding:.45rem .8rem;border-bottom:1px solid rgba(217,179,108,.25);font-size:.72rem;color:#9C8A5E;letter-spacing:.06em;text-shadow:none}
+.bos-x{all:unset;cursor:pointer;color:#C9A45C;padding:.2rem .4rem}
+.bos-x:focus-visible{outline:1px solid #E8C77E}
+.bos-out{flex:1;overflow:auto;padding:.9rem 1rem .2rem;white-space:pre-wrap;word-break:break-word;scrollbar-width:thin;scrollbar-color:#6b5a33 transparent}
+.bos-dim{color:#9C8A5E}.bos-cmd{color:#F6DFA6}.bos-hot{color:#FFE6A6;font-weight:500}
+.bos-line{display:flex;align-items:baseline;padding:.2rem 1rem .9rem;gap:0}
+.bos-line[hidden]{display:none}
+.bos-ps{white-space:pre;color:#F6DFA6}
+.bos-in{flex:1;min-width:0;background:transparent;border:0;color:#F6DFA6;font:inherit;caret-color:#E8C77E;padding:0;outline:none;text-shadow:inherit}
+.bos-keys{display:none;gap:.35rem;padding:.5rem;border-top:1px solid rgba(217,179,108,.2);overflow-x:auto}
+.bos-keys button{flex:0 0 auto;font:500 .75rem/1 var(--mono);color:#E8C77E;background:#11161f;border:1px solid rgba(217,179,108,.35);border-radius:6px;padding:.55rem .7rem}
+@media (pointer:coarse){.bos-keys{display:flex}.bos-screen{height:min(100%,30rem)}.bos{place-items:start center}}
+@media (prefers-reduced-motion:reduce){.bos-screen{text-shadow:none}.bos-screen::after{display:none}}
+/* the computer engraving is a way in */
+.term-egg{all:unset;position:absolute;inset:0;cursor:pointer}
+.term-egg::after{content:"";position:absolute;left:37%;top:28%;width:30%;height:22%;border-radius:8% / 12%;opacity:0;transition:opacity .25s;
+  background:radial-gradient(ellipse at center,rgba(255,226,150,.35),rgba(255,226,150,0) 70%)}
+.term-egg:hover::after,.term-egg:focus-visible::after{opacity:1}
+.term-egg:focus-visible{outline:2px solid #D9B36C;outline-offset:4px}
