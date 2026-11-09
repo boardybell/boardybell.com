@@ -585,5 +585,60 @@
   "src": "visuals/inbox/D1-p-microphone-stamp/raw-2.png",
   "grade": "none",
   "q": 60
+ },
+ "portrait-a": {
+  "src": "visuals/inbox/portrait-a/raw-1.png",
+  "grade": "none",
+  "q": 62,
+  "crop": {
+   "left": 0,
+   "top": 90,
+   "width": 1024,
+   "height": 1365
+  }
+ },
+ "portrait-b": {
+  "src": "visuals/inbox/portrait-b/raw-1.png",
+  "grade": "none",
+  "q": 62,
+  "crop": {
+   "left": 0,
+   "top": 90,
+   "width": 1024,
+   "height": 1365
+  }
+ },
+ "portrait-c": {
+  "src": "visuals/inbox/portrait-c/raw-1.png",
+  "grade": "none",
+  "q": 62,
+  "crop": {
+   "left": 0,
+   "top": 90,
+   "width": 1024,
+   "height": 1365
+  }
+ },
+ "portrait-d": {
+  "src": "visuals/inbox/portrait-d/raw-1.png",
+  "grade": "none",
+  "q": 62,
+  "crop": {
+   "left": 0,
+   "top": 90,
+   "width": 1024,
+   "height": 1365
+  }
+ },
+ "portrait-e": {
+  "src": "visuals/inbox/portrait-e/raw-1.png",
+  "grade": "none",
+  "q": 62,
+  "crop": {
+   "left": 0,
+   "top": 90,
+   "width": 1024,
+   "height": 1365
+  }
  }
 }

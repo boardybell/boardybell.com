@@ -18,5 +18,11 @@ export const LOOKS: Record<string, Look> = {
   // FINAL (Bond, 2026-11-09): N9 with the microphone swapped for the game controller (#46);
   // the controller's right-hand button is an Easter egg into the arcade (position as % of the square image).
   final: { cover: 'l-facade', a: 'p-terminal-stamp-1', b: 'p-joystick-stipple-2', capA: 'The terminal, ready.', capB: 'The controls.', key: 'g-key', objects: ['g-key', 'g-mug', 'g-umbrella'], eggA: true, eggB: { x: 67.5, y: 61.3, r: 7.2 } },
+  // Round 6: Bond's engraved beach portrait on the cover, five refinements of the head angle
+  pa: { cover: 'portrait-a', a: 'p-terminal-stamp-1', b: 'p-joystick-stipple-2', capA: 'The terminal, ready.', capB: 'The controls.', key: 'g-key', objects: ['g-key', 'g-mug', 'g-umbrella'], eggA: true, eggB: { x: 67.5, y: 61.3, r: 7.2 } },
+  pb: { cover: 'portrait-b', a: 'p-terminal-stamp-1', b: 'p-joystick-stipple-2', capA: 'The terminal, ready.', capB: 'The controls.', key: 'g-key', objects: ['g-key', 'g-mug', 'g-umbrella'], eggA: true, eggB: { x: 67.5, y: 61.3, r: 7.2 } },
+  pc: { cover: 'portrait-c', a: 'p-terminal-stamp-1', b: 'p-joystick-stipple-2', capA: 'The terminal, ready.', capB: 'The controls.', key: 'g-key', objects: ['g-key', 'g-mug', 'g-umbrella'], eggA: true, eggB: { x: 67.5, y: 61.3, r: 7.2 } },
+  pd: { cover: 'portrait-d', a: 'p-terminal-stamp-1', b: 'p-joystick-stipple-2', capA: 'The terminal, ready.', capB: 'The controls.', key: 'g-key', objects: ['g-key', 'g-mug', 'g-umbrella'], eggA: true, eggB: { x: 67.5, y: 61.3, r: 7.2 } },
+  pe: { cover: 'portrait-e', a: 'p-terminal-stamp-1', b: 'p-joystick-stipple-2', capA: 'The terminal, ready.', capB: 'The controls.', key: 'g-key', objects: ['g-key', 'g-mug', 'g-umbrella'], eggA: true, eggB: { x: 67.5, y: 61.3, r: 7.2 } },
   n8: { cover: 'l-facade', a: 'e-lamp', b: 'e-chair', capA: 'The lamp, left on.', capB: 'The board, in session.', key: 'g-key', objects: ['g-key', 'g-mug', 'g-umbrella'] },
 };

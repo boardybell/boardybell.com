@@ -1150,5 +1150,50 @@
    1254
   ],
   "key": "{\"src\":\"visuals/inbox/D1-p-microphone-stamp/raw-2.png\",\"grade\":\"none\",\"q\":60}1794255036861.0837"
+ },
+ "portrait-a": {
+  "w": 1024,
+  "h": 1365,
+  "widths": [
+   640,
+   1024
+  ],
+  "key": "{\"src\":\"visuals/inbox/portrait-a/raw-1.png\",\"grade\":\"none\",\"q\":62,\"crop\":{\"left\":0,\"top\":90,\"width\":1024,\"height\":1365}}1794263747669.9583"
+ },
+ "portrait-b": {
+  "w": 1024,
+  "h": 1365,
+  "widths": [
+   640,
+   1024
+  ],
+  "key": "{\"src\":\"visuals/inbox/portrait-b/raw-1.png\",\"grade\":\"none\",\"q\":62,\"crop\":{\"left\":0,\"top\":90,\"width\":1024,\"height\":1365}}1794263747671.4612"
+ },
+ "portrait-c": {
+  "w": 1024,
+  "h": 1365,
+  "widths": [
+   640,
+   1024
+  ],
+  "key": "{\"src\":\"visuals/inbox/portrait-c/raw-1.png\",\"grade\":\"none\",\"q\":62,\"crop\":{\"left\":0,\"top\":90,\"width\":1024,\"height\":1365}}1794263747672.8237"
+ },
+ "portrait-d": {
+  "w": 1024,
+  "h": 1365,
+  "widths": [
+   640,
+   1024
+  ],
+  "key": "{\"src\":\"visuals/inbox/portrait-d/raw-1.png\",\"grade\":\"none\",\"q\":62,\"crop\":{\"left\":0,\"top\":90,\"width\":1024,\"height\":1365}}1794263747673.9114"
+ },
+ "portrait-e": {
+  "w": 1024,
+  "h": 1365,
+  "widths": [
+   640,
+   1024
+  ],
+  "key": "{\"src\":\"visuals/inbox/portrait-e/raw-1.png\",\"grade\":\"none\",\"q\":62,\"crop\":{\"left\":0,\"top\":90,\"width\":1024,\"height\":1365}}1794263747674.8691"
  }
 }

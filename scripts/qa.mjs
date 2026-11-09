@@ -12,7 +12,7 @@ const ONLY = ARGS.includes('--only') ? ARGS[ARGS.indexOf('--only') + 1].split(',
 const IDS = ['a1', 'a2', 'a3', 'b1', 'b2', 'b3', 'c1', 'c2', 'c3', 'd1'].filter((i) => !ONLY || ONLY.includes(i));
 const ARC = readFileSync('src/content/arcade.ts', 'utf8');
 const GAMES = [...ARC.matchAll(/slug: '([^']+)'/g)].map((m) => m[1]);
-const PAGES = [...IDS.map((i) => `i/${i}/`), ...(ONLY ? [] : ['', 'collection/', 'gallery/', 'gallery/plates/', ...['n1', 'n2', 'n3', 'n4', 'n5', 'n6', 'n7', 'n8', 'n9', 'n10', 'n11', 'n12'].flatMap((n) => [`n/${n}/`, `n/${n}/collection/`]), 'arcade/', ...GAMES.map((g) => `arcade/${g}/`), 'certificate/', 'nope/'])];
+const PAGES = [...IDS.map((i) => `i/${i}/`), ...(ONLY ? [] : ['', 'collection/', 'gallery/', 'gallery/plates/', ...['n1', 'n2', 'n3', 'n4', 'n5', 'n6', 'n7', 'n8', 'n9', 'n10', 'n11', 'n12', 'pa', 'pb', 'pc', 'pd', 'pe'].flatMap((n) => [`n/${n}/`, `n/${n}/collection/`]), 'arcade/', ...GAMES.map((g) => `arcade/${g}/`), 'certificate/', 'nope/'])];
 const WIDTHS = [360, 768, 1280, 1920];
 // Blocklist is base64 so the names themselves never appear in this public repo.
 const FIRMS = new RegExp(Buffer.from('Ym9uZGJlbGx8YmVsbGFzc2V0fGJlbGxmYW1pbHl8YmVsbCBhc3NldHxiZWxsIGZhbWlseXxib25kIGJlbGwgJiBjb3xib25kIGJlbGwgYW5kIGNvfFxiQ1JEXGJ8ZmlucmF8c2VjXC5nb3Y=', 'base64').toString(), 'i');
@@ -280,7 +280,7 @@ if (!ONLY) for (const mode of ['desktop', 'touch']) {
 if (ARGS.includes('--thumbs')) {
   mkdirSync('public/gallery', { recursive: true });
   const ctx = await browser.newContext({ viewport: { width: 1280, height: 1600 }, reducedMotion: 'reduce' }); const page = await ctx.newPage();
-  const THUMBS = [...IDS.map((id) => [id, `i/${id}/`]), ...(ONLY ? [] : [['n1', 'n/n1/'], ['n2', 'n/n2/'], ['n3', 'n/n3/'], ['n4', 'n/n4/'], ['n5', 'n/n5/'], ['n6', 'n/n6/'], ['n7', 'n/n7/'], ['n8', 'n/n8/'], ['n9', 'n/n9/'], ['n10', 'n/n10/'], ['n11', 'n/n11/'], ['n12', 'n/n12/'], ['c1', '']])];
+  const THUMBS = [...IDS.map((id) => [id, `i/${id}/`]), ...(ONLY ? [] : [['n1', 'n/n1/'], ['n2', 'n/n2/'], ['n3', 'n/n3/'], ['n4', 'n/n4/'], ['n5', 'n/n5/'], ['n6', 'n/n6/'], ['n7', 'n/n7/'], ['n8', 'n/n8/'], ['n9', 'n/n9/'], ['n10', 'n/n10/'], ['n11', 'n/n11/'], ['n12', 'n/n12/'], ['pa', 'n/pa/'], ['pb', 'n/pb/'], ['pc', 'n/pc/'], ['pd', 'n/pd/'], ['pe', 'n/pe/'], ['c1', '']])];
   for (const [id, path] of THUMBS) {
     await page.goto(url(path), { waitUntil: 'networkidle' });
     await page.addStyleTag({ content: '.gal-back{display:none!important}' });

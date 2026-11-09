@@ -28,7 +28,7 @@ const item = (n: string, t: string) => (v === 3 ? `Item ${n}. ${t}` : t);
         <h1><span class="c-ttl">{R.title}</span> <span class="c-yr">{R.year}</span></h1>
         <p class="thesis c-th">{thesis}</p>
       </div>
-      <div class="c-cover-i"><Pic name={IMG.cover} alt={ALT[IMG.cover]} eager sizes="(min-width: 900px) 42vw, 100vw" /></div>
+      <div class:list={["c-cover-i", { "is-print": IMG.cover.startsWith("portrait-") }]}><Pic name={IMG.cover} alt={ALT[IMG.cover]} eager sizes="(min-width: 900px) 42vw, 100vw" /></div>
     </section>
   )}
   {v === 2 && (

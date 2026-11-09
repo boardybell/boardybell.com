@@ -73,3 +73,8 @@
 .t-n1c .foot,.t-n2c .foot,.t-n3c .foot{background:#0D1626;border-top-color:rgba(217,179,108,.35)}
 .t-n3c .d-work img{outline:1px solid #B98B3E;outline-offset:6px}
 .t-n3c .d-hero h1{color:#D9B36C;font-style:italic}
+
+/* Engraved portrait on the cover: a cream print in a thin gold frame, hung on the navy */
+.c-cover-i.is-print{background:#F6F0E4;padding:clamp(.6rem,1.6vw,1rem);box-shadow:0 0 0 1px #B98B3E,0 0 0 6px #0D1626,0 0 0 7px rgba(217,179,108,.45),0 30px 60px -30px rgba(0,0,0,.8)}
+.c-cover-i.is-print::after{display:none}
+.c-cover-i.is-print img{aspect-ratio:3/4;object-fit:cover}

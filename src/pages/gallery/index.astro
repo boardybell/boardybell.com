@@ -25,6 +25,22 @@ const ROUND2 = [
 <main id="main" class="g wrap">
   <header class="g-h">
     <p class="label">boardybell.com · front room · design gallery</p>
+    <h1>Round 6: your portrait on the cover. Pick one.</h1>
+    <p>The beach-umbrella engraving (your favourite, #2) refined five ways to fix the head angle, hung as a framed cream print beside “Annual Report 2026”.</p>
+  </header>
+  <section class="g-fam">
+    <h2><span>R6</span> Portrait cover</h2>
+    <div class="g-grid">
+      {[['pa','A · Looking out to sea'],['pb','B · Reading'],['pc','C · A natural glance'],['pd','D · Face to the sun'],['pe','E · Laughing, off to one side']].map(([id, name]) => (
+        <div class="g-card">
+          <a href={`${base}n/${id}/`} class="g-thumb">{thumb(id) ? <img src={`${base}gallery/${id}.webp`} width="800" height="1000" alt="" loading="lazy" /> : <span>{id}</span>}</a>
+          <h3>{name}</h3>
+          <p class="g-links"><a href={`${base}n/${id}/`}>Open the report</a></p>
+        </div>
+      ))}
+    </div>
+  </section>
+  <header class="g-h">
     <p class="g-cta"><a href={`${base}gallery/plates/`}>New: pick from 36 engraved plates →</a></p>
     <h1>Round 5: N6 with the computer terminal and the game controller.</h1>
     <p>Your picks: the computer terminal and the second game controller (#46). N11 uses the first terminal (#59, scroll frame); N12 uses the stamp-frame terminal. N9 and N10 (terminal and microphone) are kept below in case.</p>
