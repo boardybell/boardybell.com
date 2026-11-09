@@ -14,4 +14,7 @@ Prompts, selections and grading settings are in visuals/ (prompts/, selected.jso
 No stock photography. No people.
 
 ## Games
-To be recorded here when the arcade is built.
+All four games are original code written for this site on a shared engine (public/arcade/engine.js),
+with original mazes, sprites and rules. They are genre games (maze chase, fixed shooter, snake,
+brick breaker); no third-party game code, assets or characters are used.
+Title and menu art: ChatGPT image generation (prompts in visuals/prompts/13-17).
