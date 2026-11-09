@@ -42,3 +42,7 @@ Object.assign(ALT, {
   'p-microphone-stamp-2': 'A gold engraving of a vintage studio microphone inside a perforated stamp frame.',
   'p-microphone-stipple-1': 'A gold stipple engraving of a vintage studio microphone.',
 });
+Object.assign(ALT, {
+  'p-terminal-tradecard-1': 'A gold engraving of an old computer terminal inside an ornamental scroll frame.',
+  'p-joystick-stipple-2': 'A gold stipple engraving of an arcade joystick and two buttons.',
+});

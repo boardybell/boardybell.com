@@ -1,0 +1,11 @@
+---
+import Base from '../../../layouts/Base.astro';
+import Report from '../../../components/Report.astro';
+import '../../../styles/i/c.css';
+import '../../../styles/looks.css';
+import { base } from '../../../lib/rich';
+---
+<Base title="Boardy" theme="n1">
+  <Report v={1} look="n11" home={`${base}n/n11/`} />
+  <a class="gal-back" href={`${base}gallery/`}>Gallery · N11</a>
+</Base>
