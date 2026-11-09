@@ -34,7 +34,7 @@ import { base } from '../../lib/rich';
   const s = (k, v) => { try { localStorage.setItem('bb.' + k, JSON.stringify(v)); } catch {} };
   const N = { door: 'An unmarked door', konami: 'The code', terminal: 'The terminal', guestbook: 'The guestbook, closed', highlight: 'A line that changes when watched',
     redaction: 'A redaction, lifted', counter: 'The counter, counted', loader: 'The loading screen, read in full', notfound: 'A page that is not there', y1994: 'Its dignity, restored',
-    tab: 'A tab that missed you', idle: 'The page, waiting', name: 'His attention, by name', forecast: 'A withdrawn forecast', print: 'A printed copy', lamp: 'The lamp, left on' };
+    tab: 'A tab that missed you', idle: 'The page, waiting', name: 'His attention, by name', forecast: 'A withdrawn forecast', print: 'A printed copy', lamp: 'The lamp, left on', button: 'A button, pressed' };
   const f = g('found', []).filter((k) => N[k]);
   if (f.length) document.getElementById('clist').innerHTML = f.map((k) => `<li>${N[k]}</li>`).join('');
   const inp = document.getElementById('cn'), out = document.getElementById('cname');

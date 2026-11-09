@@ -16,7 +16,7 @@
   // ---------- finds + certificate ----------
   const NAMES = { door: 'Found an unmarked door', konami: 'Entered the code', terminal: 'Located the terminal', guestbook: 'Attempted the guestbook',
     highlight: 'Highlighted something it asked you not to', redaction: 'Lifted a redaction', counter: 'Counted the counter', loader: 'Read the loading screen', notfound: 'Visited a page that is not there', y1994: 'Restored dignity',
-    tab: 'Left, and came back', idle: 'Stopped reading', name: 'Called him by name', forecast: 'Withdrew a forecast', print: 'Printed it', lamp: 'Found the lamp on' };
+    tab: 'Left, and came back', idle: 'Stopped reading', name: 'Called him by name', forecast: 'Withdrew a forecast', print: 'Printed it', lamp: 'Found the lamp on', button: 'Pressed the button' };
   window.bbNames = NAMES;
   let toastT;
   const toast = (html, ms = 5200) => {
@@ -46,6 +46,8 @@
     const r = e.target.closest?.('.redact');
     if (r && r.getAttribute('aria-expanded') === 'false') { r.setAttribute('aria-expanded', 'true'); found('redaction'); }
     if (e.target.closest?.('[data-egg=door]')) found('door');
+    const joy = e.target.closest?.('[data-egg=button]');
+    if (joy && !joy.dataset.go) { e.preventDefault(); joy.dataset.go = '1'; joy.classList.add('pressed'); found('button'); setTimeout(() => (location.href = joy.href), RM ? 60 : 320); }
   });
 
   // ---------- highlight swaps ----------

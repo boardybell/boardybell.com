@@ -132,3 +132,11 @@ h1,h2:not(.label),h3,.thesis,.c-sig,.c-aud-t,.b-name,.b-close,.d-th{font-weight:
   font-weight:500;font-optical-sizing:none;font-variation-settings:'opsz' 24}
 /* light type on dark grounds renders thinner with greyscale antialiasing; use the system default there */
 .t-a2,.t-n1,.t-n3,.t-n1c,.t-n2c,.t-n3c,.t-n4c,.t-n5c,.t-n6c,.c-mag,.b3 .b-prin{-webkit-font-smoothing:auto;-moz-osx-font-smoothing:auto}
+
+/* Controller button Easter egg: an invisible round hit area over the engraved button */
+.egg-wrap{position:relative}
+.joy-egg{position:absolute;aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:box-shadow .15s,transform .15s}
+.joy-egg:hover{box-shadow:0 0 18px 2px rgba(217,179,108,.28)}
+.joy-egg:focus-visible{outline:2px solid #D9B36C;outline-offset:2px}
+.joy-egg.pressed{transform:translate(-50%,-46%) scale(.94);box-shadow:inset 0 6px 12px rgba(0,0,0,.55),0 0 22px 4px rgba(217,179,108,.4)}
+@media (prefers-reduced-motion:reduce){.joy-egg{transition:none}}

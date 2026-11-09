@@ -207,11 +207,28 @@ if (!ONLY) for (const mode of ['desktop', 'touch']) {
   await ctx.close();
 }
 
+// ---------- controller-button egg on the home page leads to the arcade ----------
+if (!ONLY) for (const mode of ['desktop', 'touch']) {
+  const ctx = await browser.newContext(mode === 'touch' ? { ...devices['iPhone 13'] } : { viewport: { width: 1280, height: 900 } });
+  const page = await ctx.newPage();
+  await page.goto(url(''), { waitUntil: 'networkidle' });
+  const b = page.locator('.joy-egg');
+  if (!(await b.count())) fail(`button egg ${mode}`, 'no .joy-egg on the home page');
+  else {
+    await b.scrollIntoViewIfNeeded();
+    const box = await b.boundingBox();
+    if (!box || box.width < 24) fail(`button egg ${mode}`, `hit area too small (${box && box.width}px)`);
+    await Promise.all([page.waitForURL(/\/arcade\/$/, { timeout: 5000 }).catch(() => fail(`button egg ${mode}`, 'did not navigate to the arcade')), mode === 'touch' ? b.tap() : b.click()]);
+    if (!(await page.evaluate(() => JSON.parse(localStorage.getItem('bb.found') || '[]').includes('button')))) fail(`button egg ${mode}`, 'find not recorded');
+  }
+  await ctx.close();
+}
+
 // ---------- certificate prints on one page (Letter and A4) ----------
 {
   const ctx = await browser.newContext(); const page = await ctx.newPage();
   await page.goto(url('certificate/'), { waitUntil: 'networkidle' });
-  await page.evaluate(() => { localStorage.setItem('bb.found', JSON.stringify(['door', 'konami', 'terminal', 'guestbook', 'highlight', 'redaction', 'counter', 'loader', 'notfound', 'y1994', 'tab', 'idle', 'name', 'forecast', 'print', 'lamp'])); localStorage.setItem('bb.certName', 'A Very Long Visitor Name Indeed, Esq.'); });
+  await page.evaluate(() => { localStorage.setItem('bb.found', JSON.stringify(['door', 'konami', 'terminal', 'guestbook', 'highlight', 'redaction', 'counter', 'loader', 'notfound', 'y1994', 'tab', 'idle', 'name', 'forecast', 'print', 'lamp', 'button'])); localStorage.setItem('bb.certName', 'A Very Long Visitor Name Indeed, Esq.'); });
   await page.reload({ waitUntil: 'networkidle' });
   for (const format of ['Letter', 'A4']) {
     const pdf = await page.pdf({ format, preferCSSPageSize: false, printBackground: true });
