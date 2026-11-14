@@ -92,3 +92,44 @@
 @media (max-width:480px){.ar-item a{grid-template-columns:5.5rem 1fr 2rem}}
 .ar-t{overflow-wrap:anywhere}
 @media (max-width:860px){.ar-list{grid-template-columns:1fr}}
+
+/* ---------- Night Arcade theme (2026-11-14): matches the coin door that leads here ----------
+   Near-black room, synthwave grid floor, white-hot pink neon marquee, cabinet-metal cards,
+   amber score glow, neon outline buttons. Overrides the rules above; layout unchanged. */
+.t-arcade{--bg:#05030C;--pink:#FF3EA5;--cyan:#38E8FF;--amber:#FFB238;--gold:#FFB238;background:#05030C}
+
+.ar-bg{display:none}
+.ar::before,.ag::before{content:"";position:fixed;left:-10%;right:-10%;bottom:0;height:42vh;z-index:-1;pointer-events:none;
+  background:linear-gradient(transparent 0,rgba(255,62,165,.22) 100%),
+    repeating-linear-gradient(90deg,rgba(56,232,255,.32) 0 1px,transparent 1px 60px),
+    repeating-linear-gradient(0deg,rgba(56,232,255,.32) 0 1px,transparent 1px 34px);
+  transform:perspective(300px) rotateX(55deg);transform-origin:bottom}
+.ar::after,.ag::after{content:"";position:fixed;inset:0;z-index:-2;pointer-events:none;background:radial-gradient(90% 60% at 50% 20%,rgba(255,62,165,.10),transparent 70%)}
+@keyframes neonflick{0%,92%,96%,100%{opacity:1}94%{opacity:.55}}
+.ar-mq{color:#fff;text-shadow:0 0 4px #fff,0 0 12px var(--pink),0 0 28px var(--pink),0 0 52px var(--pink);animation:neonflick 4s infinite}
+.ar-sub{color:var(--cyan);text-shadow:0 0 8px rgba(56,232,255,.7)}
+.ar-item a,.ar-item a:is(:hover,:focus-visible,.sel){background:linear-gradient(#1A1A22,#0C0C12)}
+.ar-item a{border:2px solid #2C2C38;border-radius:6px;box-shadow:0 0 0 1px #000,0 12px 30px rgba(0,0,0,.6)}
+.ar-item a:hover,.ar-item a:focus-visible,.ar-item a.sel{border-color:var(--pink);box-shadow:0 0 0 1px #000,0 0 18px rgba(255,62,165,.55),inset 0 0 14px rgba(255,62,165,.18)}
+.ar-item img{border-radius:3px;box-shadow:inset 0 0 0 2px #3A3A48}
+.ar-t{color:#fff;text-shadow:0 0 6px var(--pink),0 0 14px rgba(255,62,165,.6)}
+.ar-item a.sel .ar-t::before{color:var(--cyan)}
+.ar-hs{color:var(--amber);text-shadow:0 0 8px var(--amber)}
+.ar-num{color:#9C90C0}
+.ar-blink{color:var(--cyan);text-shadow:0 0 8px var(--cyan)}
+.ar-back{color:var(--cyan);text-shadow:0 0 6px rgba(56,232,255,.6)}
+/* game pages */
+.ag-frame{border:2px solid var(--pink);border-radius:6px;box-shadow:0 0 0 1px #000,0 0 22px rgba(255,62,165,.5),0 0 60px rgba(255,62,165,.18),inset 0 0 30px rgba(0,0,0,.6)}
+.ag-h a,.ag-k{color:var(--cyan);text-shadow:0 0 6px rgba(56,232,255,.6)}
+.ag-name,.ag-sh{color:var(--amber);text-shadow:0 0 8px rgba(255,178,56,.7)}
+.ag-tools button{background:linear-gradient(#2A2A34,#1A1A22);border-color:#3A3A48;border-radius:4px;color:#E8E3FF}
+.ag-title h1,.ag-big{color:#fff;text-shadow:0 0 4px #fff,0 0 12px var(--pink),0 0 26px var(--pink),3px 3px 0 #2a0d5e}
+.ag-hook{color:var(--amber);text-shadow:0 0 8px rgba(255,178,56,.5)}
+.ag-scores li span:last-child,.ag-small b{color:var(--amber);text-shadow:0 0 6px rgba(255,178,56,.6)}
+.ag-btn{color:#fff;background:transparent;border:2px solid var(--pink);border-radius:4px;text-shadow:0 0 8px var(--pink);
+  box-shadow:0 0 14px var(--pink),inset 0 0 14px rgba(255,62,165,.5)}
+.ag-btn:active{transform:translateY(2px);box-shadow:0 0 8px var(--pink),inset 0 0 10px rgba(255,62,165,.5)}
+.ag-init input{color:var(--amber);border-color:var(--cyan);box-shadow:0 0 10px rgba(56,232,255,.4)}
+.ag-pad button{background:linear-gradient(#2A2A34,#1A1A22);border-color:#3A3A48}
+.ag-a{background:#3A0B26!important;border-color:var(--pink)!important;box-shadow:0 0 14px rgba(255,62,165,.6)}
+@media (prefers-reduced-motion:reduce){.ar-mq{animation:none}}
