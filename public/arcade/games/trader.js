@@ -72,7 +72,10 @@ const game = {
     if (s.mode === 'news') { if (p.act) { s.mode = 'market'; s.qty = 0; eng.beep(440, 0.04); } return; }
     if (s.mode === 'final') { if (p.act) eng.gameOver(s.score >= 2000 ? 'BOOKS CLOSED' : s.score > 0 ? 'NUMBERS ACCEPTED' : 'BOOKS UNBALANCED'); return; }
     if (s.mode === 'travel') {
-      if (s.travelT) { if (--s.travelT === 0) { s.day++; s.loan *= 1 + RATE; newPrices(); s.mode = 'market'; s.qty = 0; arrive(eng); } return; }
+      if (s.travelT) { if (--s.travelT === 0) {
+        // god mode: the relative charges no interest and quietly covers any shortfall, so net worth never goes below zero
+        s.day++; if (!eng.god) s.loan *= 1 + RATE; newPrices(); if (eng.god && worth() < 0) { s.cr -= worth(); score(eng); }
+        s.mode = 'market'; s.qty = 0; arrive(eng); } return; }
       if (p.up) s.dcur = (s.dcur + DIST.length) % (DIST.length + 1);
       if (p.down) s.dcur = (s.dcur + 1) % (DIST.length + 1);
       if (p.up && s.dcur === s.at) s.dcur = (s.dcur + DIST.length) % (DIST.length + 1);

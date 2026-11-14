@@ -86,10 +86,14 @@ const game = {
       }
       return;
     }
+    if (eng.god && s.hours < 1) s.hours = 1; // god mode: the hours never run out
     if (s.hours <= 0) { eng.gameOver('OUT OF HOURS'); return; }
     // act: tap = undo, hold = write-off (restart room)
     if (eng.keys.act) {
       s.hold++;
+      if (s.hold >= HOLD && !s.holdUsed && eng.god && s.lv + 1 < LEVELS.length) { // god mode: hold skips the room, no penalty
+        s.holdUsed = true; load(s.lv + 1); s.msg = { txt: 'SKIPPED', t: 80 }; eng.beep(880, 0.1); eng.beep(1175, 0.12);
+      }
       if (s.hold >= HOLD && !s.holdUsed) {
         s.holdUsed = true; s.writeoffs++; eng.score = Math.max(0, eng.score - 50);
         load(s.lv); s.msg = { txt: 'WRITTEN OFF -50', t: 80 }; eng.beep(200, 0.2, 'sawtooth', 0.05, -100);
@@ -147,11 +151,12 @@ const game = {
     eng.sprite(ctx, s.step % 2 ? CLERK2 : CLERK, CLERK_C, X(s.px), Y(s.py) - 4, 2, s.face);
     // footer
     const fy = 300;
+    const skip = eng.god && s.lv + 1 < LEVELS.length;
     if (s.hold > 0 && !s.holdUsed) {
-      text(ctx, 'HOLD TO WRITE OFF', 120, fy - 12, PAL.orange, 'center');
+      text(ctx, skip ? 'HOLD TO SKIP ROOM' : 'HOLD TO WRITE OFF', 120, fy - 12, PAL.orange, 'center');
       ctx.fillStyle = '#3a2a1a'; ctx.fillRect(40, fy, 160, 6); ctx.fillStyle = PAL.orange; ctx.fillRect(40, fy, (160 * s.hold) / HOLD, 6);
     } else if (!s.clear) {
-      text(ctx, 'A: UNDO  HOLD A: RESET', 120, fy, PAL.grey, 'center');
+      text(ctx, skip ? 'A: UNDO  HOLD A: SKIP' : 'A: UNDO  HOLD A: RESET', 120, fy, PAL.grey, 'center');
     }
     if (s.lv === 0 && s.moves === 0 && !s.clear) text(ctx, 'PUSH CRATES ONTO BAYS', 120, s.oy + s.h * T + 14, PAL.cyan, 'center');
     if (s.clear) {

@@ -2,16 +2,27 @@
 import Base from '../../layouts/Base.astro';
 import Pic from '../../components/Pic.astro';
 import { GAMES, DISCLAIMER } from '../../content/arcade';
+const FLOOR = GAMES.filter((g) => !('vip' in g && g.vip));
+const LOUNGE = GAMES.filter((g) => 'vip' in g && g.vip);
 import { base } from '../../lib/rich';
 import '../../styles/arcade.css';
 ---
 <Base title="Boardy Arcade" theme="arcade" bodyClass="crt" eggs={false}>
+<script is:inline>
+// Arrived from the jackpot: ?vip=1 grants lounge membership in this browser, then the address is tidied.
+(() => { try {
+  const u = new URL(location.href);
+  if (u.searchParams.get('vip') === '1') { localStorage.setItem('bb.vip', 'true'); u.searchParams.delete('vip'); history.replaceState(null, '', u.pathname + u.search + u.hash); }
+  if (JSON.parse(localStorage.getItem('bb.vip') || 'false')) document.documentElement.classList.add('is-vip');
+} catch {} })();
+</script>
 <main id="main" class="ar">
   <div class="ar-bg" aria-hidden="true"><Pic name="arcade-hall" alt="" eager /></div>
   <h1 class="ar-mq">BOARDY ARCADE</h1>
-  <p class="ar-sub">You found the door. Nobody will believe you. Twenty cabinets, all on free play.</p>
+  <p class="ar-sub ar-floor-sub">You found the door. Nobody will believe you. Twenty cabinets, all on free play.</p>
+  <p class="ar-sub ar-vip-sub">Welcome back. Your usual table is ready. God mode is on the house.</p>
   <ul class="ar-list">
-    {GAMES.map((g, i) => (
+    {FLOOR.map((g, i) => (
       <li class="ar-item">
         <a href={`${base}arcade/${g.slug}/`} class={i === 0 ? 'sel' : ''} data-id={g.id}>
           <Pic name={g.art} alt="" sizes="8rem" eager={i < 6} />
@@ -20,6 +31,22 @@ import '../../styles/arcade.css';
       </li>
     ))}
   </ul>
+  <section class="ar-vip" id="ar-vip" aria-labelledby="ar-vip-t">
+    <div class="ar-vip-art"><Pic name="vip-lounge" alt="" sizes="(min-width: 900px) 760px, 100vw" /></div>
+    <h2 class="ar-vip-t" id="ar-vip-t">THE VIP LOUNGE</h2>
+    <p class="ar-sub">Ten private cabinets. God mode is available on every machine. Please do not tell the floor.</p>
+      <ul class="ar-list ar-vip-list">
+    {LOUNGE.map((g, j) => (
+      <li class="ar-item">
+        <a href={`${base}arcade/${g.slug}/`} class={false ? 'sel' : ''} data-id={g.id}>
+          <Pic name={g.art} alt="" sizes="8rem" eager={false} />
+          <span><span class="ar-t">{g.title.toUpperCase()}</span><span class="ar-g" style="display:block">{g.genre}. {g.hook}</span><span class="ar-hs" style="display:block" data-top></span></span><span class="ar-num" aria-hidden="true">#V{j + 1}</span>
+        </a>
+      </li>
+    ))}
+  </ul>
+    <button type="button" class="ar-leave" id="ar-leave">LEAVE THE LOUNGE</button>
+  </section>
   <p class="ar-blink">INSERT COIN</p>
   <p class="ar-credit">Free play. Credits are not extended.</p>
   <p class="ar-f">{DISCLAIMER}</p>
@@ -27,7 +54,9 @@ import '../../styles/arcade.css';
 </main>
 <script is:inline>
 (() => {
-  const links = [...document.querySelectorAll('.ar-item a')];
+  const vip = document.documentElement.classList.contains('is-vip');
+  document.getElementById('ar-leave')?.addEventListener('click', () => { try { localStorage.removeItem('bb.vip'); localStorage.removeItem('bb.god'); } catch {} location.reload(); });
+  const links = [...document.querySelectorAll('.ar-item a')].filter((a) => vip || !a.closest('.ar-vip'));
   links.forEach((a) => {
     let top = null; try { top = JSON.parse(localStorage.getItem('bb.hs.' + a.dataset.id) || 'null'); } catch {}
     const best = top && top[0] ? top[0] : { n: 'BRD', s: 5000 };

@@ -44,11 +44,16 @@ export function sprite(ctx, rows, cols, x, y, scale = 1, flip = false) {
 
 // ---------- boot ----------
 export function boot(game) {
+  if (document.documentElement.classList.contains('rope')) return null; // VIP cabinet, visitor is not a member
   const $ = (s) => document.querySelector(s);
   const cv = $('#ag-cv'), ctx = cv.getContext('2d');
   cv.width = W; cv.height = H; ctx.imageSmoothingEnabled = false;
   const ovTitle = $('#ag-title'), ovPause = $('#ag-pause'), ovOver = $('#ag-over');
-  const eng = { W, H, ctx, state: 'title', score: 0, keys: {}, pressed: {}, pointerX: null, swipe: null, t: 0, beep, text, sprite, PAL, store };
+  // VIP lounge (unlocked by the jackpot on the coin door): god mode is offered on every game.
+  // Contract for games: when eng.god is true, the player cannot lose a life or die; everything else plays normally.
+  const vip = !!store.get('bb.vip', false);
+  const eng = { W, H, ctx, state: 'title', score: 0, keys: {}, pressed: {}, pointerX: null, swipe: null, t: 0, beep, text, sprite, PAL, store, vip, god: vip && !!store.get('bb.god', false) };
+  if (vip) document.documentElement.classList.add('is-vip');
 
   // high-score tables
   const renderScores = () => {
@@ -126,6 +131,10 @@ export function boot(game) {
   const sb = $('#ag-sound');
   function toggleSound() { soundOn = !soundOn; store.set('bb.sound', soundOn); if (sb) { sb.textContent = soundOn ? 'SOUND ON' : 'SOUND OFF'; sb.setAttribute('aria-pressed', soundOn); } beep(880, 0.05); }
   if (sb) { sb.textContent = soundOn ? 'SOUND ON' : 'SOUND OFF'; sb.setAttribute('aria-pressed', soundOn); sb.addEventListener('click', toggleSound); }
+  const gb = $('#ag-god');
+  const paintGod = () => { if (gb) { gb.textContent = eng.god ? 'GOD MODE ON' : 'GOD MODE OFF'; gb.setAttribute('aria-pressed', eng.god); gb.classList.toggle('on', eng.god); } };
+  if (gb && vip) { gb.hidden = false; paintGod(); gb.addEventListener('click', () => { eng.god = !eng.god; store.set('bb.god', eng.god); paintGod(); beep(eng.god ? 1320 : 330, 0.12); }); }
+  addEventListener('keydown', (e) => { if (vip && (e.key === 'g' || e.key === 'G') && e.target.tagName !== 'INPUT') gb?.click(); });
   document.addEventListener('visibilitychange', () => { if (document.hidden && eng.state === 'play') togglePause(); });
 
   // ---------- loop: fixed 60 Hz step ----------
@@ -139,6 +148,7 @@ export function boot(game) {
     }
     ctx.fillStyle = PAL.bg; ctx.fillRect(0, 0, W, H);
     game.draw(eng, ctx);
+    if (eng.god && (eng.state === 'play' || eng.state === 'paused')) { ctx.globalAlpha = 0.85; text(ctx, 'GOD', W - 3, H - 11, PAL.gold, 'right', 6); ctx.globalAlpha = 1; }
     requestAnimationFrame(frame);
   }
   document.fonts?.load(`8px ${FONT}`).finally(() => requestAnimationFrame(frame));

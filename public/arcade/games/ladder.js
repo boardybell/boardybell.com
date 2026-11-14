@@ -102,6 +102,7 @@ const game = {
     s.floorY = Math.min(s.floorY, s.camY + 314);
     if (s.t === 150) { s.msg = 'RESTRUCTURING'; s.msgT = 90; eng.beep(150, 0.3, 'sawtooth', 0.04); }
     s.desks = s.desks.filter((q) => q.y < s.floorY + 40 && q.y < s.camY + 400);
+    if (p.y + PH > s.floorY + 2 && eng.god) { p.y = s.floorY - PH; p.vy = JUMP * 1.3; p.on = null; eng.beep(330, 0.08, 'square', 0.04, 400); } // god mode: the floor is a trampoline
     if (p.y + PH > s.floorY + 2) { eng.gameOver('RESTRUCTURED'); }
   },
   draw(eng, ctx) {

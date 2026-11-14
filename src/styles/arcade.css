@@ -130,3 +130,32 @@
 .ag-pad button{background:linear-gradient(#2A2A34,#1A1A22);border-color:#3A3A48}
 .ag-a{background:#3A0B26!important;border-color:var(--pink)!important;box-shadow:0 0 14px rgba(255,62,165,.6)}
 @media (prefers-reduced-motion:reduce){.ar-mq{animation:none}}
+
+/* ---------- VIP lounge (2026-11-14): unlocked by the jackpot on the coin door ----------
+   html.is-vip is set from localStorage bb.vip. Gold replaces pink; the lounge section and god mode appear. */
+.ar-vip,.ar-vip-sub,.ag-god{display:none}
+.is-vip .ar-vip{display:grid;justify-items:center;gap:1.2rem;width:100%;margin-top:1rem;padding-top:1.6rem;border-top:2px solid rgba(255,178,56,.35)}
+.is-vip .ar-vip-sub{display:block}.is-vip .ar-floor-sub{display:none}
+.is-vip .ag-god:not([hidden]){display:inline-block}
+.is-vip{--pink:#FFB238}
+.is-vip .ar-mq,.is-vip .ag-title h1,.is-vip .ag-big{color:#FFF4D6;text-shadow:0 0 4px #fff,0 0 12px #FFB238,0 0 28px #FFB238,0 0 52px #FF7A00}
+.is-vip .ar-mq::after{content:"VIP LOUNGE";display:block;font-size:.32em;letter-spacing:.5em;margin-top:.6rem;color:#FFE9A8;text-shadow:0 0 8px #FFB238}
+.is-vip .ar::before,.is-vip .ag::before{filter:sepia(1) saturate(3) hue-rotate(-12deg) brightness(1.1)}
+.is-vip .ar-item a:hover,.is-vip .ar-item a:focus-visible,.is-vip .ar-item a.sel{border-color:#FFB238;box-shadow:0 0 0 1px #000,0 0 18px rgba(255,178,56,.55),inset 0 0 14px rgba(255,178,56,.18)}
+.is-vip .ar-t{text-shadow:0 0 6px #FFB238,0 0 14px rgba(255,178,56,.6)}
+.ar-vip-t{font:400 clamp(1rem,4.4vw,1.9rem)/1.3 var(--px);color:#FFF4D6;text-shadow:0 0 4px #fff,0 0 12px #FFB238,0 0 30px #FFB238}
+.ar-vip-list .ar-item a{border-color:#5A4318;background:linear-gradient(#22190A,#0E0A04)}
+.ar-vip-list .ar-num{color:#FFB238}
+.ar-leave{font:400 .5rem/1.8 var(--px);color:#9C90C0;background:none;border:1px solid #3A3A48;border-radius:4px;padding:.5rem .8rem;cursor:pointer}
+.is-vip .ag-frame{border-color:#FFB238;box-shadow:0 0 0 1px #000,0 0 22px rgba(255,178,56,.5),0 0 60px rgba(255,178,56,.18),inset 0 0 30px rgba(0,0,0,.6)}
+.is-vip .ag-btn{border-color:#FFB238;text-shadow:0 0 8px #FFB238;box-shadow:0 0 14px #FFB238,inset 0 0 14px rgba(255,178,56,.45)}
+.ag-god{border-color:#5A4318!important;color:#FFE9A8!important}
+.ag-god.on{background:linear-gradient(#FFE9A8,#FFB238)!important;color:#2A1300!important;box-shadow:0 0 12px #FFB238}
+/* velvet rope for VIP cabinets when not a member */
+.ag-rope{display:grid;justify-items:center;gap:1rem;align-self:center;text-align:center;padding:2rem 1rem;max-width:26rem}
+.ag-rope[hidden]{display:none}
+.ag-rope h1{font:400 clamp(1rem,5vw,1.5rem)/1.3 var(--px);color:#FFF4D6;text-shadow:0 0 4px #fff,0 0 12px #FFB238,0 0 28px #FFB238}
+.ag-rope .ag-btn{text-decoration:none}
+.ar-vip-art{width:min(100%,48rem);border:2px solid #FFB238;border-radius:6px;overflow:hidden;box-shadow:0 0 24px rgba(255,178,56,.45)}
+.ar-vip-art img{display:block;width:100%;height:auto;aspect-ratio:3/2;object-fit:cover;image-rendering:pixelated}
+.ag-pad[hidden],.ag-frame[hidden]{display:none!important}

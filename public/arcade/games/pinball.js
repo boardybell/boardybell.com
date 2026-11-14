@@ -87,7 +87,8 @@ const game = {
     if (!inLane && Math.abs(b.vx) + Math.abs(b.vy) < 0.08 && b.y < 270) { if (++s.still > 120) { b.vy = -3; b.vx = (Math.random() - 0.5) * 3; s.still = 0; pop('NUDGE', b.x, b.y - 10, PAL.grey); } }
     else s.still = 0;
     if (b.y > 330) {
-      if (s.save > 0) { newBall(); s.msg = 'BALL REFUNDED'; s.msgT = 90; eng.beep(880, 0.1); eng.beep(660, 0.1); return; }
+      if (s.save > 0 || eng.god) { newBall(); // god mode: every drained ball is refunded
+        s.msg = 'BALL REFUNDED'; s.msgT = 90; eng.beep(880, 0.1); eng.beep(660, 0.1); return; }
       s.balls--; s.drain = 70; s.mult = 1; eng.beep(160, 0.4, 'sawtooth', 0.05, -90);
       s.msg = s.balls > 0 ? 'BALL DRAINED' : 'NO FURTHER BALLS'; s.msgT = 70;
     }

@@ -138,13 +138,14 @@ const game = {
       if (++s.step % 20 === 0) eng.beep(70, 0.03, 'triangle', 0.03);
     }
     // the closing bell
+    if (eng.god && s.time <= 1) s.time = 2; // god mode: the bell never rings
     if (--s.time <= 0) { eng.beep(880, 0.6, 'square', 0.05); eng.gameOver('MARKET CLOSED'); return; }
     if (s.time < 600 && s.time % 60 === 0) eng.beep(1200, 0.04);
     // bears
     const bs = Math.min(0.05, 0.022 + s.floor * 0.003);
     for (const b of s.bears) {
       stepBear(b, bs);
-      if (!s.inv && (b.x - p.x) ** 2 + (b.y - p.y) ** 2 < 0.2) {
+      if (!s.inv && !eng.god && (b.x - p.x) ** 2 + (b.y - p.y) ** 2 < 0.2) {
         s.lives--; s.flash = 30; eng.beep(140, 0.35, 'sawtooth', 0.06, -90);
         if (s.lives <= 0) { eng.gameOver('BEARISH OUTCOME'); return; }
         toStart();

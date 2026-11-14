@@ -80,7 +80,8 @@ const game = {
         if ((b.x - r.x) ** 2 + (b.y - r.y) ** 2 < rr * rr) { s.shots.splice(i, 1); hitRock(eng, j, true); break; }
       }
     }
-    if (!sh.dead && !sh.inv) for (let j = s.rocks.length - 1; j >= 0; j--) {
+    // god mode: rocks, the saucer and its shots pass through the ship
+    if (!sh.dead && !sh.inv && !eng.god) for (let j = s.rocks.length - 1; j >= 0; j--) {
       const r = s.rocks[j], rr = RAD[r.size] * 0.8 + 3;
       if ((sh.x - r.x) ** 2 + (sh.y - r.y) ** 2 < rr * rr) { hitRock(eng, j, true); killShip(eng); break; }
     }
@@ -102,11 +103,11 @@ const game = {
         const b = s.shots[i];
         if (Math.abs(b.x - u.x) < ur + 1 && Math.abs(b.y - u.y) < ur * 0.6 + 1) { s.shots.splice(i, 1); eng.score += u.small ? 1000 : 200; burst(u.x, u.y, PAL.green, 16); eng.beep(1500, 0.2, 'square', 0.05, -900); s.saucer = null; break; }
       }
-      if (s.saucer && !sh.dead && !sh.inv && Math.abs(sh.x - u.x) < ur + 3 && Math.abs(sh.y - u.y) < ur * 0.6 + 3) { burst(u.x, u.y, PAL.green, 16); s.saucer = null; killShip(eng); }
+      if (s.saucer && !sh.dead && !sh.inv && !eng.god && Math.abs(sh.x - u.x) < ur + 3 && Math.abs(sh.y - u.y) < ur * 0.6 + 3) { burst(u.x, u.y, PAL.green, 16); s.saucer = null; killShip(eng); }
       if (s.saucer && (u.x < -14 || u.x > AW + 14)) s.saucer = null;
       if (!s.saucer) s.saucerT = Math.max(360, 1100 - s.wave * 80) + Math.random() * 400;
     }
-    if (!sh.dead && !sh.inv) for (let i = s.foe.length - 1; i >= 0; i--) {
+    if (!sh.dead && !sh.inv && !eng.god) for (let i = s.foe.length - 1; i >= 0; i--) {
       const b = s.foe[i];
       if ((b.x - sh.x) ** 2 + (b.y - sh.y) ** 2 < 25) { s.foe.splice(i, 1); killShip(eng); break; }
     }

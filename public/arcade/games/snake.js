@@ -20,10 +20,12 @@ const game = {
     if (++s.tick < s.every) return;
     s.tick = 0;
     if (s.queue.length) s.dir = s.queue.shift();
-    const [dx, dy] = DIRS[s.dir], [hx, hy] = s.body[0], nx = hx + dx, ny = hy + dy;
+    const [dx, dy] = DIRS[s.dir], [hx, hy] = s.body[0];
+    let nx = hx + dx, ny = hy + dy;
+    if (eng.god) { nx = (nx + COLS) % COLS; ny = (ny + ROWS) % ROWS; } // god mode: wrap at walls, pass through yourself
     const willGrow = s.grow > 0;
     const hitSelf = s.body.some(([x, y], i) => x === nx && y === ny && (willGrow || i < s.body.length - 1));
-    if (nx < 0 || ny < 0 || nx >= COLS || ny >= ROWS || hitSelf) { s.dead = 50; eng.beep(160, 0.3, 'sawtooth', 0.05, -100); return; }
+    if (nx < 0 || ny < 0 || nx >= COLS || ny >= ROWS || (hitSelf && !eng.god)) { s.dead = 50; eng.beep(160, 0.3, 'sawtooth', 0.05, -100); return; }
     s.body.unshift([nx, ny]);
     if (s.grow > 0) { s.grow--; eng.score += 10; } else s.body.pop();
     if (s.coin && nx === s.coin[0] && ny === s.coin[1]) {

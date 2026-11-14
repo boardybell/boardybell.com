@@ -81,9 +81,11 @@ const game = {
     const fl = groundAt(c.x - 5), fr = groundAt(c.x + 5), fm = groundAt(c.x), foot = c.y + 5;
     if (foot >= Math.min(fl, fr) || c.y + 1 >= fm) {
       const onPad = c.x - 5 >= s.padX0 - 1 && c.x + 5 <= s.padX1 + 1;
-      const soft = c.vy <= SAFE_VY && Math.abs(c.vx) <= SAFE_VX && Math.abs(c.a) <= SAFE_A;
+      const soft = eng.god || // god mode: any speed or tilt touches down safely
+         c.vy <= SAFE_VY && Math.abs(c.vx) <= SAFE_VX && Math.abs(c.a) <= SAFE_A;
       if (onPad && soft) {
-        const gentle = Math.round((1 - Math.max(0, c.vy) / SAFE_VY) * 50);
+        const gentle = Math.max(0, Math.round((1 - Math.max(0, c.vy) / SAFE_VY) * 50));
+        c.a = 0;
         c.y = s.padY - 5; c.vx = 0; c.vy = 0;
         const half = (s.padX1 - s.padX0) / 2, mid = s.padX0 + half, prec = Math.round(Math.max(0, 1 - Math.abs(c.x - mid) / half) * 200);
         const fuel = Math.round(s.fuel * 5);
@@ -92,7 +94,8 @@ const game = {
         s.phase = 'landed'; s.timer = 160; eng.beep(660, 0.1); eng.beep(880, 0.1); eng.beep(1320, 0.25);
       } else {
         s.detail = !onPad ? 'OFF THE PAD' : c.vy > SAFE_VY ? 'TOO FAST DOWN' : Math.abs(c.vx) > SAFE_VX ? 'TOO FAST ACROSS' : 'NOT LEVEL';
-        s.lives--; s.phase = 'crash'; s.timer = 110;
+        if (!eng.god) s.lives--; // god mode: an off-pad touchdown just retries the level
+        s.phase = 'crash'; s.timer = 110;
         puff(c.x, c.y, 0, -1.2, PAL.orange, 18); puff(c.x, c.y, 0, -0.8, PAL.red, 12); puff(c.x, c.y, 0, -1.5, PAL.ink, 8);
         eng.beep(90, 0.6, 'sawtooth', 0.07, -60);
       }

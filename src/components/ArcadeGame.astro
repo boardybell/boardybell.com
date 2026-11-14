@@ -12,9 +12,17 @@ const g = GAMES.find((x) => x.slug === Astro.props.slug)!;
   <header class="ag-h">
     <a href={`${base}arcade/`} class="ag-back">◄ ARCADE</a>
     <span class="ag-name">{g.title.toUpperCase()}</span>
-    <span class="ag-tools"><button type="button" id="ag-sound" aria-pressed="false">SOUND OFF</button><button type="button" id="ag-pausebtn" aria-label="Pause">II</button></span>
+    <span class="ag-tools"><button type="button" id="ag-god" class="ag-god" aria-pressed="false" hidden>GOD MODE OFF</button><button type="button" id="ag-sound" aria-pressed="false">SOUND OFF</button><button type="button" id="ag-pausebtn" aria-label="Pause">II</button></span>
   </header>
 
+  {'vip' in g && g.vip && (
+    <section class="ag-rope" id="ag-rope" hidden aria-labelledby="ag-rope-t">
+      <p class="ag-k">VIP LOUNGE</p>
+      <h1 id="ag-rope-t">MEMBERS ONLY</h1>
+      <p class="ag-small">This cabinet is reserved for members. Membership is not available on request.</p>
+      <a class="ag-btn" href={`${base}arcade/`}>◄ BACK TO THE FLOOR</a>
+    </section>
+  )}
   <div class="ag-frame">
     <canvas id="ag-cv" width="240" height="320" tabindex="0" aria-label={`${g.title} game screen`}></canvas>
 
@@ -61,6 +69,7 @@ const g = GAMES.find((x) => x.slug === Astro.props.slug)!;
     )}
     {(g.pad === 'lr' || g.pad === 'full') && <button type="button" tabindex="-1" data-btn="act" class="ag-a">A</button>}
   </div>
+  {'vip' in g && g.vip && <script is:inline>(() => { let v = false; try { v = JSON.parse(localStorage.getItem('bb.vip') || 'false'); } catch {} if (!v) { document.getElementById('ag-rope').hidden = false; document.querySelector('.ag-frame').hidden = true; document.querySelector('.ag-pad').hidden = true; document.documentElement.classList.add('rope'); } })();</script>}
   <p class="ag-foot">{DISCLAIMER}</p>
 </main>
 <script type="module" is:inline src={`${base}arcade/games/${g.id}.js`}></script>

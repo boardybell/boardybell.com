@@ -42,7 +42,9 @@ function tryHop(eng, dir) {
   p.fx = p.x; p.frow = p.row; p.x = x; p.row = row; p.hop = HOP;
   eng.beep(dir === 'up' ? 700 : 560, 0.03, 'square', 0.03);
 }
-function die(eng, why) { s.p.dead = 70; s.p.why = why; s.lives--; eng.beep(180, 0.5, 'sawtooth', 0.05, -120); }
+function die(eng, why) {
+  if (eng.god) { if (why === 'OUT OF TIME') s.time = TIME; return; } // god mode: traffic, water and the clock cannot stop you
+  s.p.dead = 70; s.p.why = why; s.lives--; eng.beep(180, 0.5, 'sawtooth', 0.05, -120); }
 
 const game = {
   id: 'crossing',
@@ -84,9 +86,9 @@ const game = {
       const L = laneFor(p.row), cx = p.x + T / 2;
       let on = false;
       for (const it of L.items) if (cx > it.x + 1 && cx < it.x + it.w - 1) { on = true; break; }
-      if (!on && !p.hop) { die(eng, 'SPLASH'); return; }
+      if (!on && !p.hop && !eng.god) { die(eng, 'SPLASH'); return; }
       if (on) { p.x += L.v; if (p.hop) p.fx += L.v; }
-      if (p.x < -6 || p.x > 240 - T + 6) { die(eng, 'SWEPT AWAY'); return; }
+      if (p.x < -6 || p.x > 240 - T + 6) { if (eng.god) p.x = Math.max(-6, Math.min(240 - T + 6, p.x)); else { die(eng, 'SWEPT AWAY'); return; } }
     }
     // traffic
     const row = p.hop ? (p.hop > HOP / 2 ? p.frow : p.row) : p.row;

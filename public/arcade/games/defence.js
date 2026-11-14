@@ -125,7 +125,7 @@ const game = {
       f.d += f.sp * (f.slow ? 0.45 : 1);
       [f.x, f.y] = f.d < 0 ? [-8 + f.d, PTS[0][1]] : posAt(f.d);
       if (f.d >= LEN) {
-        f.hp = 0; f.arrived = true; s.patience -= FOES[f.k].hurt; s.flash = 20;
+        f.hp = 0; f.arrived = true; if (!eng.god) s.patience -= FOES[f.k].hurt; s.flash = 20; // god mode: patience is infinite
         eng.beep(180, 0.2, 'sawtooth', 0.05, -80);
         if (s.patience <= 0) { s.patience = 0; s.over = 60; return; }
       }

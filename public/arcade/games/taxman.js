@@ -135,7 +135,7 @@ const game = {
       const ap = pos(a);
       if (Math.abs(ap[0] - pp[0]) < 8 && Math.abs(ap[1] - pp[1]) < 8) {
         if (a.fright) { a.mode = 'eaten'; a.fright = 0; s.chain++; const pts = 100 * 2 ** s.chain; eng.score += pts; s.pops.push({ x: ap[0], y: ap[1], txt: String(pts), l: 50 }); eng.beep(1200, 0.12, 'square', 0.05, 600); }
-        else { s.lives--; s.dying = 90; eng.beep(400, 0.8, 'sawtooth', 0.05, -350); return; }
+        else if (!eng.god) { s.lives--; s.dying = 90; eng.beep(400, 0.8, 'sawtooth', 0.05, -350); return; }
       }
     }
     if (!s.dots.size && !s.power.size) { s.level++; eng.score += 1000; s.pops.push({ x: 120, y: 160, txt: 'FILED', l: 90 }); freshLevel(); eng.beep(660, 0.1); eng.beep(880, 0.1); eng.beep(1100, 0.2); }

@@ -24,7 +24,8 @@ function stamp(eng, i) {
   if (!d || d.hit || d.t > d.life + 10) { eng.beep(110, 0.05, 'triangle', 0.04); return; }
   d.hit = 30;
   if (d.kind === 'ok') {
-    s.strikes++; eng.score = Math.max(0, eng.score - 200); s.flash = 14;
+    if (!eng.god) { s.strikes++; eng.score = Math.max(0, eng.score - 200); } // god mode: mistakes are forgiven
+    s.flash = 14;
     pop(i, 'NOT AN ISSUE', PAL.orange); eng.beep(160, 0.25, 'sawtooth', 0.05, -60);
   } else {
     const pts = KINDS[d.kind].pts * s.round + (s.combo >= 4 ? 50 : 0);
@@ -72,7 +73,7 @@ const game = {
       d.t++;
       if (d.hit) { if (--d.hit === 0) s.docs[i] = null; continue; }
       if (d.t > d.life + 16) {
-        if (d.kind !== 'ok') { s.strikes++; s.combo = 0; s.flash = 14; pop(i, 'MISSED', PAL.red); eng.beep(140, 0.2, 'sawtooth', 0.04, -40); }
+        if (d.kind !== 'ok') { if (!eng.god) s.strikes++; s.combo = 0; s.flash = 14; pop(i, 'MISSED', PAL.red); eng.beep(140, 0.2, 'sawtooth', 0.04, -40); }
         s.docs[i] = null;
       }
     }

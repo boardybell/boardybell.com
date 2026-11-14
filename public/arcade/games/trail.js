@@ -58,6 +58,7 @@ function pass(days) { for (let i = 0; i < days; i++) daily(false); }
 function daily(moving) {
   s.day++;
   const fam = here(), need = fam.length * RAT_CUPS[s.rations];
+  if (eng0.god && s.coffee < need) s.coffee = need; // god mode: the coffee never runs out
   const short = s.coffee < need;
   s.coffee = Math.max(0, s.coffee - need);
   const resting = !moving;
@@ -79,6 +80,7 @@ function daily(moving) {
   checkFamily();
 }
 function checkFamily() {
+  if (eng0.god) { for (const m of here()) m.hp = Math.max(m.hp, 1); s.morale = Math.max(s.morale, 1); } // god mode: nobody leaves and morale holds
   for (const m of here()) if (m.hp <= 0) { m.on = false; s.morale -= 10; say(m.name + ' IS EXHAUSTED AND LEAVES THE WAGON TO PURSUE OTHER INTERESTS.', PAL.pink); }
   s.morale = clamp(s.morale, 0, 100);
 }

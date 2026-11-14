@@ -72,6 +72,7 @@ const game = {
           }
         }
       }
+      if (eng.god && b.y > 316 && b.vy > 0) { b.vy = -Math.abs(b.vy); b.y = 316; } // god mode: the floor bounces
       if (b.y > 326) b.dead = true;
     }
     s.balls = s.balls.filter((b) => !b.dead);

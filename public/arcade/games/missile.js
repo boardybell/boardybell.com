@@ -86,7 +86,7 @@ const game = {
       if (f.y >= f.ty) {
         s.flags.splice(i, 1); boom(f.x, f.y, 14, false); eng.beep(80, 0.4, 'sawtooth', 0.07, -40);
         if (f.target === 3) { if (s.launcher) { s.launcher = false; s.ammo = 0; s.note = 'LAUNCHER OFFLINE'; s.noteT = 120; } }
-        else if (s.binders[f.target]) s.binders[f.target] = false;
+        else if (s.binders[f.target] && !eng.god) s.binders[f.target] = false; // god mode: binders cannot be destroyed
       }
     }
     stepBursts(eng);

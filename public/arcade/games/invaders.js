@@ -73,12 +73,12 @@ const game = {
     for (const b of s.bombs) {
       b.y += 1.8 + s.wave * 0.1;
       if (hitBunker(b.x, b.y)) b.dead = true;
-      else if (b.y > 286 && b.y < 296 && Math.abs(b.x - s.px) < 7) { b.dead = true; s.lives--; s.hitT = 70; s.bombs = []; s.shot = null; s.boom.push({ x: s.px, y: 290, l: 40 }); eng.beep(90, 0.5, 'sawtooth', 0.06, -60); }
+      else if (!eng.god && b.y > 286 && b.y < 296 && Math.abs(b.x - s.px) < 7) { b.dead = true; s.lives--; s.hitT = 70; s.bombs = []; s.shot = null; s.boom.push({ x: s.px, y: 290, l: 40 }); eng.beep(90, 0.5, 'sawtooth', 0.06, -60); }
       else if (b.y > 320) b.dead = true;
     }
     s.bombs = s.bombs.filter((b) => !b.dead);
     // foes eat bunkers and reach the floor
-    for (const f of alive) { if (f.y > 250) for (let i = 0; i < 11; i += 2) hitBunker(f.x + i, f.y + 7); if (f.y + 8 >= 286) { s.lives = 0; s.hitT = 1; } }
+    for (const f of alive) { if (f.y > 250) for (let i = 0; i < 11; i += 2) hitBunker(f.x + i, f.y + 7); if (f.y + 8 >= 286) { if (eng.god) { alive.forEach((g) => (g.y -= 60)); break; } s.lives = 0; s.hitT = 1; } } // god mode: a landing formation is pushed back up
     s.boom.forEach((b) => b.l--); s.boom = s.boom.filter((b) => b.l > 0);
     if (!alive.length || s.foes.every((f) => !f.alive)) { s.wave++; s.foes = wave(s.wave); s.bombs = []; s.msg = 120; eng.score += 200; eng.beep(660, 0.1); eng.beep(880, 0.15); }
   },

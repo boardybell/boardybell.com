@@ -36,6 +36,10 @@ function spawn(eng) {
   const m = SHAPES[k].m;
   s.cur = { k, m, x: Math.floor((COLS - m.length) / 2), y: k === 0 ? -1 : 0 };
   s.fall = 0; s.lock = 0; s.lockMoves = 0;
+  if (!fits(s.cur.m, s.cur.x, s.cur.y) && eng.god) { // god mode: shred the top of the backlog instead of topping out
+    for (let y = 0; y < 8; y++) s.well[y].fill(-1);
+    s.banner = { txt: 'SHREDDED', t: 70 }; eng.beep(300, 0.2, 'square', 0.04, -150);
+  }
   if (!fits(s.cur.m, s.cur.x, s.cur.y)) { s.cur = null; s.dead = 70; eng.beep(140, 0.5, 'sawtooth', 0.05, -80); }
 }
 function tryMove(dx, dy) {

@@ -1,5 +1,7 @@
 // Standalone headless test for one arcade game, no Astro build needed (safe to run several at once).
-// Usage: node scripts/game-harness.mjs <id> [--seconds 20] [--shots /some/dir]
+// Usage: node scripts/game-harness.mjs <id> [--seconds 20] [--shots /some/dir] [--god]
+// --god: unlocks VIP + god mode before load and checks the scripted play never reaches game over
+// (only a note for the turn-based games that end on their own: office, trader, trail, ledger).
 // Serves public/ and a minimal page with the same DOM the real game page has, then:
 // starts the game, plays it with scripted keyboard input, checks for JS errors, checks the canvas
 // keeps changing, pauses/resumes, forces game over + initials, and saves screenshots.
@@ -9,9 +11,10 @@ import { readFileSync, existsSync, statSync, mkdirSync } from 'node:fs';
 import { join, extname } from 'node:path';
 
 const id = process.argv[2];
-if (!id) { console.error('usage: node scripts/game-harness.mjs <id> [--seconds N] [--shots DIR]'); process.exit(2); }
+if (!id) { console.error('usage: node scripts/game-harness.mjs <id> [--seconds N] [--shots DIR] [--god]'); process.exit(2); }
 const arg = (k, d) => (process.argv.includes(k) ? process.argv[process.argv.indexOf(k) + 1] : d);
-const SECS = +arg('--seconds', 20), SHOTS = arg('--shots', `qa/harness/${id}`);
+const SECS = +arg('--seconds', 20), SHOTS = arg('--shots', `qa/harness/${id}${process.argv.includes('--god') ? '-god' : ''}`);
+const GOD = process.argv.includes('--god'), CAN_END = ['office', 'trader', 'trail', 'ledger'];
 mkdirSync(SHOTS, { recursive: true });
 const MIME = { '.js': 'text/javascript', '.css': 'text/css', '.woff2': 'font/woff2', '.html': 'text/html', '.png': 'image/png' };
 const PAGE = `<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="/fonts/fonts.css">
@@ -33,11 +36,13 @@ const srv = createServer((q, r) => {
 const O = `http://127.0.0.1:${srv.address().port}/`;
 const problems = []; const note = [];
 const b = await chromium.launch(); const pg = await b.newPage({ viewport: { width: 520, height: 760 } });
+if (GOD) await pg.addInitScript(() => { localStorage.setItem('bb.vip', 'true'); localStorage.setItem('bb.god', 'true'); });
 pg.on('pageerror', (e) => problems.push('JS error: ' + e.message));
 pg.on('console', (m) => { if (m.type() === 'error') problems.push('console error: ' + m.text()); });
 await pg.goto(O, { waitUntil: 'networkidle' });
 const st = () => pg.evaluate(() => window.__arcade?.state);
 if (!(await pg.evaluate(() => !!window.__arcade))) problems.push('boot() did not run (window.__arcade missing)');
+if (GOD && !(await pg.evaluate(() => window.__arcade?.god === true))) problems.push('--god: engine did not pick up god mode from localStorage');
 await pg.screenshot({ path: `${SHOTS}/0-title.png` });
 await pg.keyboard.press('Enter');
 if ((await st()) !== 'play') problems.push(`Enter did not start the game (state=${await st()})`);
@@ -52,6 +57,7 @@ while (Date.now() - t0 < SECS * 1000) {
   if (k % 25 === 0 && shot < 4) await pg.screenshot({ path: `${SHOTS}/${shot++}-play.png` });
   if ((await st()) === 'over') { overs++; await pg.screenshot({ path: `${SHOTS}/over-${overs}.png` }); await pg.click('#ag-again'); restarts++; if ((await st()) !== 'play') problems.push('PLAY AGAIN did not restart'); }
 }
+if (GOD && overs) (CAN_END.includes(id) ? note : problems).push(`god mode: game over reached ${overs}x during scripted play`);
 if (seen.size < 5) problems.push(`canvas barely changed during play (${seen.size} distinct frames)`);
 // pause / resume
 if ((await st()) === 'play') {
@@ -67,5 +73,5 @@ else { await pg.fill('#ag-in', 'abc'); await pg.press('#ag-in', 'Enter'); const 
 await pg.click('#ag-again'); for (const btn of ['up', 'left', 'right', 'down', 'act']) await pg.click(`[data-btn=${btn}]`);
 await pg.screenshot({ path: `${SHOTS}/9-end.png` });
 await b.close(); srv.close();
-console.log(JSON.stringify({ id, ok: problems.length === 0, problems, notes: note, distinctFrames: seen.size, gameOvers: overs, shots: SHOTS }, null, 1));
+console.log(JSON.stringify({ id, god: GOD, ok: problems.length === 0, problems, notes: note, distinctFrames: seen.size, gameOvers: overs, shots: SHOTS }, null, 1));
 process.exit(problems.length ? 1 : 0);

@@ -81,6 +81,7 @@ const game = {
     for (const p of s.pops) p.l--;
     if (s.pops.length && s.pops[0].l <= 0) s.pops.shift();
     eng.score = Math.floor(s.dist / 12) + s.bonus;
+    if (eng.god) s.pileX = Math.min(s.pileX, PX - 8); // god mode: the pile never quite catches up
     if (s.pileX >= PX + 4) eng.gameOver('LIFESTYLE CREPT');
   },
   draw(eng, ctx) {
@@ -161,7 +162,7 @@ const game = {
 };
 
 function hitObstacle(eng, it) {
-  if (s.inv) return;
+  if (s.inv || eng.god) return; // god mode: obstacles pass through
   it.dead = true; it.vy = -3; s.inv = 50; s.slow = 40; s.pileX += 16; s.msg = 'STUMBLED'; s.msgT = 40;
   eng.beep(140, 0.2, 'sawtooth', 0.05, -60);
 }

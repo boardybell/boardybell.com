@@ -121,6 +121,12 @@ function land(eng, f, topY) {
     eng.score += 10 + 15 * Math.min(s.streak, 6);
     s.pop = { txt: s.widen ? 'EXPANSION' : 'PERFECT', c: PAL.green, t: 40 };
     eng.beep(880 + Math.min(s.streak, 8) * 110, 0.08); eng.beep(1320 + Math.min(s.streak, 8) * 110, 0.1, 'triangle', 0.04);
+  } else if (eng.god) { // god mode: nothing is trimmed and nothing misses; the floor is nudged square
+    s.streak = 0;
+    s.tower.push({ x: t.x, w: t.w, c: f.c });
+    eng.score += 10;
+    s.pop = { txt: 'NUDGED', c: PAL.gold, t: 40 };
+    eng.beep(300, 0.06);
   } else if (hi - lo < 2) {
     s.debris.push({ x: f.x, w: f.w, c: f.c, wy: topY + FH, y: 0, vy: 0, vx: f.x < t.x ? -0.6 : 0.6, r: 0, vr: f.x < t.x ? -0.05 : 0.05 });
     s.dead = 70; s.cur = null; eng.beep(120, 0.4, 'sawtooth', 0.05, -60);

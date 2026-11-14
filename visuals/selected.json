@@ -797,5 +797,60 @@
   "src": "visuals/inbox/E4-c-umbrella/raw-1.png",
   "grade": "none",
   "q": 62
+ },
+ "title-racer": {
+  "src": "visuals/inbox/B0-title-racer/raw-1.png",
+  "grade": "none",
+  "q": 68
+ },
+ "title-golf": {
+  "src": "visuals/inbox/B1-title-golf/raw-1.png",
+  "grade": "none",
+  "q": 68
+ },
+ "title-kyc": {
+  "src": "visuals/inbox/B2-title-kyc/raw-1.png",
+  "grade": "none",
+  "q": 68
+ },
+ "title-curling": {
+  "src": "visuals/inbox/B3-title-curling/raw-2.png",
+  "grade": "none",
+  "q": 68
+ },
+ "title-rhythm": {
+  "src": "visuals/inbox/B4-title-rhythm/raw-2.png",
+  "grade": "none",
+  "q": 68
+ },
+ "title-fishing": {
+  "src": "visuals/inbox/B5-title-fishing/raw-1.png",
+  "grade": "none",
+  "q": 68
+ },
+ "title-artillery": {
+  "src": "visuals/inbox/B6-title-artillery/raw-1.png",
+  "grade": "none",
+  "q": 68
+ },
+ "title-bubble": {
+  "src": "visuals/inbox/B7-title-bubble/raw-1.png",
+  "grade": "none",
+  "q": 68
+ },
+ "title-darts": {
+  "src": "visuals/inbox/B8-title-darts/raw-1.png",
+  "grade": "none",
+  "q": 68
+ },
+ "title-dice": {
+  "src": "visuals/inbox/B9-title-dice/raw-1.png",
+  "grade": "none",
+  "q": 68
+ },
+ "vip-lounge": {
+  "src": "visuals/inbox/BA-vip-lounge/raw-2.png",
+  "grade": "none",
+  "q": 68
  }
 }

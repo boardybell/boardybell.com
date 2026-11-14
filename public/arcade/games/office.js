@@ -35,6 +35,7 @@ function morning(eng) {
   if (s.day === 1) s.event = 'THE FAMILY OFFICE OPENS. ASSETS UNDER MANAGEMENT: ONE TABLE.';
   else if (Math.random() < 0.35) { const e = pick(EVENTS); s.event = e[0]; e[1](); }
   s.phase = 'morning'; s.cur = 0;
+  if (eng.god && s.cr < 100) { s.cr = 100; eng.score = s.cr; } // god mode: a benefactor tops the till back up to the starting 100
   if (s.cr < s.cost) { s.phase = 'broke'; eng.score = s.cr; return; }
   fit();
 }

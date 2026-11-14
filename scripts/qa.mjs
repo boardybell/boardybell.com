@@ -12,6 +12,7 @@ const ONLY = ARGS.includes('--only') ? ARGS[ARGS.indexOf('--only') + 1].split(',
 const IDS = ['a1', 'a2', 'a3', 'b1', 'b2', 'b3', 'c1', 'c2', 'c3', 'd1'].filter((i) => !ONLY || ONLY.includes(i));
 const ARC = readFileSync('src/content/arcade.ts', 'utf8');
 const GAMES = [...ARC.matchAll(/slug: '([^']+)'/g)].map((m) => m[1]);
+const VIPG = [...ARC.matchAll(/slug: '([^']+)', id: '[^']+', vip: true/g)].map((m) => m[1]);
 const PAGES = [...IDS.map((i) => `i/${i}/`), ...(ONLY ? [] : ['', 'collection/', 'gallery/', 'gallery/plates/', ...['n1', 'n2', 'n3', 'n4', 'n5', 'n6', 'n7', 'n8', 'n9', 'n10', 'n11', 'n12', 'pa', 'pb', 'pc', 'pd', 'pe', 'pf', 'pg', 'ph', 'pi', 'pj', 'pk', 'pl', 'pm', 'pn', 'po', 'pp', 'pq'].flatMap((n) => [`n/${n}/`, `n/${n}/collection/`]), 'arcade/', ...GAMES.map((g) => `arcade/${g}/`), 'certificate/', 'nope/'])];
 const EXISTS = (p) => p === 'nope/' || existsSync(join('dist', p, 'index.html'));
 const PAGES_OK = PAGES.filter(EXISTS);
@@ -197,6 +198,14 @@ if (!ONLY) for (const mode of ['desktop', 'touch']) {
   for (const g of GAMES) {
     await page.goto(url(`arcade/${g}/`), { waitUntil: 'networkidle' });
     await page.evaluate(() => localStorage.clear());
+    if (VIPG.includes(g)) {
+      await page.reload({ waitUntil: 'networkidle' });
+      if (!(await page.isVisible('#ag-rope'))) fail(`${W} ${g}`, 'VIP cabinet open to a non-member');
+      await page.evaluate(() => localStorage.setItem('bb.vip', 'true'));
+      await page.goto(url(`arcade/${g}/`), { waitUntil: 'networkidle' });
+      if (await page.isVisible('#ag-rope')) fail(`${W} ${g}`, 'member still sees the velvet rope');
+      if (!(await page.isVisible('#ag-god'))) fail(`${W} ${g}`, 'no god mode button for a member');
+    }
     if (mode === 'touch') await page.tap('#ag-start'); else await page.keyboard.press('Enter');
     if ((await page.evaluate(() => window.__arcade?.state)) !== 'play') { fail(`${W} ${g}`, 'did not start'); continue; }
     if (mode === 'desktop') { for (const k of ['ArrowLeft', 'ArrowUp', 'ArrowRight', 'ArrowDown', ' ']) { await page.keyboard.down(k); await page.waitForTimeout(250); await page.keyboard.up(k); } }
@@ -216,6 +225,24 @@ if (!ONLY) for (const mode of ['desktop', 'touch']) {
     }
     for (const m of await page.evaluate(LAYOUT)) if (/overflow|offscreen/.test(m)) fail(`${W} ${g}`, m);
   }
+  await ctx.close();
+}
+
+// ---------- VIP lounge: hidden from the floor, unlocked by ?vip=1, god mode toggles ----------
+{
+  const ctx = await browser.newContext({ viewport: { width: 1280, height: 900 } }); const page = await ctx.newPage(); const W = 'arcade/vip';
+  page.on('pageerror', (e) => fail(W, `JS error ${e.message}`));
+  await page.goto(url('arcade/'), { waitUntil: 'networkidle' }); await page.evaluate(() => localStorage.clear()); await page.reload({ waitUntil: 'networkidle' });
+  if (await page.isVisible('#ar-vip')) fail(W, 'lounge visible to a non-member');
+  await page.goto(url('arcade/', 'vip=1&quiet'), { waitUntil: 'networkidle' });
+  if (!(await page.isVisible('#ar-vip'))) fail(W, '?vip=1 did not open the lounge');
+  if (page.url().includes('vip=1')) fail(W, 'vip parameter left in the address');
+  const n = await page.$$eval('.ar-vip-list .ar-item', (l) => l.length); if (n !== VIPG.length) fail(W, `lounge lists ${n} of ${VIPG.length} games`);
+  await page.goto(url('arcade/tax-man/'), { waitUntil: 'networkidle' });
+  if (!(await page.isVisible('#ag-god'))) fail(W, 'no god mode button after joining the lounge');
+  else { await page.click('#ag-god'); if (!(await page.evaluate(() => window.__arcade.god))) fail(W, 'god mode button did not switch god mode on'); }
+  await page.goto(url('arcade/'), { waitUntil: 'networkidle' }); if (await page.isVisible('#ar-leave')) await page.click('#ar-leave'); await page.waitForLoadState('networkidle');
+  if (await page.isVisible('#ar-vip')) fail(W, 'leaving the lounge did not hide it');
   await ctx.close();
 }
 
